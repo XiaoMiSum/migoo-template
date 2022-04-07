@@ -1,40 +1,38 @@
 <template>
   <div class="login-page">
     <div class="login-header" />
-    <div class="login-banner-wrapper">
-      <div class="login-banner">
-        <el-row :gutter="20">
-          <el-col :span="12">
-            <img src="../assets/images/login-banner.png" class="img-responsive" alt="">
-          </el-col>
-          <el-col :span="12">
-            <el-card class="login-form-wrapper pull-right">
-              <el-form
-                ref="loginForm"
-                auto-complete="on"
-                :model="loginForm"
-                :rules="loginRules"
-              >
-                <el-form-item prop="username">
-                  <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
-                    <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
-                  </el-input>
-                </el-form-item>
-                <el-form-item prop="password">
-                  <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter.native="handleLogin">
-                    <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
-                  </el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
-                    登录
-                  </el-button>
-                </el-form-item>
-              </el-form>
-            </el-card>
-          </el-col>
-        </el-row>
-      </div>
+    <div class="login-banner">
+      <el-row :gutter="100">
+        <el-col :span="12">
+          <img src="../assets/images/login-banner.png" class="img-responsive" alt="">
+        </el-col>
+        <el-col :span="12">
+          <el-card class="login-form-wrapper">
+            <el-form
+              ref="loginForm"
+              auto-complete="on"
+              :model="loginForm"
+              :rules="loginRules"
+            >
+              <el-form-item prop="username">
+                <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
+                  <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
+                </el-input>
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="密码" @keyup.enter.native="handleLogin">
+                  <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
+                </el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
+                  登录
+                </el-button>
+              </el-form-item>
+            </el-form>
+          </el-card>
+        </el-col>
+      </el-row>
     </div>
   </div>
 </template>
@@ -87,7 +85,8 @@ export default {
 <style rel="stylesheet/scss" lang="scss">
 @import "@/assets/styles/mixin.scss";
 .login-page {
-  min-width: 768px;
+  width: 100%;
+  height: 100%;
   .company-info {
     margin-top: 18px;
   }
@@ -98,13 +97,9 @@ export default {
       height: auto;
   }
 
-    .pull-right {
-        float: right;
-    }
-
     .login-header,
     .login-banner{
-        max-width: 1260px;
+        max-width: 100%;
         padding: 30px 50px;
         margin: auto
     }

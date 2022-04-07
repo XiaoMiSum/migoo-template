@@ -3,7 +3,7 @@
     <div :class="{'fixed-header':fixedHeader}">
       <topbar />
     </div>
-    <div class="main-container">
+    <div>
       <app-main />
     </div>
   </div>
@@ -81,7 +81,7 @@ export default {
   }
 
   .hideSidebar .fixed-header {
-    width: calc(100% - 54px)
+    width: 100%
   }
 
   .mobile .fixed-header {
