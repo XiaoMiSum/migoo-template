@@ -32,18 +32,18 @@ Vue.prototype.resetForm = resetForm
 
 // 全局组件挂载
 Vue.component('Pagination', Pagination)
-Vue.component('RightToolbar', RightToolbar) 
+Vue.component('RightToolbar', RightToolbar)
 
-Vue.prototype.msgSuccess = function (msg) {
-  this.$message({ showClose: true, message: msg, type: "success" });
+Vue.prototype.msgSuccess = function(msg) {
+  this.$message({ showClose: true, message: msg, type: 'success' })
 }
 
-Vue.prototype.msgError = function (msg) {
-  this.$message({ showClose: true, message: msg, type: "error" });
+Vue.prototype.msgError = function(msg) {
+  this.$message({ showClose: true, message: msg, type: 'error' })
 }
 
-Vue.prototype.msgInfo = function (msg) {
-  this.$message.info(msg);
+Vue.prototype.msgInfo = function(msg) {
+  this.$message.info(msg)
 }
 
 // set ElementUI lang to EN
