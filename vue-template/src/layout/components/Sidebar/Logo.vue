@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-logo-container" :class="{'collapse':collapse}">
+  <div class="sidebar-logo-container" :style=" {'width': (horizontal? 20 : 100) + '%' , float: 'left' }" :class="{'collapse':collapse}">
     <transition name="sidebarLogoFade">
       <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
         <img v-if="logo" :src="logo" class="sidebar-logo">
@@ -20,6 +20,10 @@ export default {
     collapse: {
       type: Boolean,
       required: true
+    },
+    horizontal: {
+      type: Boolean,
+      required: false
     }
   },
   data() {
@@ -43,7 +47,6 @@ export default {
 
 .sidebar-logo-container {
   position: relative;
-  width: 100%;
   height: 50px;
   line-height: 50px;
   background: #2b2f3a;

@@ -5,6 +5,7 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import Migoo from '@/layout/migoo.vue'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -33,7 +34,18 @@ import Layout from '@/layout'
 export const constantRoutes = [
   {
     path: '/login',
-    component: () => import('@/views/login/index'),
+    component: Migoo,
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'Login',
+      component: () => import('@/views/login'),
+      meta: { title: '' }
+    }]
+  },
+  {
+    path: '/admin/login',
+    component: () => import('@/views/admin/login/index'),
     hidden: true
   },
 
@@ -45,86 +57,54 @@ export const constantRoutes = [
 
   {
     path: '/',
-    component: Layout,
-    redirect: '/dashboard',
+    component: Migoo,
+    redirect: '/index',
+    hidden: true,
     children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      path: 'index',
+      name: 'Index',
+      component: () => import('@/views/admin/dashboard/index'),
+      meta: { title: '' }
     }]
   }
 ]
-
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
 export const asyncRoutes = [
   {
-    path: '/user',
+    path: '/admin',
     component: Layout,
-    redirect: '/user',
+    redirect: '/dashboard',
     meta: { roles: ['admin'] },
     children: [{
-      path: '',
-      name: 'User',
-      component: () => import('@/views/user/index'),
-      meta: { title: '系统用户', icon: 'user', roles: ['admin'] }
+      path: 'dashboard',
+      name: 'Dashboard',
+      component: () => import('@/views/admin/dashboard/index'),
+      meta: { title: '工作台', icon: 'dashboard' }
     }]
   },
   {
-    path: '/driver',
+    path: '/admin/user',
     component: Layout,
-    redirect: '/driver',
-    meta: { roles: ['admin'] },
+    redirect: 'noredirect',
+    hidden: true,
     children: [{
-      path: '',
-      name: 'Driver',
-      component: () => import('@/views/user/index'),
-      meta: { title: '司机管理', icon: 'user', roles: ['admin'] }
+      path: 'profile',
+      component: () => import('@/views/admin/user/profile/index'),
+      name: 'Profile',
+      meta: { title: '个人中心', icon: 'user' }
     }]
   },
   {
-    path: '/customer',
-    component: Layout,
-    redirect: '/costomer',
-    meta: { roles: ['admin'] },
-    children: [{
-      path: '',
-      name: 'Costomer',
-      component: () => import('@/views/user/index'),
-      meta: { title: '客户管理', icon: 'user', roles: ['admin'] }
-    }]
-  },
-  {
-    path: '/order',
-    component: Layout,
-    redirect: '/order',
-    meta: { roles: ['admin'] },
-    children: [{
-      path: '',
-      name: 'Order',
-      component: () => import('@/views/user/index'),
-      meta: { title: '订单管理', icon: 'user', roles: ['admin'] }
-    }]
-  },
-  {
-    path: '/vehicle',
-    component: Layout,
-    redirect: '/vehicle',
-    meta: { roles: ['admin'] },
-    children: [{
-      path: '',
-      name: 'Vehicle',
-      component: () => import('@/views/user/index'),
-      meta: { title: '车辆管理', icon: 'user', roles: ['admin'] }
-    }]
-  },
-
-  // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+    path: '*',
+    redirect: '/404',
+    hidden: true
+  }
 ]
+
+// 防止连续点击多次路由报错
+const routerPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(err => err)
+}
 
 const createRouter = () => new Router({
   mode: 'history', // require service support

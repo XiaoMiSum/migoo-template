@@ -29,4 +29,43 @@ export function signup(data) {
     data
   })
 }
+// todo
+export function getUserProfile(params) {
+  return request({
+    url: '/profile',
+    method: 'get',
+    params
+  })
+}
+
+export function updateUserProfile(params) {
+  return request({
+    url: '/profile',
+    method: 'get',
+    params
+  })
+}
+
+export function updateUserPwd(params) {
+  return request({
+    url: '/profile',
+    method: 'get',
+    params
+  })
+}
+export function getRouters(params) {
+  return request({
+    url: '/profile',
+    method: 'get',
+    params
+  })
+}
+
+export function uploadAvatar(params) {
+  return request({
+    url: '/profile',
+    method: 'get',
+    params
+  })
+}
 

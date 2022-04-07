@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '车辆租赁系统',
+  title: 'VUE-MIGOO-TEMPLATE',
 
   /**
    * @type {boolean} true | false

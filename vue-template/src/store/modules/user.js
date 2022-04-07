@@ -5,7 +5,7 @@ import { resetRouter } from '@/router'
 const getDefaultState = () => {
   return {
     name: '',
-    avatar: '',
+    avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
     roles: []
   }
 }
@@ -52,7 +52,7 @@ const actions = {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar, extra } = data
+        const { name, avatar, extra } = data.user
 
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)

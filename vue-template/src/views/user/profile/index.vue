@@ -25,11 +25,11 @@
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="tree" />所属部门
-                <div class="pull-right" v-if="user.dept">{{ user.dept.name }}</div>
+                <div v-if="user.dept" class="pull-right">{{ user.dept.name }}</div>
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="tree" />所属岗位
-                <div class="pull-right" v-if="user.posts">{{ user.posts.map(post => post.name).join(',') }}</div>
+                <div v-if="user.posts" class="pull-right">{{ user.posts.map(post => post.name).join(',') }}</div>
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="peoples" />所属角色
@@ -63,31 +63,31 @@
 </template>
 
 <script>
-import userAvatar from "./userAvatar";
-import userInfo from "./userInfo";
-import resetPwd from "./resetPwd";
-import { getUserProfile } from "@/api/system/user";
+import userAvatar from './userAvatar'
+import userInfo from './userInfo'
+import resetPwd from './resetPwd'
+import { getUserProfile } from '@/api/login'
 
 export default {
-  name: "Profile",
+  name: 'Profile',
   components: { userAvatar, userInfo, resetPwd },
   data() {
     return {
       user: {},
       roleGroup: {},
       postGroup: {},
-      activeTab: "userinfo"
-    };
+      activeTab: 'userinfo'
+    }
   },
   created() {
-    this.getUser();
+  //  this.getUser()
   },
   methods: {
     getUser() {
       getUserProfile().then(response => {
-        this.user = response.data;
-      });
+        this.user = response.data
+      })
     }
   }
-};
+}
 </script>
