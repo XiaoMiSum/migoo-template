@@ -5,8 +5,6 @@ const getters = {
   name: state => state.user.name,
   roles: state => state.user.roles,
   permission_routes: state => state.permission.routes,
-  topbarRouters: state => state.permission.topbarRouters,
-  defaultRoutes: state => state.permission.defaultRoutes,
-  sidebarRouters: state => state.permission.sidebarRouters
+  default_routes: state => state.permission.default_routes
 }
 export default getters

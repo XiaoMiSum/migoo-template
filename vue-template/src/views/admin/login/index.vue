@@ -60,6 +60,7 @@ export default {
         captchaEnable: false
       },
       loginForm: {
+        client: 'admin',
         username: 'admin',
         password: '111111'
       },

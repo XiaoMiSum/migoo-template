@@ -56,6 +56,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/register',
+    component: Migoo,
+    redirect: '/register',
+    hidden: true,
+    children: [{
+      path: '',
+      name: 'Register',
+      component: () => import('@/views/register'),
+      meta: { title: '注册' }
+    }]
+  },
+
+  {
     path: '/',
     component: Migoo,
     redirect: '/index',
@@ -63,7 +76,7 @@ export const constantRoutes = [
     children: [{
       path: 'index',
       name: 'Index',
-      component: () => import('@/views/admin/dashboard/index'),
+      component: () => import('@/views//index'),
       meta: { title: '' }
     }]
   }

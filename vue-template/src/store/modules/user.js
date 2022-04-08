@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/login'
+import { login, logout, getInfo, signup } from '@/api/login'
 import { setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -20,7 +20,7 @@ const mutations = {
     state.name = name
   },
   SET_AVATAR: (state, avatar) => {
-    state.avatar = avatar
+    state.avatar = avatar || state.avatar
   },
   SET_ROLES: (state, roles) => {
     state.roles = roles
@@ -30,11 +30,22 @@ const mutations = {
 const actions = {
   // user login
   login({ commit }, userInfo) {
-    const { username, password } = userInfo
+    const { username, password, client } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ username: username.trim(), password: password, client: client.toUpperCase() }).then(response => {
         const { data } = response
         setToken('Bearer ' + data.token)
+        resolve()
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  // user login
+  register({ commit }, userInfo) {
+    const { username, password } = userInfo
+    return new Promise((resolve, reject) => {
+      signup({ username: username.trim(), password: password }).then(response => {
         resolve()
       }).catch(error => {
         reject(error)
@@ -53,7 +64,6 @@ const actions = {
         }
 
         const { name, avatar, extra } = data.user
-
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         commit('SET_ROLES', extra.roles)

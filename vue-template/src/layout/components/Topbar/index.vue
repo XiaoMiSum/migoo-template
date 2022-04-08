@@ -3,7 +3,7 @@
     <div :class="{'has-logo': true}">
       <div class="bar-container">
         <logo v-if="true" :collapse="false" :horizontal="true" />
-        <el-scrollbar style="{float: left }">
+        <el-scrollbar>
           <el-menu
             :default-active="activeMenu"
             mode="horizontal"
@@ -12,8 +12,8 @@
             active-text-color="#ffd04b"
           >
 
-            <template v-for="(item, index) in permission_routes">
-              <div v-if="!item.hidden" id="test" :key="index" :style="{float: 'left' }">
+            <template v-for="(item, index) in (permission_routes.length > 0 ? permission_routes : default_routes)">
+              <div v-if="!item.hidden" id="test" :key="index" :style="{float: 'left' ,textAlign: 'center' }">
                 <app-link v-if="!item.hidden" :key="index" :to="resolvePath(item.path, item.children ? item.children[0].path : '')">
                   <el-menu-item
                     v-if="!item.hidden"
@@ -29,7 +29,7 @@
       </div>
 
       <div class="right-menu">
-        <el-dropdown v-if="name" class="avatar-container" trigger="click">
+        <el-dropdown v-if="hasToken" class="avatar-container" trigger="click">
           <div class="avatar-wrapper">
             <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
           </div>
@@ -43,8 +43,9 @@
           </el-dropdown-menu>
         </el-dropdown>
         <div v-else class="avatar-container">
-          <el-button type="text">登录</el-button>
-          <el-button type="text">注册</el-button>
+          <div class="button-wrapper ">
+            <el-button type="text" @click="handleClick('/login')">登 录</el-button>
+          </div>
         </div>
       </div>
     </div>
@@ -53,11 +54,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import variables from '@/assets/styles/variables.scss'
 import Logo from '../Sidebar/Logo.vue'
 import path from 'path'
 import { isExternal } from '@/utils/validate'
 import AppLink from '../Sidebar/Link.vue'
+import { hasToken } from '@/utils/auth'
 
 export default {
   name: 'Topbar',
@@ -66,12 +67,12 @@ export default {
     AppLink
   },
   data() {
-    this.onlyOneChild = null
     return {}
   },
   computed: {
     ...mapGetters([
       'permission_routes',
+      'default_routes',
       'avatar',
       'name'
     ]),
@@ -81,6 +82,8 @@ export default {
 
       // if set path, the sidebar will highlight the path you set
       if (meta) {
+        console.log(this.permission_routes)
+        console.log(this.default_routes)
         if (meta.activeMenu) {
           return meta.activeMenu
         }
@@ -90,13 +93,13 @@ export default {
     showLogo() {
       return true
     },
-    variables() {
-      return variables
+    hasToken() {
+      return hasToken()
     }
   },
   methods: {
-    toggleSideBar() {
-      this.$store.dispatch('app/toggleSideBar')
+    handleClick(path) {
+      this.$router.push(path)
     },
     async logout() {
       this.$modal.confirm('确定注销并退出系统吗？', '提示').then(() => {
@@ -147,6 +150,7 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
+    width: 200px;
 
     &:focus {
       outline: none;
@@ -172,6 +176,10 @@ export default {
 
     .avatar-container {
       margin-right: 30px;
+      float: right;
+         .button-wrapper {
+           text-align: center;
+         }
 
       .avatar-wrapper {
         margin-top: 5px;
@@ -182,14 +190,6 @@ export default {
           width: 40px;
           height: 40px;
           border-radius: 10px;
-        }
-
-        .el-icon-caret-bottom {
-          cursor: pointer;
-          position: absolute;
-          right: -20px;
-          top: 25px;
-          font-size: 12px;
         }
       }
     }

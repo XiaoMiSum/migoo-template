@@ -1,39 +1,39 @@
 <template>
-  <div class="login-page">
-    <div class="login-header" />
-    <div class="login-banner">
+  <div class="register-page">
+    <div class="register-header" />
+    <div class="register-banner">
       <el-row :gutter="100">
         <el-col :span="12">
           <img src="../assets/images/login-banner.png" class="img-responsive" alt="">
         </el-col>
         <el-col :span="12">
-          <el-card class="login-form-wrapper">
+          <el-card class="register-form-wrapper">
             <el-form
-              ref="loginForm"
+              ref="registerForm"
               auto-complete="on"
-              :model="loginForm"
-              :rules="loginRules"
+              :model="registerForm"
+              :rules="registerRules"
             >
-              <el-form-item prop="username">
-                <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="请输入您的手机号">
+              <el-form-item prop="phone">
+                <el-input v-model="registerForm.phone" type="text" auto-complete="off" placeholder="请输入您的手机号">
                   <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon" />
                 </el-input>
               </el-form-item>
               <el-form-item prop="password">
-                <el-input v-model="loginForm.password" type="password" auto-complete="off" placeholder="请输入您的登录密码" @keyup.enter.native="handleLogin">
+                <el-input v-model="registerForm.password" type="password" auto-complete="off" placeholder="请输入您的密码" @keyup.enter.native="handleRegister">
                   <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
                 </el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
-                  登  录
+                <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleRegister">
+                  注  册
                 </el-button>
               </el-form-item>
               <div class="tips">
                 <router-link
                   style="margin-right: 5px"
-                  to="/register"
-                >没有账号？点击注册</router-link>
+                  to="/login"
+                >已有账号？点击登录</router-link>
               </div>
             </el-form>
           </el-card>
@@ -46,14 +46,13 @@
 <script>
 
 export default {
-  name: 'Login',
+  name: 'Register',
   data() {
     return {
-      loginForm: {
-        client: 'customer'
+      registerForm: {
       },
-      loginRules: {
-        username: [
+      registerRules: {
+        phone: [
           { required: true, trigger: 'blur', message: '手机号不能为空' }
         ],
         password: [
@@ -70,12 +69,12 @@ export default {
     // window.removeEventListener('hashchange', this.afterQRScan);
   },
   methods: {
-    handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+    handleRegister() {
+      this.$refs.registerForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: '/' })
+          this.$store.dispatch('user/register', this.registerForm).then(() => {
+            this.$router.push({ path: '/login' })
             this.loading = false
           }).catch(() => {
             this.loading = false
@@ -91,7 +90,7 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss">
 @import "@/assets/styles/mixin.scss";
-.login-page {
+.register-page {
   width: 100%;
   height: 100%;
   .company-info {
@@ -104,13 +103,13 @@ export default {
       height: auto;
   }
 
-    .login-header,
-    .login-banner{
+    .register-header,
+    .register-banner{
         max-width: 100%;
         padding: 30px 50px;
         margin: auto
     }
-    .login-form-wrapper {
+    .register-form-wrapper {
       background: #ecf9ff;
       width: 500px;
       margin-top: 40px;
@@ -126,24 +125,24 @@ export default {
 }
 
 @media (max-width: 768px) {
-    .login-page {
-        .login-form-wrapper {
+    .register-page {
+        .register-form-wrapper {
             margin-top: 0px;
         }
     }
 }
 
 @media (min-width: 768px) and (max-width: 1200px) {
-    .login-page {
-        .login-form-wrapper {
+    .register-page {
+        .register-form-wrapper {
             margin-top: 50px;
         }
     }
 }
 
 @media (min-width: 1200px) {
-    .login-page {
-        .login-form-wrapper {
+    .register-page {
+        .register-form-wrapper {
             margin-top: 120px;
         }
     }

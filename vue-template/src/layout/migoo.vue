@@ -3,7 +3,7 @@
     <div :class="{'fixed-header':fixedHeader}">
       <topbar />
     </div>
-    <div>
+    <div class="migoo-container">
       <app-main />
     </div>
   </div>
@@ -50,7 +50,10 @@ export default {
 <style lang="scss" scoped>
   @import "~@/assets/styles/mixin.scss";
   @import "~@/assets/styles/variables.scss";
-
+    .migoo-container {
+      margin-left: 200px;
+      margin-right: 200px;
+    }
   .app-wrapper {
     @include clearfix;
     position: relative;
