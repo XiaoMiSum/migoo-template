@@ -8,6 +8,14 @@ export function login(data) {
   })
 }
 
+export function getCodeImg() {
+  return request({
+    url: '/sign-in',
+    method: 'post',
+    data
+  })
+}
+
 export function getInfo() {
   return request({
     url: '/user-info',

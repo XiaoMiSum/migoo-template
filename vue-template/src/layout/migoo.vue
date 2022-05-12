@@ -90,4 +90,25 @@ export default {
   .mobile .fixed-header {
     width: 100%;
   }
+
+  @media (max-width: 768px) {
+    .migoo-container {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1200px) {
+    .migoo-container {
+      margin-left: 100px;
+      margin-right: 100px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .migoo-container {
+      margin-left: 200px;
+      margin-right: 200px;
+    }
+  }
 </style>

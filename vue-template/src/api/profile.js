@@ -40,3 +40,18 @@ export function uploadAvatar(data) {
     data: data
   })
 }
+
+// 查询用户身份验证器信息
+export function getUserAuthenticator(token) {
+  return request({
+    url: url + '/authenticator?token=' + token,
+    method: 'get'
+  })
+}
+// 绑定用户身份验证器信息
+export function bindUserAuthenticator(token, code) {
+  return request({
+    url: url + '/authenticator?token=' + token + '&_code=' + code,
+    method: 'post'
+  })
+}

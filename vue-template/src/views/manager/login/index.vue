@@ -30,11 +30,11 @@
         <!-- <a href="/register"> 没有账号？前往注册</a> -->
       </div>
     </el-form>
-
   </div>
 </template>
 
 <script>
+import { getCodeImg } from '@/api/login'
 
 export default {
   name: 'Login',
@@ -53,18 +53,11 @@ export default {
         username: [{ required: true, trigger: 'blur', message: '请输入手机号' }],
         password: [{ required: true, trigger: 'blur', validator: '请输入密码' }]
       },
-      loading: false,
-      passwordType: 'password',
-      redirect: undefined
+      loading: false
     }
   },
-  watch: {
-    $route: {
-      handler: function(route) {
-        this.redirect = route.query && route.query.redirect
-      },
-      immediate: true
-    }
+  created() {
+    this.getCode()
   },
   methods: {
     getCode() {
@@ -73,21 +66,21 @@ export default {
         return
       }
       // 请求远程，获得验证码
-      /* getCodeImg().then(res => {
+      getCodeImg().then(res => {
         res = res.data
         this.captchaEnable = res.enable
         if (this.captchaEnable) {
           this.codeUrl = 'data:image/gif;base64,' + res.img
           this.loginForm.uuid = res.uuid
         }
-      })*/
+      })
     },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/manager/index' })
+            this.$router.push({ path: '/manager/index' })
             this.loading = false
           }).catch(() => {
             this.loading = false

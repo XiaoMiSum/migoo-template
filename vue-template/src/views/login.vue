@@ -24,6 +24,14 @@
                   <svg-icon slot="prefix" icon-class="password" class="el-input__icon input-icon" />
                 </el-input>
               </el-form-item>
+              <el-form-item v-if="config.captchaEnable" prop="code">
+                <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 63%" @keyup.enter.native="handleLogin">
+                  <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
+                </el-input>
+                <div class="login-code">
+                  <img :src="codeUrl" class="login-code-img" @click="getCode">
+                </div>
+              </el-form-item>
               <el-form-item>
                 <el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">
                   登  录
@@ -44,11 +52,16 @@
 </template>
 
 <script>
+import { getCodeImg } from '@/api/login'
 
 export default {
   name: 'Login',
   data() {
     return {
+      config: {
+        title: 'VUE-MIGOO-TEMPLATE',
+        captchaEnable: true
+      },
       loginForm: {
         client: 'member_client'
       },
@@ -64,12 +77,27 @@ export default {
     }
   },
   created() {
-    // window.addEventListener('hashchange', this.afterQRScan);
+    this.getCode()
   },
   destroyed() {
     // window.removeEventListener('hashchange', this.afterQRScan);
   },
   methods: {
+    getCode() {
+      // 只有开启的状态，才加载验证码。默认开启
+      if (!this.captchaEnable) {
+        return
+      }
+      // 请求远程，获得验证码
+      getCodeImg().then(res => {
+        res = res.data
+        this.captchaEnable = res.enable
+        if (this.captchaEnable) {
+          this.codeUrl = 'data:image/gif;base64,' + res.img
+          this.loginForm.uuid = res.uuid
+        }
+      })
+    },
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
@@ -112,7 +140,7 @@ export default {
     }
     .login-form-wrapper {
       background: #ecf9ff;
-      width: 400px;
+      width: 500px;
       margin-top: 40px;
       border-radius: 6px;
       padding: 30px 25px 5px 25px;
@@ -123,6 +151,20 @@ export default {
         text-align: right;
       }
     }
+}
+
+.login-code {
+  width: 33%;
+  height: 38px;
+  float: right;
+  img {
+    cursor: pointer;
+    vertical-align: middle;
+  }
+}
+
+.login-code-img {
+  height: 38px;
 }
 
 @media (max-width: 768px) {
@@ -136,7 +178,7 @@ export default {
 @media (min-width: 768px) and (max-width: 1200px) {
     .login-page {
         .login-form-wrapper {
-            margin-top: 50px;
+            margin-top: 70px;
         }
     }
 }
@@ -144,7 +186,7 @@ export default {
 @media (min-width: 1200px) {
     .login-page {
         .login-form-wrapper {
-            margin-top: 120px;
+            margin-top: 160px;
         }
     }
 }
