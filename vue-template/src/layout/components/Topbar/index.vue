@@ -102,11 +102,14 @@ export default {
       this.$router.push(path)
     },
     async logout() {
-      this.$modal.confirm('确定注销并退出系统吗？', '提示').then(() => {
-        this.$store.dispatch('user/logout').then(() => {
-          this.$router.push(`/login`)
-        })
-      }).catch(() => {})
+      this.$confirm('确定注销并退出系统吗？', '系统提示', {
+        confirmButtonText: '确定',
+        callback: action => {
+          this.$store.dispatch('user/logout').then(() => {
+            this.$router.push(`/index`)
+          })
+        }
+      })
     },
     resolvePath(basePath, routePath) {
       if (isExternal(routePath)) {

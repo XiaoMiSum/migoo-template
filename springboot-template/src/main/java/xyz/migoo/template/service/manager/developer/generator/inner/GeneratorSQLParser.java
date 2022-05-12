@@ -1,0 +1,100 @@
+package xyz.migoo.template.service.manager.developer.generator.inner;
+
+import cn.hutool.core.collection.CollUtil;
+import com.alibaba.druid.DbType;
+import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
+import com.alibaba.druid.sql.ast.statement.SQLColumnDefinition;
+import com.alibaba.druid.sql.ast.statement.SQLCreateTableStatement;
+import com.alibaba.druid.sql.ast.statement.SQLPrimaryKey;
+import com.alibaba.druid.sql.ast.statement.SQLTableElement;
+import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlCreateTableStatement;
+import com.alibaba.druid.sql.repository.SchemaRepository;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.KeyValue;
+import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
+
+import java.util.List;
+
+import static com.alibaba.druid.sql.SQLUtils.normalize;
+
+public class GeneratorSQLParser {
+
+    /**
+     * 解析建表 SQL 语句，返回 {@link DatabaseTable} 和 {@link DatabaseColumn} 对象
+     *
+     * @param sql 建表 SQL 语句
+     * @return 解析结果
+     */
+    public static KeyValue<DatabaseTable, List<DatabaseColumn>> parse(String sql) {
+        // 解析 SQL 成 Statement
+        SQLCreateTableStatement statement = parseCreateSQL(sql);
+        // 解析 Table 表
+        DatabaseTable table = parseTable(statement);
+        // 解析 Column 字段
+        List<DatabaseColumn> columns = parseColumns(statement);
+        columns.forEach(column -> column.setTableName(table.getTableName()));
+        // 返回
+        return new DefaultKeyValue<>(table, columns);
+    }
+
+    /**
+     * 使用 Druid 工具，建表 SQL 语句
+     *
+     * @param sql 建表 SQL 语句
+     * @return 创建 Statement
+     */
+    private static SQLCreateTableStatement parseCreateSQL(String sql) {
+        // 解析 SQL
+        SchemaRepository repository = new SchemaRepository(DbType.mysql);
+        repository.console(sql);
+        // 获得该表对应的 MySqlCreateTableStatement 对象
+        String tableName = CollUtil.getFirst(repository.getDefaultSchema().getObjects()).getName();
+        return (MySqlCreateTableStatement) repository.findTable(tableName).getStatement();
+    }
+
+    private static DatabaseTable parseTable(SQLCreateTableStatement statement) {
+        return DatabaseTable.builder()
+                .tableName(statement.getTableSource().getTableName(true))
+                .tableComment(((SQLCharExpr) statement.getComment()).getText())
+                .build();
+    }
+
+    private static List<DatabaseColumn> parseColumns(SQLCreateTableStatement statement) {
+        List<DatabaseColumn> columns = Lists.newArrayList();
+        statement.getTableElementList().forEach(element -> parseColumn(columns, element));
+        return columns;
+    }
+
+    private static void parseColumn(List<DatabaseColumn> columns, SQLTableElement element) {
+        // 处理主键
+        if (element instanceof SQLPrimaryKey) {
+            parsePrimaryKey(columns, (SQLPrimaryKey) element);
+            return;
+        }
+        // 处理字段定义
+        if (element instanceof SQLColumnDefinition) {
+            parseColumnDefinition(columns, (SQLColumnDefinition) element);
+        }
+    }
+
+    private static void parsePrimaryKey(List<DatabaseColumn> columns, SQLPrimaryKey primaryKey) {
+        String columnName = normalize(primaryKey.getColumns().get(0).toString());
+        // 匹配 columns 主键字段，设置为 primary
+        columns.stream().filter(column -> column.getColumnName().equals(columnName))
+                .forEach(column -> column.setPrimaryKey(true));
+    }
+
+    private static void parseColumnDefinition(List<DatabaseColumn> columns, SQLColumnDefinition definition) {
+        String text = definition.toString().toUpperCase();
+        columns.add(DatabaseColumn.builder()
+                .columnName(normalize(definition.getColumnName()))
+                .columnType(definition.getDataType().toString())
+                .columnComment(normalize(definition.getComment().toString()))
+                .nullable(!text.contains(" NOT NULL"))
+                .primaryKey(false)
+                .autoIncrement(text.contains("AUTO_INCREMENT"))
+                .ordinalPosition(columns.size() + 1)
+                .build());
+    }
+
+}

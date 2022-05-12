@@ -4,7 +4,6 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/layout'
 import Migoo from '@/layout/migoo.vue'
 
 /**
@@ -43,22 +42,10 @@ export const constantRoutes = [
       meta: { title: '' }
     }]
   },
-  {
-    path: '/admin/login',
-    component: () => import('@/views/admin/login/index'),
-    hidden: true
-  },
-
-  {
-    path: '/404',
-    component: () => import('@/views/404'),
-    hidden: true
-  },
 
   {
     path: '/register',
     component: Migoo,
-    redirect: '/register',
     hidden: true,
     children: [{
       path: '',
@@ -69,6 +56,19 @@ export const constantRoutes = [
   },
 
   {
+    path: '/manager/login',
+    component: () => import('@/views/manager/login/index'),
+    hidden: true
+  },
+
+  {
+    path: '/404',
+    component: () => import('@/views/404'),
+    hidden: true
+  }
+]
+export const asyncRoutes = [
+  {
     path: '/',
     component: Migoo,
     redirect: '/index',
@@ -76,40 +76,9 @@ export const constantRoutes = [
     children: [{
       path: 'index',
       name: 'Index',
-      component: () => import('@/views//index'),
+      component: () => import('@/views/index'),
       meta: { title: '' }
     }]
-  }
-]
-export const asyncRoutes = [
-  {
-    path: '/admin',
-    component: Layout,
-    redirect: '/dashboard',
-    meta: { roles: ['admin'] },
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/admin/dashboard/index'),
-      meta: { title: '工作台', icon: 'dashboard' }
-    }]
-  },
-  {
-    path: '/admin/user',
-    component: Layout,
-    redirect: 'noredirect',
-    hidden: true,
-    children: [{
-      path: 'profile',
-      component: () => import('@/views/admin/user/profile/index'),
-      name: 'Profile',
-      meta: { title: '个人中心', icon: 'user' }
-    }]
-  },
-  {
-    path: '*',
-    redirect: '/404',
-    hidden: true
   }
 ]
 

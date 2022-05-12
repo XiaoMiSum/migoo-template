@@ -3,8 +3,9 @@ const getters = {
   device: state => state.app.device,
   avatar: state => state.user.avatar,
   name: state => state.user.name,
-  roles: state => state.user.roles,
-  permission_routes: state => state.permission.routes,
+  permissions: state => state.user.permissions,
+  is_admin_client: state => state.user.isAdminClient,
+  permission_routes: state => state.permission.sidebarRouters,
   default_routes: state => state.permission.default_routes
 }
 export default getters

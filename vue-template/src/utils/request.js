@@ -59,7 +59,8 @@ service.interceptors.response.use(
           type: 'warning'
         }).then(() => {
           store.dispatch('user/resetToken').then(() => {
-            location.reload()
+            location.href = store.getters.is_admin_client ? '/manager/login' : '/'
+            store.commit('user/RESET_STATE')
           })
         })
       }

@@ -50,14 +50,14 @@ export default {
   data() {
     return {
       loginForm: {
-        client: 'customer'
+        client: 'member_client'
       },
       loginRules: {
         username: [
-          { required: true, trigger: 'blur', message: '手机号不能为空' }
+          { required: true, trigger: 'blur', message: '请输入手机号' }
         ],
         password: [
-          { required: true, trigger: 'blur', message: '登录密码不能为空' }
+          { required: true, trigger: 'blur', message: '请输入密码' }
         ]
       },
       loading: false
@@ -112,7 +112,7 @@ export default {
     }
     .login-form-wrapper {
       background: #ecf9ff;
-      width: 500px;
+      width: 400px;
       margin-top: 40px;
       border-radius: 6px;
       padding: 30px 25px 5px 25px;

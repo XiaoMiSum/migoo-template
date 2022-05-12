@@ -21,18 +21,24 @@ import '@/permission' // permission control
 import Pagination from '@/components/Pagination'
 // 自定义表格工具扩展
 import RightToolbar from '@/components/RightToolbar'
+// 自定义标签展示
+import EnumTag from '@/components/EnumTag'
+import permission from './directive/permission'
 
 import {
   parseTime,
-  resetForm
+  resetForm,
+  handleTree
 } from '@/utils/ruoyi'
 
 Vue.prototype.parseTime = parseTime
 Vue.prototype.resetForm = resetForm
+Vue.prototype.handleTree = handleTree
 
 // 全局组件挂载
 Vue.component('Pagination', Pagination)
 Vue.component('RightToolbar', RightToolbar)
+Vue.component('EnumTag', EnumTag)
 
 Vue.prototype.msgSuccess = function(msg) {
   this.$message({ showClose: true, message: msg, type: 'success' })
@@ -50,6 +56,7 @@ Vue.prototype.msgInfo = function(msg) {
 // Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
 Vue.use(ElementUI)
+Vue.use(permission)
 
 Vue.config.productionTip = false
 

@@ -6,7 +6,8 @@ const getDefaultState = () => {
   return {
     name: '',
     avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-    roles: []
+    permissions: [],
+    isAdminClient: false
   }
 }
 
@@ -22,8 +23,11 @@ const mutations = {
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar || state.avatar
   },
-  SET_ROLES: (state, roles) => {
-    state.roles = roles
+  SET_PERMISSIONS: (state, permissions) => {
+    state.permissions = permissions
+  },
+  SET_CLIENT: (state, client) => {
+    state.isAdminClient = client.toUpperCase() === 'ADMIN_CLIENT'
   }
 }
 
@@ -35,6 +39,7 @@ const actions = {
       login({ username: username.trim(), password: password, client: client.toUpperCase() }).then(response => {
         const { data } = response
         setToken('Bearer ' + data.token)
+        commit('SET_CLIENT', client)
         resolve()
       }).catch(error => {
         reject(error)
@@ -54,20 +59,20 @@ const actions = {
   },
 
   // get user info
-  getInfo({ commit, state }) {
+  getInfo({ commit }) {
     return new Promise((resolve, reject) => {
-      getInfo(state.token).then(response => {
+      getInfo().then(response => {
         const { data } = response
 
         if (!data) {
           reject('Verification failed, please Login again.')
         }
 
-        const { name, avatar, extra } = data.user
+        const { name, avatar, permissions } = data
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
-        commit('SET_ROLES', extra.roles)
-        resolve(extra)
+        commit('SET_PERMISSIONS', permissions)
+        resolve(data)
       }).catch(error => {
         reject(error)
       })
@@ -75,7 +80,7 @@ const actions = {
   },
 
   // user logout
-  logout({ commit, state }) {
+  logout({ commit }) {
     return new Promise((resolve, reject) => {
       logout().then(() => {
         removeToken() // must remove  token  first
@@ -92,7 +97,6 @@ const actions = {
   resetToken({ commit }) {
     return new Promise(resolve => {
       removeToken() // must remove  token  first
-      commit('RESET_STATE')
       resolve()
     })
   }
