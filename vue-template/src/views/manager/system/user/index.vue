@@ -80,7 +80,7 @@
           </el-table-column>
           <el-table-column label="状态" align="center" width="100">
             <template slot-scope="scope">
-              <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="0" @change="handleStatusChange(scope.row)" />
+              <el-switch v-model="scope.row.status" :disabled="scope.row.id===1" :active-value="1" :inactive-value="0" @change="handleStatusChange(scope.row)" />
             </template>
           </el-table-column>
           <el-table-column label="创建时间" align="center" prop="createTime" width="160">

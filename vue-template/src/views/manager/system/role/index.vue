@@ -23,7 +23,7 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="角色状态" clearable size="small" style="width: 240px">
-          <el-option v-for="(item, index) in CommonStatusEnumList" :key="index" :value="item.value" :label="item.label" />
+          <el-option v-for="(item, index) in COMMON_STATUS_ENUMS" :key="index" :value="item.key" :label="item.label" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -35,7 +35,7 @@
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['system:role:create']"
+          v-hasPermi="['system:role:add']"
           type="primary"
           icon="el-icon-plus"
           size="mini"
@@ -53,7 +53,7 @@
       <el-table-column label="显示顺序" prop="sort" width="100" />
       <el-table-column label="状态" align="center" width="100">
         <template slot-scope="scope">
-          <el-switch v-model="scope.row.status" :active-value="0" :inactive-value="1" @change="handleStatusChange(scope.row)" />
+          <el-switch v-model="scope.row.status" :active-value="1" :inactive-value="0" :disabled="scope.row.type === 1" @change="handleStatusChange(scope.row)" />
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -64,22 +64,25 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
-            v-hasPermi="['system:role:update']"
-            size="mini"
+            v-hasPermi="['system:role:edit']"
+            size="small"
+            :disabled="scope.row.type === 1"
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
           >修改</el-button>
           <el-button
             v-hasPermi="['system:permission:assign-role-menu']"
-            size="mini"
+            size="small"
+            :disabled="scope.row.type === 1"
             type="text"
             icon="el-icon-circle-check"
             @click="handleMenu(scope.row)"
           >菜单权限</el-button>
           <el-button
-            v-hasPermi="['system:role:delete']"
-            size="mini"
+            v-hasPermi="['system:role:remove']"
+            size="small"
+            :disabled="scope.row.type === 1"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
@@ -160,7 +163,7 @@ import {
 } from '@/api/manager/role'
 import { listSimpleMenus } from '@/api/manager/menu'
 import { assignRoleMenu, listRoleMenus } from '@/api/manager/permission'
-import { CommonStatusEnum, CommonStatusEnumList } from '@/utils/enums'
+import { COMMON_STATUS_ENUM, COMMON_STATUS_ENUMS } from '@/utils/enums'
 
 export default {
   name: 'Role',
@@ -210,7 +213,7 @@ export default {
           { required: true, message: '角色顺序不能为空', trigger: 'blur' }
         ]
       },
-      CommonStatusEnumList: CommonStatusEnumList
+      COMMON_STATUS_ENUMS: COMMON_STATUS_ENUMS
     }
   },
   created() {
@@ -231,7 +234,7 @@ export default {
     // 角色状态修改
     handleStatusChange(row) {
       // 此时，row 已经变成目标状态了，所以可以直接提交请求和提示
-      const text = row.status === CommonStatusEnum.ENABLE ? '启用' : '停用'
+      const text = row.status === COMMON_STATUS_ENUM.ENABLE ? '启用' : '停用'
       this.$confirm('确认要"' + text + '""' + row.name + '"角色吗?', '警告', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -242,8 +245,8 @@ export default {
         this.msgSuccess(text + '成功')
       }).catch(function() {
         // 异常时，需要将 row.status 状态重置回之前的
-        row.status = row.status === CommonStatusEnum.ENABLE ? CommonStatusEnum.DISABLE
-          : CommonStatusEnum.ENABLE
+        row.status = row.status === COMMON_STATUS_ENUM.ENABLE ? COMMON_STATUS_ENUM.DISABLE
+          : COMMON_STATUS_ENUM.ENABLE
       })
     },
     // 角色类型字典翻译
@@ -365,10 +368,10 @@ export default {
     /** 提交按钮（菜单权限） */
     submitMenu: function() {
       if (this.form.id !== undefined) {
-        assignRoleMenu({
-          roleId: this.form.id,
-          menuIds: [...this.$refs.menu.getCheckedKeys(), ...this.$refs.menu.getHalfCheckedKeys()]
-        }).then(response => {
+        assignRoleMenu(
+          this.form.id,
+          { menuIds: [...this.$refs.menu.getCheckedKeys(), ...this.$refs.menu.getHalfCheckedKeys()] }
+        ).then(response => {
           this.msgSuccess('修改成功')
           this.openMenu = false
           this.getList()

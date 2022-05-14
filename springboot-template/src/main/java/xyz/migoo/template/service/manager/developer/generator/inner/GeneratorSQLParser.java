@@ -14,6 +14,7 @@ import org.apache.commons.collections4.KeyValue;
 import org.apache.commons.collections4.keyvalue.DefaultKeyValue;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.alibaba.druid.sql.SQLUtils.normalize;
 
@@ -89,7 +90,7 @@ public class GeneratorSQLParser {
         columns.add(DatabaseColumn.builder()
                 .columnName(normalize(definition.getColumnName()))
                 .columnType(definition.getDataType().toString())
-                .columnComment(normalize(definition.getComment().toString()))
+                .columnComment(Objects.isNull(definition.getComment()) ? "" : normalize(definition.getComment().toString()))
                 .nullable(!text.contains(" NOT NULL"))
                 .primaryKey(false)
                 .autoIncrement(text.contains("AUTO_INCREMENT"))

@@ -153,7 +153,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Set<Long> listRoleMenuIds(Long roleId) {
+    public Set<Long> getRoleMenuIds(Long roleId) {
         // 如果是管理员的情况下，获取全部菜单编号
         Role role = roleService.get(roleId);
         if (roleService.hasAnyAdmin(Collections.singletonList(role))) {
@@ -183,7 +183,7 @@ public class PermissionServiceImpl implements PermissionService {
     }
 
     @Override
-    public Set<Long> listUserRoleIs(Long userId) {
+    public Set<Long> getUserRoleIs(Long userId) {
         return CollectionUtils.convertSet(userRoleMapper.selectListByUserId(userId),
                 UserRole::getRoleId);
     }
@@ -203,11 +203,6 @@ public class PermissionServiceImpl implements PermissionService {
         if (!CollectionUtil.isEmpty(deleteMenuIds)) {
             userRoleMapper.deleteListByUserIdAndRoleIdIds(userId, deleteMenuIds);
         }
-    }
-
-    @Override
-    public void assignRoleDataScope(Long roleId, Integer dataScope, Set<Long> dataScopeDeptIds) {
-        roleService.updateRoleDataScope(roleId, dataScope, dataScopeDeptIds);
     }
 
     @Override

@@ -39,43 +39,40 @@ public class GeneratorEngine {
     private static final Map<String, String> TEMPLATES = MapUtil.<String, String>builder(new LinkedHashMap<>())
             // Java Main
             .put(javaTemplatePath("controller/vo/baseVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}BaseVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}BaseVO"))
             .put(javaTemplatePath("controller/vo/createReqVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}CreateReqVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}CreateReqVO"))
             .put(javaTemplatePath("controller/vo/pageReqVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}PageReqVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}PageReqVO"))
             .put(javaTemplatePath("controller/vo/respVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}RespVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}RespVO"))
             .put(javaTemplatePath("controller/vo/updateReqVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}UpdateReqVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}UpdateReqVO"))
             .put(javaTemplatePath("controller/vo/exportReqVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}ExportReqVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}ExportReqVO"))
             .put(javaTemplatePath("controller/vo/excelVO"),
-                    javaFilePath("controller/${table.businessName}/vo/${table.className}ExcelVO"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/vo/${table.className}ExcelVO"))
             .put(javaTemplatePath("controller/controller"),
-                    javaFilePath("controller/${table.businessName}/${table.className}Controller"))
+                    javaFilePath("controller/${table.moduleName}/${table.businessName}/${table.className}Controller"))
             .put(javaTemplatePath("convert/convert"),
-                    javaFilePath("convert/${table.businessName}/${table.className}Convert"))
+                    javaFilePath("convert/${table.moduleName}/${table.businessName}/${table.className}Convert"))
             .put(javaTemplatePath("dal/do"),
-                    javaFilePath("dal/dataobject/${table.businessName}/${table.className}DO"))
+                    javaFilePath("dal/dataobject/${table.moduleName}/${table.businessName}/${table.className}DO"))
             .put(javaTemplatePath("dal/mapper"),
-                    javaFilePath("dal/mysql/${table.businessName}/${table.className}Mapper"))
+                    javaFilePath("dal/mysql/${table.moduleName}/${table.businessName}/${table.className}Mapper"))
             .put(javaTemplatePath("enums/errorcode"),
                     javaFilePath("enums/${simpleModuleName_upperFirst}ErrorCodeConstants"))
             .put(javaTemplatePath("service/serviceImpl"),
-                    javaFilePath("service/${table.businessName}/impl/${table.className}ServiceImpl"))
+                    javaFilePath("service/${table.moduleName}/${table.businessName}/impl/${table.className}ServiceImpl"))
             .put(javaTemplatePath("service/service"),
-                    javaFilePath("service/${table.businessName}/${table.className}Service"))
-            // Java Test
-            .put(javaTemplatePath("test/serviceTest"),
-                    javaFilePath("service/${table.businessName}/${table.className}ServiceTest"))
+                    javaFilePath("service/${table.moduleName}/${table.businessName}/${table.className}Service"))
             // Vue
             .put(vueTemplatePath("views/index.vue"),
                     vueFilePath("views/${table.moduleName}/${classNameVar}/index.vue"))
             .put(vueTemplatePath("api/api.js"),
                     vueFilePath("api/${table.moduleName}/${classNameVar}.js"))
             // SQL
-            .put("codegen/sql/sql.vm", "sql/sql.sql")
+            .put("generator/sql/sql.vm", "sql/sql.sql")
             .build();
     /**
      * 模板引擎，由 hutool 实现
@@ -86,7 +83,7 @@ public class GeneratorEngine {
      */
     private final Map<String, Object> globalBindingMap = new HashMap<>();
 
-    @Value("migoo.generator.base-package:zyx.migoo.template")
+    @Value("${migoo.generator.base-package}")
     private String basePackage;
 
     public GeneratorEngine() {
@@ -97,15 +94,15 @@ public class GeneratorEngine {
     }
 
     private static String javaTemplatePath(String path) {
-        return "genenator/java/" + path + ".vm";
+        return "generator/java/" + path + ".vm";
     }
 
     private static String javaFilePath(String path) {
-        return "java/${basePackage}/${table.moduleName}/" + path + ".java";
+        return "java/${basePackage}/" + path + ".java";
     }
 
     private static String vueTemplatePath(String path) {
-        return "genenator/vue/" + path + ".vm";
+        return "generator/vue/" + path + ".vm";
     }
 
     private static String vueFilePath(String path) {
@@ -128,6 +125,7 @@ public class GeneratorEngine {
         globalBindingMap.put("BaseMapperClassName", BaseMapperX.class.getName());
         // Util 工具类
         globalBindingMap.put("DateUtilsClassName", DateUtils.class.getName());
+
     }
 
     public Map<String, String> execute(CodegenTable table, List<CodegenColumn> columns) {
@@ -142,8 +140,7 @@ public class GeneratorEngine {
         bindingMap.put("simpleModuleName", simpleModuleName);
         bindingMap.put("simpleModuleName_upperFirst", upperFirst(simpleModuleName));
         // className 相关
-        // 将 TestDictType 转换成 DictType. 因为在 create 等方法后，不需要带上 Test 前缀
-        String simpleClassName = subAfter(table.getTableName(), upperFirst(simpleModuleName), false);
+        String simpleClassName = subAfter(table.getClassName(), upperFirst(simpleModuleName), false);
         bindingMap.put("simpleClassName", simpleClassName);
         bindingMap.put("simpleClassName_underlineCase", toUnderlineCase(simpleClassName));
         bindingMap.put("classNameVar", lowerFirst(simpleClassName));
@@ -151,7 +148,6 @@ public class GeneratorEngine {
         bindingMap.put("simpleClassName_strikeCase", simpleClassNameStrikeCase);
         // permission 前缀
         bindingMap.put("permissionPrefix", table.getTableName() + ":" + simpleClassNameStrikeCase);
-
         // 执行生成
         final Map<String, String> result = Maps.newLinkedHashMapWithExpectedSize(TEMPLATES.size());
         TEMPLATES.forEach((vmPath, filePath) -> {
@@ -171,10 +167,10 @@ public class GeneratorEngine {
                 getStr(bindingMap, "classNameVar"));
 
         // table 包含的字段
-        DatabaseTable table = (DatabaseTable) bindingMap.get("table");
-        filePath = StrUtil.replace(filePath, "${table.moduleName}", table.getTableName());
-        filePath = StrUtil.replace(filePath, "${table.businessName}", table.getTableName());
-        filePath = StrUtil.replace(filePath, "${table.className}", table.getTableName());
+        CodegenTable table = (CodegenTable) bindingMap.get("table");
+        filePath = StrUtil.replace(filePath, "${table.moduleName}", table.getModuleName());
+        filePath = StrUtil.replace(filePath, "${table.businessName}", table.getBusinessName());
+        filePath = StrUtil.replace(filePath, "${table.className}", table.getClassName());
         return filePath;
     }
 

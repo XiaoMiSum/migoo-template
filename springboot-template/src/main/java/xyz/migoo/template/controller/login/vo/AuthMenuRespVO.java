@@ -44,6 +44,11 @@ public class AuthMenuRespVO {
     private String icon;
 
     /**
+     * 是否可见
+     */
+    private Integer visible;
+
+    /**
      * 子路由
      */
     private List<AuthMenuRespVO> children;

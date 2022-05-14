@@ -8,6 +8,7 @@ import xyz.migoo.framework.common.pojo.Result;
 import xyz.migoo.template.controller.manager.sys.permission.role.vo.*;
 import xyz.migoo.template.convert.manager.sys.RoleConvert;
 import xyz.migoo.template.dal.dataobject.sys.Role;
+import xyz.migoo.template.service.manager.sys.permission.PermissionService;
 import xyz.migoo.template.service.manager.sys.permission.RoleService;
 
 import javax.annotation.Resource;
@@ -22,23 +23,34 @@ public class RoleController {
     @Resource
     private RoleService roleService;
 
+    @Resource
+    private PermissionService permissionService;
+
     @GetMapping
     @PreAuthorize("@ss.hasPermission('system:role:query')")
     public Result<PageResult<RoleRespVO>> getRolePage(RoleQueryReqVO req) {
-        return Result.getSuccessful(roleService.getPage(req));
+        return Result.getSuccessful(RoleConvert.INSTANCE.convert(roleService.getPage(req)));
     }
 
-    @PostMapping("")
+    @PostMapping
     @PreAuthorize("@ss.hasPermission('system:role:add')")
     public Result<?> addRole(@RequestBody RoleAddReqVO reqVO) {
-        roleService.verify(reqVO.getCode());
+        roleService.verify(reqVO.getCode(), reqVO.getName(), null);
         roleService.add(RoleConvert.INSTANCE.convert(reqVO));
         return Result.getSuccessful();
     }
 
-    @PutMapping("")
+    @PutMapping
     @PreAuthorize("@ss.hasPermission('system:role:edit')")
     public Result<?> updateRole(@RequestBody RoleUpdateReqVO reqVO) {
+        roleService.verify(reqVO.getCode(), reqVO.getName(), reqVO.getId());
+        roleService.update(RoleConvert.INSTANCE.convert(reqVO));
+        return Result.getSuccessful();
+    }
+
+    @PutMapping("/status")
+    @PreAuthorize("@ss.hasPermission('system:role:edit')")
+    public Result<?> updateRole(@RequestBody RoleStatusUpdateReqVO reqVO) {
         roleService.update(RoleConvert.INSTANCE.convert(reqVO));
         return Result.getSuccessful();
     }
@@ -66,13 +78,14 @@ public class RoleController {
     @GetMapping("/{roleId}/menu")
     @PreAuthorize("@ss.hasPermission('system:permission:assign-role-menu')")
     public Result<Set<Long>> getRoleMenus(@PathVariable("roleId") Long roleId) {
-        return Result.getSuccessful(roleService.getRoleMenuList(roleId));
+        return Result.getSuccessful(permissionService.getRoleMenuIds(roleId));
     }
 
     @PostMapping("/{roleId}/menu")
     @PreAuthorize("@ss.hasPermission('system:permission:assign-role-menu')")
-    public Result<?> assignRoleMenus(@Valid @RequestBody PermissionAssignRoleMenuReqVO reqVO) {
-        roleService.assignRoleMenu(reqVO.getRoleId(), reqVO.getMenuIds());
+    public Result<?> assignRoleMenus(@PathVariable("roleId") Long roleId, @Valid @RequestBody PermissionAssignRoleMenuReqVO reqVO) {
+        reqVO.setRoleId(roleId);
+        permissionService.assignRoleMenu(reqVO.getRoleId(), reqVO.getMenuIds());
         return Result.getSuccessful(true);
     }
 }

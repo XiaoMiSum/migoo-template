@@ -23,7 +23,7 @@ public class ${table.className}CreateReqVO extends ${table.className}BaseVO {
 
 #foreach ($column in $columns)
 #if (${column.createOperation} && (!${column.updateOperation} || !${column.listOperationResult}))##不是通用字段
-    #parse("codegen/java/controller/vo/_column.vm")
+    #parse("generator/java/controller/vo/_column.vm")
 
 #end
 #end

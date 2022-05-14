@@ -3,7 +3,6 @@ package xyz.migoo.template.service.manager.sys.permission;
 import org.springframework.lang.Nullable;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.template.controller.manager.sys.permission.role.vo.RoleQueryReqVO;
-import xyz.migoo.template.controller.manager.sys.permission.role.vo.RoleRespVO;
 import xyz.migoo.template.dal.dataobject.sys.Role;
 
 import java.util.Collection;
@@ -23,14 +22,6 @@ public interface RoleService {
      * @param id 角色编号
      */
     void remove(Long id);
-
-    /**
-     * 更新角色状态
-     *
-     * @param id     角色编号
-     * @param status 状态
-     */
-    void updateRoleStatus(Long id, Integer status);
 
     /**
      * 设置角色的数据权限
@@ -93,15 +84,11 @@ public interface RoleService {
 
     List<Role> getList(Integer status);
 
-    PageResult<RoleRespVO> getPage(RoleQueryReqVO req);
+    PageResult<Role> getPage(RoleQueryReqVO req);
 
-    void verify(String code);
+    void verify(String code, String name, Long id);
 
     void add(Role role);
 
     void update(Role role);
-
-    void assignRoleMenu(Long roleId, Set<Long> menuIds);
-
-    Set<Long> getRoleMenuList(Long roleId);
 }

@@ -46,7 +46,7 @@ export default {
       },
       loginForm: {
         client: 'admin_client',
-        username: 'admin',
+        username: 'superadmin',
         password: '123456'
       },
       loginRules: {

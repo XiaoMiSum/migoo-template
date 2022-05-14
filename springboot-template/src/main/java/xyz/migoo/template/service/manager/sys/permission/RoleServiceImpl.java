@@ -2,7 +2,6 @@ package xyz.migoo.template.service.manager.sys.permission;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableMap;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
@@ -14,7 +13,6 @@ import org.springframework.util.StringUtils;
 import xyz.migoo.framework.common.exception.util.ServiceExceptionUtil;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.template.controller.manager.sys.permission.role.vo.RoleQueryReqVO;
-import xyz.migoo.template.controller.manager.sys.permission.role.vo.RoleRespVO;
 import xyz.migoo.template.dal.dataobject.sys.Role;
 import xyz.migoo.template.dal.mapper.sys.RoleMapper;
 import xyz.migoo.template.enums.RoleCodeEnum;
@@ -105,20 +103,9 @@ public class RoleServiceImpl implements RoleService {
 
 
     @Override
-    public void updateRoleStatus(Long id, Integer status) {
-        // 校验是否可以更新
-        this.checkUpdateRole(id);
-        // 更新状态
-        Role updateObject = new Role();
-        updateObject.setId(id);
-        updateObject.setStatus(status);
-        roleMapper.updateById(updateObject);
-    }
-
-    @Override
     public void updateRoleDataScope(Long id, Integer dataScope, Set<Long> dataScopeDeptIds) {
         // 校验是否可以更新
-        checkUpdateRole(id);
+        verify(id);
         // 更新数据范围
         Role updateObject = new Role();
         updateObject.setId(id);
@@ -129,7 +116,7 @@ public class RoleServiceImpl implements RoleService {
     @Transactional(rollbackFor = Exception.class)
     public void remove(Long id) {
         // 校验是否可以更新
-        this.checkUpdateRole(id);
+        this.verify(id);
         // 标记删除
         roleMapper.deleteById(id);
         // 删除相关数据
@@ -174,48 +161,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public PageResult<RoleRespVO> getPage(RoleQueryReqVO req) {
-        return null;
+    public PageResult<Role> getPage(RoleQueryReqVO req) {
+        return roleMapper.selectPage(req);
     }
 
     @Override
-    public void verify(String code) {
-
-    }
-
-    @Override
-    public void add(Role role) {
-
-    }
-
-    @Override
-    public void update(Role role) {
-
-    }
-
-    @Override
-    public void assignRoleMenu(Long roleId, Set<Long> menuIds) {
-
-    }
-
-    @Override
-    public Set<Long> getRoleMenuList(Long roleId) {
-        return null;
-    }
-
-    /**
-     * 校验角色的唯一字段是否重复
-     * <p>
-     * 1. 是否存在相同名字的角色
-     * 2. 是否存在相同编码的角色
-     *
-     * @param name 角色名字
-     * @param code 角色额编码
-     * @param id   角色编号
-     */
-    @VisibleForTesting
-    public void checkDuplicateRole(String name, String code, Long id) {
-        // 1. 该 name 名字被其它角色所使用
+    public void verify(String code, String name, Long id) {
         Role role = roleMapper.selectByName(name);
         if (role != null && !role.getId().equals(id)) {
             throw ServiceExceptionUtil.get(ROLE_NAME_DUPLICATE, name);
@@ -231,13 +182,19 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-    /**
-     * 校验角色是否可以被更新
-     *
-     * @param id 角色编号
-     */
-    @VisibleForTesting
-    public void checkUpdateRole(Long id) {
+    @Override
+    public void add(Role role) {
+        role.setType(RoleTypeEnum.CUSTOM.getType());
+        roleMapper.insert(role);
+    }
+
+    @Override
+    public void update(Role role) {
+        this.verify(role.getId());
+        roleMapper.updateById(role);
+    }
+
+    private void verify(Long id) {
         Role roleDO = roleMapper.selectById(id);
         if (roleDO == null) {
             throw ServiceExceptionUtil.get(ROLE_NOT_EXISTS);

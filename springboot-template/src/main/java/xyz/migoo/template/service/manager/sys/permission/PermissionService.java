@@ -43,7 +43,7 @@ public interface PermissionService extends SecurityPermissionFrameworkService {
      * @param roleId 角色编号
      * @return 菜单编号集合
      */
-    Set<Long> listRoleMenuIds(Long roleId);
+    Set<Long> getRoleMenuIds(Long roleId);
 
     /**
      * 设置角色菜单
@@ -59,7 +59,7 @@ public interface PermissionService extends SecurityPermissionFrameworkService {
      * @param userId 用户编号
      * @return 角色编号集合
      */
-    Set<Long> listUserRoleIs(Long userId);
+    Set<Long> getUserRoleIs(Long userId);
 
     /**
      * 设置用户角色
@@ -68,15 +68,6 @@ public interface PermissionService extends SecurityPermissionFrameworkService {
      * @param roleIds 角色编号集合
      */
     void assignUserRole(Long userId, Set<Long> roleIds);
-
-    /**
-     * 设置角色的数据权限
-     *
-     * @param roleId           角色编号
-     * @param dataScope        数据范围
-     * @param dataScopeDeptIds 部门编号数组
-     */
-    void assignRoleDataScope(Long roleId, Integer dataScope, Set<Long> dataScopeDeptIds);
 
     /**
      * 处理角色删除时，删除关联授权数据

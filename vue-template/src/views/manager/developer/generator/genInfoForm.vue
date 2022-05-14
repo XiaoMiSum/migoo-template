@@ -6,10 +6,10 @@
           <span slot="label">生成模板</span>
           <el-select v-model="info.templateType" @change="tplSelectChange">
             <el-option
-              v-for="dict in this.getDictDatas(DICT_TYPE.TOOL_CODEGEN_TEMPLATE_TYPE)"
-              :key="parseInt(dict.value)"
-              :label="dict.label"
-              :value="parseInt(dict.value)"
+              v-for="(item, index) in GENERATOR_TEMPLATE_TYPE_ENUMS"
+              :key="index"
+              :label="item.label"
+              :value="item.key"
             />
           </el-select>
         </el-form-item>
@@ -218,6 +218,7 @@
 <script>
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import { GENERATOR_TEMPLATE_TYPE_ENUMS } from '@/utils/enums'
 
 export default {
   name: 'BasicInfoForm',
@@ -261,7 +262,8 @@ export default {
         classComment: [
           { required: true, message: '请输入生成类描述', trigger: 'blur' }
         ]
-      }
+      },
+      GENERATOR_TEMPLATE_TYPE_ENUMS: GENERATOR_TEMPLATE_TYPE_ENUMS
     }
   },
   watch: {

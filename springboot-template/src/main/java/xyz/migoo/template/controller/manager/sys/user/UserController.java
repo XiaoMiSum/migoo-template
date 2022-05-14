@@ -14,6 +14,7 @@ import xyz.migoo.template.dal.dataobject.sys.Dept;
 import xyz.migoo.template.dal.dataobject.sys.User;
 import xyz.migoo.template.service.UserService;
 import xyz.migoo.template.service.manager.sys.dept.DeptService;
+import xyz.migoo.template.service.manager.sys.permission.PermissionService;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
@@ -29,6 +30,8 @@ public class UserController {
     private UserService<User, UserQueryReqVO> userService;
     @Resource
     private DeptService deptService;
+    @Resource
+    private PermissionService permissionService;
 
     @GetMapping
     @PreAuthorize("@ss.hasPermission('system:user:query')")
@@ -88,13 +91,13 @@ public class UserController {
 
     @GetMapping("/{userId}/role")
     public Result<Set<Long>> getUserRoles(@PathVariable("userId") Long userId) {
-        return Result.getSuccessful(userService.getUserRoleList(userId));
+        return Result.getSuccessful(permissionService.getUserRoleIs(userId));
     }
 
     @PostMapping("/{userId}/role")
     @PreAuthorize("@ss.hasPermission('system:permission:assign-user-role')")
     public Result<?> assignUserRole(@Valid @RequestBody PermissionAssignUserRoleReqVO reqVO) {
-        userService.assignUserRole(reqVO.getUserId(), reqVO.getRoleIds());
+        permissionService.assignUserRole(reqVO.getUserId(), reqVO.getRoleIds());
         return Result.getSuccessful(true);
     }
 

@@ -21,7 +21,7 @@ public class MenuController {
     @Resource
     private MenuService menuService;
 
-    @GetMapping("")
+    @GetMapping
     @PreAuthorize("@ss.hasPermission('system:menu:query')")
     public Result<List<MenuRespVO>> getMenus(MenuQueryReqVO reqVO) {
         List<Menu> list = menuService.get(reqVO);
@@ -29,14 +29,14 @@ public class MenuController {
         return Result.getSuccessful(MenuConvert.INSTANCE.convert(list));
     }
 
-    @PostMapping("")
+    @PostMapping
     @PreAuthorize("@ss.hasPermission('system:menu:add')")
     public Result<?> createMenu(@Valid @RequestBody MenuAddReqVO reqVO) {
         menuService.add(MenuConvert.INSTANCE.convert(reqVO));
         return Result.getSuccessful();
     }
 
-    @PutMapping("")
+    @PutMapping
     @PreAuthorize("@ss.hasPermission('system:menu:edit')")
     public Result<?> updateMenu(@Valid @RequestBody MenuUpdateReqVO reqVO) {
         menuService.update(MenuConvert.INSTANCE.convert(reqVO));

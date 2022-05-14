@@ -40,7 +40,7 @@ public interface RoleMenuMapper extends BaseMapperX<RoleMenu> {
         delete(new QueryWrapper<RoleMenu>().eq("role_id", roleId));
     }
 
-    @Select("SELECT id FROM role_menu WHERE update_time > #{maxUpdateTime} LIMIT 1")
+    @Select("SELECT id FROM sys_role_menu WHERE update_time > #{maxUpdateTime} LIMIT 1")
     Long selectExistsByUpdateTimeAfter(Date maxUpdateTime);
 
 }

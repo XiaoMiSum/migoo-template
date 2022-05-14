@@ -125,7 +125,11 @@
     </el-form>
   </el-card>
 </template>
+
 <script>
+import { listSimpleMenus } from '@/api/manager/menu'
+import { getCodegenDetail, updateCodegen } from '@/api/developer/generator'
+
 import basicInfoForm from './basicInfoForm'
 import genInfoForm from './genInfoForm'
 import Sortable from 'sortablejs'
@@ -155,22 +159,18 @@ export default {
     }
   },
   created() {
-    const tableId = this.$route.params && this.$route.params.tableId
+    const tableId = this.$route.params && this.$route.params.id
     if (tableId) {
       // 获取表详细信息
-      /*     getCodegenDetail(tableId).then(res => {
+      getCodegenDetail(tableId).then(res => {
         this.table = res.data.table
         this.columns = res.data.columns
-      }) */
-      /** 查询字典下拉列表 */
-      /*       listAllSimpleDictType().then(response => {
-        this.dictOptions = response.data
-      }) */
+      })
       /** 查询菜单下拉列表 */
-      /*       listSimpleMenus().then(response => {
+      listSimpleMenus().then(response => {
         this.menus = []
         this.menus.push(...this.handleTree(response.data, 'id'))
-      })  */
+      })
     }
   },
   mounted() {
@@ -203,10 +203,10 @@ export default {
             treeParentCode: genTable.treeParentCode,
             parentMenuId: genTable.parentMenuId
           }
-          /*           updateCodegen(genTable).then(res => {
+          updateCodegen(genTable).then(res => {
             this.msgSuccess('修改成功！')
             this.close()
-          }) */
+          })
         } else {
           this.msgError('表单校验未通过，请重新检查提交内容')
         }
@@ -222,7 +222,7 @@ export default {
     /** 关闭按钮 */
     close() {
       this.$store.dispatch('tagsView/delView', this.$route)
-      this.$router.push({ path: '/tool/codegen', query: { t: Date.now() }})
+      this.$router.push({ path: '/manager/developer/generator', query: { t: Date.now() }})
     }
   }
 }

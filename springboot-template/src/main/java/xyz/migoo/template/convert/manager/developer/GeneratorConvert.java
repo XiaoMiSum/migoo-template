@@ -3,10 +3,7 @@ package xyz.migoo.template.convert.manager.developer;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 import xyz.migoo.framework.common.pojo.PageResult;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenColumnRespVO;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenDetailRespVO;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenPreviewRespVO;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenTableRespVO;
+import xyz.migoo.template.controller.manager.developer.vo.*;
 import xyz.migoo.template.dal.dataobject.developer.gennerator.CodegenColumn;
 import xyz.migoo.template.dal.dataobject.developer.gennerator.CodegenTable;
 import xyz.migoo.template.service.manager.developer.generator.GeneratorDTO;
@@ -47,4 +44,7 @@ public interface GeneratorConvert {
                 .collect(Collectors.toList());
     }
 
+    CodegenTable convert(CodegenUpdateReqVO.Table table);
+
+    List<CodegenColumn> convert02(List<CodegenUpdateReqVO.Column> columns);
 }
