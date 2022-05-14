@@ -7,7 +7,7 @@
       </el-form-item>
       <el-form-item label="状态" prop="status">
         <el-select v-model="queryParams.status" placeholder="菜单状态" clearable>
-          <el-option v-for="item in CommonStatusEnum" :key="item.key" :label="item.label" :value="item.key" />
+          <el-option v-for="item in COMMON_STATUS_ENUM" :key="item.key" :label="item.label" :value="item.key" />
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -50,9 +50,9 @@
       <el-table-column prop="sort" label="排序" width="60" />
       <el-table-column prop="permission" label="权限标识" :show-overflow-tooltip="true" />
       <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true" />
-      <el-table-column prop="status" label="状态" width="80">
+      <el-table-column prop="status" align="center" label="状态" width="80">
         <template slot-scope="scope">
-          <enum-tag :enums="CommonStatusEnumList" :value="scope.row.status" />
+          <enum-tag :enums="COMMON_STATUS_ENUMS" :value="scope.row.status" />
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime">
@@ -106,7 +106,7 @@
             <el-form-item label="菜单类型" prop="type">
               <el-radio-group v-model="form.type">
                 <el-radio
-                  v-for="item in MenuTypeEnumList"
+                  v-for="item in MENU_TYPE_ENUMS"
                   :key="item.key"
                   :label="item.key"
                 >
@@ -178,7 +178,7 @@
               </span>
               <el-radio-group v-model="form.status">
                 <el-radio
-                  v-for="item in CommonStatusEnumList"
+                  v-for="item in COMMON_STATUS_ENUMS"
                   :key="item.key"
                   :label="item.key"
                 >{{ item.label }}</el-radio>
@@ -229,7 +229,7 @@ import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import IconSelect from '@/components/IconSelect'
 
-import { CommonStatusEnum, CommonStatusEnumList, MenuTypeEnum, MenuTypeEnumList } from '@/utils/enums'
+import { COMMON_STATUS_ENUM, COMMON_STATUS_ENUMS, MENU_TYPE_ENUM, MENU_TYPE_ENUMS } from '@/utils/enums'
 import { isExternal } from '@/utils/validate'
 
 export default {
@@ -277,11 +277,11 @@ export default {
       },
 
       // 枚举
-      CommonStatusEnum: CommonStatusEnum,
-      MenuTypeEnum: MenuTypeEnum,
+      COMMON_STATUS_ENUM: COMMON_STATUS_ENUM,
+      MENU_TYPE_ENUM: MENU_TYPE_ENUM,
       // 数据字典
-      MenuTypeEnumList: MenuTypeEnumList,
-      CommonStatusEnumList: CommonStatusEnumList
+      MENU_TYPE_ENUMS: MENU_TYPE_ENUMS,
+      COMMON_STATUS_ENUMS: COMMON_STATUS_ENUMS
     }
   },
   created() {
@@ -332,9 +332,9 @@ export default {
         parentId: 0,
         name: undefined,
         icon: undefined,
-        type: MenuTypeEnum.DIR,
+        type: MENU_TYPE_ENUM.DIR,
         sort: undefined,
-        status: CommonStatusEnum.ENABLE,
+        status: COMMON_STATUS_ENUM.ENABLE,
         visible: 1,
         keepAlive: 1
       }
@@ -384,7 +384,7 @@ export default {
       this.$refs['form'].validate(valid => {
         if (valid) {
           // 若权限类型为目录或者菜单时，进行 path 的校验，避免后续拼接出来的路由无法跳转
-          if (this.form.type === this.MenuTypeEnum.DIR || this.form.type === this.MenuTypeEnum.MENU) {
+          if (this.form.type === this.MENU_TYPE_ENUM.DIR || this.form.type === this.MENU_TYPE_ENUM.MENU) {
             // 如果是外链，则不进行校验
             const path = this.form.path
             if (!isExternal(path)) {

@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 import { praseStrEmpty } from '@/utils/ruoyi'
 
-const url = '/role'
+const url = '/post'
 
 // 查询下拉
 export function listSimple(params) {

@@ -30,7 +30,7 @@ public class CodegenTable extends IdEnhanceDO {
     /**
      * 模块名称
      */
-    private String modulesName;
+    private String moduleName;
     /**
      * 业务名称
      */

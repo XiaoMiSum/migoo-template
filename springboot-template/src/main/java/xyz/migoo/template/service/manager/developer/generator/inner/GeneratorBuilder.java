@@ -122,9 +122,11 @@ public class GeneratorBuilder {
         // 驼峰 + 首字母大写
         table.setClassName(upperFirst(toCamelCase(table.getTableName())));
         // 去除结尾的表，作为类描述
-        table.setClassComment(subBefore(table.getTableComment(),
-                '表', true));
-        table.setAuthor("");
+        table.setClassComment(subBefore(table.getTableComment(), '表', true));
+        String[] tabs = table.getTableName().split("_");
+        table.setModuleName(tabs[0]);
+        table.setBusinessName(tabs.length > 1 ? tabs[1] : tabs[0]);
+        table.setAuthor("xiaomi");
     }
 
     public List<CodegenColumn> buildColumns(List<DatabaseColumn> schemaColumns) {
@@ -152,13 +154,13 @@ public class GeneratorBuilder {
         column.setJavaField(toCamelCase(column.getColumnName()));
         // 处理 dictType 字段，暂无
         // 处理 javaType 字段
-        String dbType = subBefore(column.getDataType(), '(', false);
+        String dbType = subBefore(column.getColumnType(), '(', false);
         JAVA_TYPE_MAPPINGS.entrySet().stream()
                 .filter(entry -> entry.getValue().contains(dbType))
                 .findFirst().ifPresent(entry -> column.setJavaType(entry.getKey()));
         if (column.getJavaType() == null) {
             throw new IllegalStateException(String.format("column(%s) 的数据库类型(%s) 找不到匹配的 Java 类型",
-                    column.getColumnName(), column.getDataType()));
+                    column.getColumnName(), column.getColumnType()));
         }
     }
 

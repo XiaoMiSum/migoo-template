@@ -12,7 +12,6 @@ import xyz.migoo.template.service.UserService;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import static xyz.migoo.framework.common.enums.NumberConstants.N_0;
 
@@ -67,15 +66,5 @@ public class MemberServiceImpl implements UserService<Member, MemberQueryReqVO> 
         if (Objects.nonNull(mapper.selectByPhone(phone))) {
             throw ServiceExceptionUtil.get(ErrorCodeConstants.USER_IS_EXISTS);
         }
-    }
-
-    @Override
-    public Set<Long> getUserRoleList(Long userId) {
-        return null;
-    }
-
-    @Override
-    public void assignUserRole(Long userId, Set<Long> roleIds) {
-
     }
 }

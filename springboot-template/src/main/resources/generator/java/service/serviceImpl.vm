@@ -5,15 +5,13 @@ import javax.annotation.Resource;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.*;
-import ${basePackage}.modules.${table.moduleName}.controller.${table.businessName}.vo.*;
-import ${basePackage}.modules.${table.moduleName}.dal.dataobject.${table.businessName}.${table.className}DO;
+import ${basePackage}.controller.${table.moduleName}.${table.businessName}.vo.*;
+import ${basePackage}.dal.dataobject.${table.moduleName}.${table.businessName}.${table.className}DO;
 import ${PageResultClassName};
 
-import ${basePackage}.modules.${table.moduleName}.convert.${table.businessName}.${table.className}Convert;
-import ${basePackage}.modules.${table.moduleName}.dal.mysql.${table.businessName}.${table.className}Mapper;
-import ${basePackage}.modules.${table.moduleName}.service.${table.businessName}.${table.className}Service;
-
-import static ${basePackage}.modules.${table.moduleName}.enums.${simpleModuleName_upperFirst}ErrorCodeConstants.*;
+import ${basePackage}.convert.${table.moduleName}.${table.businessName}.${table.className}Convert;
+import ${basePackage}.dal.mysql.${table.moduleName}.${table.businessName}.${table.className}Mapper;
+import ${basePackage}.service.${table.moduleName}.${table.businessName}.${table.className}Service;
 
 /**
 * ${table.classComment} Service 实现类
@@ -24,63 +22,55 @@ import static ${basePackage}.modules.${table.moduleName}.enums.${simpleModuleNam
 @Validated
 public class ${table.className}ServiceImpl implements ${table.className}Service {
 
-@Resource
-private ${table.className}Mapper ${classNameVar}Mapper;
+    @Resource
+    private ${table.className}Mapper ${classNameVar}Mapper;
 
-@Override
-public ${primaryColumn.javaType} create${simpleClassName}(${table.className}CreateReqVO createReqVO) {
-// 插入
-${table.className}DO ${classNameVar} = ${table.className}Convert.INSTANCE.convert(createReqVO);
-${classNameVar}Mapper.insert(${classNameVar});
-// 返回
-return ${classNameVar}.getId();
-}
-
-@Override
-public void update${simpleClassName}(${table.className}UpdateReqVO updateReqVO) {
-// 校验存在
-this.validate${simpleClassName}Exists(updateReqVO.getId());
-// 更新
-${table.className}DO updateObj = ${table.className}Convert.INSTANCE.convert(updateReqVO);
-${classNameVar}Mapper.updateById(updateObj);
-}
-
-@Override
-public void delete${simpleClassName}(${primaryColumn.javaType} id) {
-// 校验存在
-this.validate${simpleClassName}Exists(id);
-// 删除
-${classNameVar}Mapper.deleteById(id);
-}
-
-@Override
-public void verify(String name) {
-if (${classNameVar}Mapper.selectByName(id) != null) {
-throw ServiceExceptionUtil.get(${simpleClassName_underlineCase.toUpperCase()}_EXISTS);
-}
-}
-
-@Override
-public ${table.className}DO get${simpleClassName}(${primaryColumn.javaType} id) {
-return ${classNameVar}Mapper.selectById(id);
-}
-
-@Override
-public List
-<${table.className}DO> get${simpleClassName}List(Collection<${primaryColumn.javaType}> ids) {
-    return ${classNameVar}Mapper.selectBatchIds(ids);
+    @Override
+    public ${primaryColumn.javaType} create${simpleClassName}(${table.className}CreateReqVO createReqVO) {
+        // 插入
+        ${table.className}DO ${classNameVar} = ${table.className}Convert.INSTANCE.convert(createReqVO);
+        ${classNameVar}Mapper.insert(${classNameVar});
+        // 返回
+        return ${classNameVar}.getId();
     }
 
     @Override
-    public PageResult
-    <${table.className}DO> get${simpleClassName}Page(${table.className}PageReqVO pageReqVO) {
-        return ${classNameVar}Mapper.selectPage(pageReqVO);
+    public void update${simpleClassName}(${table.className}UpdateReqVO updateReqVO) {
+        // 校验存在
+        this.validate${simpleClassName}Exists(updateReqVO.getId());
+        // 更新
+        ${table.className}DO updateObj = ${table.className}Convert.INSTANCE.convert(updateReqVO);
+        ${classNameVar}Mapper.updateById(updateObj);
+    }
+
+    @Override
+    public void delete${simpleClassName}(${primaryColumn.javaType} id) {
+        // 校验存在
+        this.validate${simpleClassName}Exists(id);
+        // 删除
+        ${classNameVar}Mapper.deleteById(id);
+    }
+
+    @Override
+    public void verify(String name) {
+    if (${classNameVar}Mapper.selectByName(id) != null) {
+        throw ServiceExceptionUtil.get(${simpleClassName_underlineCase.toUpperCase()}_EXISTS);
         }
+    }
 
-        @Override
-        public List
-        <${table.className}DO> get${simpleClassName}List(${table.className}ExportReqVO exportReqVO) {
-            return ${classNameVar}Mapper.selectList(exportReqVO);
-            }
+    @Override
+    public ${table.className}DO get${simpleClassName}(${primaryColumn.javaType} id) {
+        return ${classNameVar}Mapper.selectById(id);
+    }
 
-            }
+    @Override
+    public List<${table.className}DO> get${simpleClassName}List(Collection<${primaryColumn.javaType}> ids) {
+        return ${classNameVar}Mapper.selectBatchIds(ids);
+    }
+
+    @Override
+    public PageResult<${table.className}DO> get${simpleClassName}Page(${table.className}PageReqVO pageReqVO) {
+        return ${classNameVar}Mapper.selectPage(pageReqVO);
+    }
+
+}

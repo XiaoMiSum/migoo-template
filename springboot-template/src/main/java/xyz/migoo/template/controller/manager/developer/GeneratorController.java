@@ -7,10 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.framework.common.pojo.Result;
 import xyz.migoo.framework.common.util.servlet.ServletUtils;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenDetailRespVO;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenPreviewRespVO;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenTableQueryReqVO;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenTableRespVO;
+import xyz.migoo.template.controller.manager.developer.vo.*;
 import xyz.migoo.template.convert.manager.developer.GeneratorConvert;
 import xyz.migoo.template.service.manager.developer.generator.GeneratorService;
 
@@ -30,7 +27,7 @@ public class GeneratorController {
     @Resource
     private GeneratorService generatorService;
 
-    @GetMapping("")
+    @GetMapping
     @PreAuthorize("@ss.hasPermission('developer:generator:query')")
     public Result<PageResult<CodegenTableRespVO>> getPage(@Valid CodegenTableQueryReqVO pageReqVO) {
         return Result.getSuccessful(GeneratorConvert.INSTANCE.convert(generatorService.getPage(pageReqVO)));
@@ -38,8 +35,15 @@ public class GeneratorController {
 
     @PostMapping
     @PreAuthorize("@ss.hasPermission('developer:generator:create')")
-    public Result<?> add(@RequestBody String sql) {
+    public Result<?> add(String sql) {
         generatorService.add(sql);
+        return Result.getSuccessful();
+    }
+
+    @PutMapping
+    @PreAuthorize("@ss.hasPermission('developer:generator:edit')")
+    public Result<?> update(@Valid @RequestBody CodegenUpdateReqVO req) {
+        generatorService.update(req);
         return Result.getSuccessful();
     }
 

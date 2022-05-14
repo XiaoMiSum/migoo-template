@@ -12,6 +12,7 @@ function filterAsyncRouter(asyncRouterMap, isRewrite = false) {
       title: route.name,
       icon: route.icon
     }
+    route.hidden = route.visible !== 1
     // 处理 component 属性
     if (route.children) { // 父节点
       // debugger

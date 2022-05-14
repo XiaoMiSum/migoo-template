@@ -110,6 +110,8 @@
 </template>
 
 <script>
+import { getCodegenTablePage, previewCodegen, downloadCodegen, deleteCodegen, createCodegenListFromSQL } from '@/api/developer/generator'
+import { downloadZip } from '@/utils/ruoyi'
 
 // 代码高亮插件
 import hljs from 'highlight.js/lib/index'
@@ -180,12 +182,11 @@ export default {
   methods: {
     /** 查询表集合 */
     getList() {
-      /*  this.loading = true
-            getCodegenTablePage(this.queryParams).then(response => {
+      this.loading = true
+      getCodegenTablePage(this.queryParams).then(response => {
         this.tableList = response.data.list
         this.total = response.data.total
-
-      }) */
+      })
       this.loading = false
     },
     /** 搜索按钮操作 */
@@ -195,9 +196,9 @@ export default {
     },
     /** 生成代码操作 */
     handleGenTable(row) {
-      /*       downloadCodegen(row.id).then(response => {
-        this.downloadZip(response, 'codegen-' + row.tableName + '.zip')
-      }) */
+      downloadCodegen(row.id).then(response => {
+        downloadZip(response, 'generator-' + row.tableName + '.zip')
+      })
     },
     /** 同步数据库操作 */
     handleSynchDb(row) {
@@ -235,16 +236,15 @@ export default {
     },
     /** 预览按钮 */
     handlePreview(row) {
-      /*       previewCodegen(row.id).then(response => {
+      previewCodegen(row.id).then(response => {
         this.preview.data = response.data
         const files = this.handleFiles(response.data)
         console.log(files)
         this.preview.fileTree = this.handleTree(files, 'id', 'parentId', 'children',
           '/') // "/" 为根节点
-        console.log(this.preview.fileTree)
         this.preview.activeName = response.data[0].filePath
         this.preview.open = true
-      }) */
+      })
     },
     /** 高亮显示 */
     highlightedCode(item) {
@@ -286,8 +286,7 @@ export default {
     },
     /** 修改按钮操作 */
     handleEditTable(row) {
-      const tableId = row.id
-      this.$router.push('/codegen/edit/' + tableId)
+      this.$router.push({ path: '/manager/developer/generator/edit/' + row.id })
     },
     /** 删除按钮操作 */
     handleDelete(row) {
@@ -297,7 +296,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(function() {
-        /*  return deleteCodegen(tableIds) */
+        return deleteCodegen(tableIds)
       }).then(() => {
         this.getList()
         this.msgSuccess('删除成功')
@@ -324,20 +323,12 @@ export default {
         }
         // 修改的提交
         const form = this.importSQL.form
-        if (form.tableId != null) {
-          /*           syncCodegenFromSQL(form.tableId, form.sql).then(response => {
-            this.msgSuccess('同步成功')
-            this.importSQL.open = false
-            this.getList()
-          }) */
-          return
-        }
         // 添加的提交
-        /*         createCodegenListFromSQL(form).then(response => {
+        createCodegenListFromSQL(form).then(response => {
           this.msgSuccess('导入成功')
           this.importSQL.open = false
           this.getList()
-        }) */
+        })
       })
     }
   }

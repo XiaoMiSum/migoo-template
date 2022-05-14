@@ -5,7 +5,6 @@ import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.template.dal.dataobject.BaseUser;
 
 import java.util.List;
-import java.util.Set;
 
 public interface UserService<T extends BaseUser, E extends PageParam> {
 
@@ -24,8 +23,4 @@ public interface UserService<T extends BaseUser, E extends PageParam> {
     void remove(Long id);
 
     void verify(String phone);
-
-    Set<Long> getUserRoleList(Long userId);
-
-    void assignUserRole(Long userId, Set<Long> roleIds);
 }

@@ -2,16 +2,18 @@ package xyz.migoo.template.controller.manager.sys.post;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import xyz.migoo.framework.common.enums.CommonStatusEnum;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.framework.common.pojo.Result;
-import xyz.migoo.template.controller.manager.sys.post.vo.PostAddReqVO;
-import xyz.migoo.template.controller.manager.sys.post.vo.PostQueryReqVO;
-import xyz.migoo.template.controller.manager.sys.post.vo.PostRespVO;
-import xyz.migoo.template.controller.manager.sys.post.vo.PostUpdateReqVO;
+import xyz.migoo.template.controller.manager.sys.post.vo.*;
 import xyz.migoo.template.convert.manager.sys.PostConvert;
+import xyz.migoo.template.dal.dataobject.sys.Post;
 import xyz.migoo.template.service.manager.sys.post.PostService;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @RestController
 @RequestMapping("/post")
@@ -22,14 +24,16 @@ public class PostController {
 
     @GetMapping
     @PreAuthorize("@ss.hasPermission('system:post:query')")
-    public Result<PageResult<PostRespVO>> getUserPage(PostQueryReqVO req) {
-        return Result.getSuccessful(PostConvert.INSTANCE.convert(postService.getPage(req)));
+    public Result<PageResult<PostRespVO>> getPage(PostQueryReqVO req) {
+        PageResult<PostRespVO> result = PostConvert.INSTANCE.convert(postService.getPage(req));
+        result.getList().sort(Comparator.comparing(PostRespVO::getSort));
+        return Result.getSuccessful(result);
     }
 
     @PostMapping
     @PreAuthorize("@ss.hasPermission('system:post:add')")
     public Result<?> add(@RequestBody PostAddReqVO req) {
-        postService.verify(req.getCode());
+        postService.verify(req.getCode(), req.getName(), null);
         postService.add(PostConvert.INSTANCE.convert(req));
         return Result.getSuccessful();
     }
@@ -37,6 +41,7 @@ public class PostController {
     @PutMapping
     @PreAuthorize("@ss.hasPermission('system:post:edit')")
     public Result<?> update(@RequestBody PostUpdateReqVO req) {
+        postService.verify(req.getCode(), req.getName(), req.getId());
         postService.update(PostConvert.INSTANCE.convert(req));
         return Result.getSuccessful();
     }
@@ -44,8 +49,7 @@ public class PostController {
     @GetMapping("/{id}")
     @PreAuthorize("@ss.hasPermission('system:post:edit')")
     public Result<?> get(@PathVariable("id") Long id) {
-        postService.get(id);
-        return Result.getSuccessful();
+        return Result.getSuccessful(PostConvert.INSTANCE.convert(postService.get(id)));
     }
 
     @DeleteMapping("/{id}")
@@ -53,5 +57,14 @@ public class PostController {
     public Result<?> remove(@PathVariable("id") Long id) {
         postService.remove(id);
         return Result.getSuccessful();
+    }
+
+    @GetMapping("/simple")
+    public Result<List<PostSimpleRespVO>> getSimplePosts() {
+        // 获得岗位列表，只要开启状态的
+        List<Post> list = postService.getList(null, Collections.singleton(CommonStatusEnum.ENABLE.getStatus()));
+        // 排序后，返回给前端
+        list.sort(Comparator.comparing(Post::getSort));
+        return Result.getSuccessful(PostConvert.INSTANCE.convert(list));
     }
 }

@@ -18,20 +18,20 @@ public class MemberController {
     @Resource(name = "memberServiceImpl")
     private UserService<Member, MemberQueryReqVO> memberService;
 
-    @GetMapping("")
+    @GetMapping
     public Result<PageResult<MemberRespVO>> getUserPage(MemberQueryReqVO req) {
         // 获得会员分页列表
         return Result.getSuccessful(MemberConvert.INSTANCE.convert(memberService.getPage(req)));
     }
 
-    @PostMapping("")
+    @PostMapping
     public Result<?> addUser(@RequestBody MemberAddReqVO reqVO) {
         memberService.verify(reqVO.getPhone());
         memberService.add(MemberConvert.INSTANCE.convert(reqVO));
         return Result.getSuccessful();
     }
 
-    @PutMapping("")
+    @PutMapping
     public Result<?> updateUser(@RequestBody MemberUpdateReqVO reqVO) {
         memberService.update(MemberConvert.INSTANCE.convert(reqVO));
         return Result.getSuccessful();

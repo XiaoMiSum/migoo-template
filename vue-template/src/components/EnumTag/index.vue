@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { CommonStatusEnumList } from '@/utils/enums'
+import { COMMON_STATUS_ENUMS } from '@/utils/enums'
 
 const tags = { 0: 'danger', 1: 'success' }
 export default {
@@ -17,7 +17,7 @@ export default {
     enums: {
       type: Array,
       require: false,
-      default: CommonStatusEnumList
+      default: COMMON_STATUS_ENUMS
     },
     value: {
       type: Number,
@@ -31,11 +31,12 @@ export default {
       return type || 'info'
     },
     getLabel() {
-      this.enums.forEach(item => {
+      for (let index = 0; index < this.enums.length; index++) {
+        const item = this.enums[index]
         if (item.key === this.value) {
           return item.label
         }
-      })
+      }
       return '未知'
     }
   }

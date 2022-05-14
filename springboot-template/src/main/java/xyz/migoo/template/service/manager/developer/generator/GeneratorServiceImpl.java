@@ -8,6 +8,8 @@ import xyz.migoo.framework.common.exception.ErrorCode;
 import xyz.migoo.framework.common.exception.util.ServiceExceptionUtil;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.template.controller.manager.developer.vo.CodegenTableQueryReqVO;
+import xyz.migoo.template.controller.manager.developer.vo.CodegenUpdateReqVO;
+import xyz.migoo.template.convert.manager.developer.GeneratorConvert;
 import xyz.migoo.template.dal.dataobject.developer.gennerator.CodegenColumn;
 import xyz.migoo.template.dal.dataobject.developer.gennerator.CodegenTable;
 import xyz.migoo.template.dal.mapper.developer.CodegenColumnMapper;
@@ -55,7 +57,8 @@ public class GeneratorServiceImpl implements GeneratorService {
                 codegenColumnMapper.insert(column);
             });
         } catch (Exception ex) {
-            throw ServiceExceptionUtil.get(new ErrorCode(0, "导入失败"));
+            ex.printStackTrace();
+            throw ServiceExceptionUtil.get(new ErrorCode(999, "导入失败"));
         }
     }
 
@@ -85,6 +88,20 @@ public class GeneratorServiceImpl implements GeneratorService {
 
         // 执行生成
         return generatorEngine.execute(table, columns);
+    }
+
+    @Override
+    public void update(CodegenUpdateReqVO req) {
+        // 校验是否已经存在
+        if (codegenTableMapper.selectById(req.getTable().getId()) == null) {
+            throw ServiceExceptionUtil.get(CODEGEN_TABLE_NOT_EXISTS);
+        }
+        // 更新 table 表定义
+        CodegenTable codegenTable = GeneratorConvert.INSTANCE.convert(req.getTable());
+        codegenTableMapper.updateById(codegenTable);
+        // 更新 column 字段定义
+        List<CodegenColumn> CodegenColumns = GeneratorConvert.INSTANCE.convert02(req.getColumns());
+        CodegenColumns.forEach(column -> codegenColumnMapper.updateById(column));
     }
 
     private void dropIfExists(String tableName) {

@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 12/05/2022 20:52:56
+ Date: 14/05/2022 14:01:06
 */
 
 SET NAMES utf8mb4;
@@ -47,12 +47,23 @@ CREATE TABLE `developer_codegen_column` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='代码生成表字段定义';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='代码生成表字段定义';
 
 -- ----------------------------
 -- Records of developer_codegen_column
 -- ----------------------------
 BEGIN;
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (1, 1, 'id', 'bigint', '', b'0', b'1', '1', 1, 'Long', 'id', '', NULL, b'0', b'1', b'0', '=', b'1', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (2, 1, 'phone', 'varchar(12)', '用户手机号，登录名', b'0', b'0', '0', 2, 'String', 'phone', '', NULL, b'1', b'1', b'1', '=', b'1', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (3, 1, 'password', 'varchar(255)', '密码', b'0', b'0', '0', 3, 'String', 'password', '', NULL, b'1', b'1', b'1', '=', b'1', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (4, 1, 'name', 'varchar(255)', '真实姓名', b'0', b'0', '0', 4, 'String', 'name', '', NULL, b'1', b'1', b'1', 'LIKE', b'1', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (5, 1, 'avatar', 'varchar(512)', '头像', b'1', b'0', '0', 5, 'String', 'avatar', '', NULL, b'1', b'1', b'1', '=', b'1', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (6, 1, 'status', 'tinyint', '状态', b'0', b'0', '0', 6, 'Integer', 'status', '', NULL, b'1', b'1', b'1', '=', b'1', 'radio', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (7, 1, 'deleted', 'tinyint(1)', '', b'0', b'0', '0', 7, 'Integer', 'deleted', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (8, 1, 'creator', 'varchar(64)', '', b'1', b'0', '0', 8, 'String', 'creator', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (9, 1, 'create_time', 'datetime', '', b'1', b'0', '0', 9, 'Date', 'createTime', '', NULL, b'0', b'0', b'1', 'BETWEEN', b'1', 'datetime', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (10, 1, 'updater', 'varchar(64)', '', b'1', b'0', '0', 10, 'String', 'updater', '', NULL, b'0', b'0', b'0', '=', b'0', 'input', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
+INSERT INTO `developer_codegen_column` (`id`, `table_id`, `column_name`, `column_type`, `column_comment`, `nullable`, `primary_key`, `auto_Increment`, `ordinal_position`, `java_type`, `java_field`, `dict_type`, `example`, `create_operation`, `update_operation`, `list_operation`, `list_operation_condition`, `list_operation_result`, `html_type`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (11, 1, 'update_time', 'datetime', '', b'1', b'0', '0', 11, 'Date', 'updateTime', '', NULL, b'0', b'0', b'0', 'BETWEEN', b'0', 'datetime', '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
 COMMIT;
 
 -- ----------------------------
@@ -78,12 +89,13 @@ CREATE TABLE `developer_codegen_table` (
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '是否删除',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='代码生成表定义';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='代码生成表定义';
 
 -- ----------------------------
 -- Records of developer_codegen_table
 -- ----------------------------
 BEGIN;
+INSERT INTO `developer_codegen_table` (`id`, `import_type`, `table_name`, `table_comment`, `remark`, `module_name`, `business_name`, `class_name`, `class_comment`, `author`, `template_type`, `parent_menu_id`, `creator`, `create_time`, `updater`, `update_time`, `deleted`) VALUES (1, 1, 'member', '会员信息表', NULL, 'member', 'member', 'Member', '会员信息', 'xiaomi', 1, NULL, '奥丁1', '2022-05-14 12:48:52', '奥丁1', '2022-05-14 12:48:52', b'0');
 COMMIT;
 
 -- ----------------------------
@@ -103,7 +115,7 @@ CREATE TABLE `member` (
   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='会员信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='会员信息表';
 
 -- ----------------------------
 -- Records of member
@@ -129,7 +141,7 @@ CREATE TABLE `sys_dept` (
   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='部门信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='部门信息表';
 
 -- ----------------------------
 -- Records of sys_dept
@@ -163,7 +175,7 @@ CREATE TABLE `sys_menu` (
   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2004 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2006 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -177,7 +189,7 @@ INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (102, '部门管理', 'system:dept:query', 2, 2, 1, 'dept', 'dept', 'manager/system/dept/index', 1, 1, 1, 0, '', '2022-04-29 18:45:02', '奥丁1', '2022-05-01 16:07:04');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (103, '岗位管理', 'system:post:query', 2, 3, 1, 'post', 'post', 'manager/system/post/index', 1, 1, 1, 0, '', '2022-04-29 18:45:02', '奥丁1', '2022-05-01 16:16:37');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (104, '菜单管理', 'system:menu:query', 2, 4, 1, 'menu', 'menu', 'manager/system/menu/index', 1, 1, 1, 0, '', '2022-04-29 18:45:02', '奥丁1', '2022-05-01 16:18:43');
-INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (200, '代码生成', 'developer:generator', 2, 0, 2, 'generator', 'code', 'manager/developer/generator/index', 1, 1, 1, 0, '', '2022-04-29 18:45:02', '奥丁1', '2022-05-01 13:53:46');
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (200, '代码生成', 'developer:generator:query', 2, 0, 2, 'generator', 'code', 'manager/developer/generator/index', 1, 1, 1, 0, '', '2022-04-29 18:45:02', '超级管理员', '2022-05-14 13:40:51');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (300, '工作台', 'dashboard', 2, 0, 3, 'index', 'dashboard', 'manager/dashboard/index', 1, 1, 1, 0, '', NULL, '奥丁1', '2022-05-01 13:34:23');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1000, '新增', 'system:user:add', 3, 0, 100, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 13:55:34', '奥丁1', '2022-05-01 16:27:05');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1001, '修改', 'system:user:edit', 3, 1, 100, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 13:55:59', '奥丁1', '2022-05-01 16:27:08');
@@ -199,8 +211,38 @@ INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1042, '删除', 'system:menu:remove', 3, 2, 104, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:19:56', '奥丁1', '2022-05-01 16:28:57');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2000, '新增', 'developer:generator:add', 3, 0, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:21:44', '奥丁1', '2022-05-01 16:29:12');
 INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2001, '修改', 'developer:generator:edit', 3, 1, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:23:11', '奥丁1', '2022-05-01 16:29:18');
-INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2002, '预览代码', 'developer:generator:preview', 3, 2, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:23:26', '奥丁1', '2022-05-01 16:29:22');
-INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2003, '下载代码', 'developer:generator:download', 3, 3, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:23:51', '奥丁1', '2022-05-01 16:29:26');
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2002, '删除', 'developer:generator:remove', 3, 2, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-14 12:49:41', '奥丁1', '2022-05-14 13:06:39');
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2003, '预览代码', 'developer:generator:preview', 3, 3, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:23:26', '奥丁1', '2022-05-14 13:06:35');
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2004, '下载代码', 'developer:generator:download', 3, 4, 200, '', '', '', 1, 1, 1, 0, '奥丁1', '2022-05-01 16:23:51', '奥丁1', '2022-05-14 13:06:32');
+INSERT INTO `sys_menu` (`id`, `name`, `permission`, `menu_type`, `sort`, `parent_id`, `path`, `icon`, `component`, `status`, `visible`, `keep_alive`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2005, '代码生成编辑', '', 2, 1, 2, 'generator/edit/:id', 'code', 'manager/developer/generator/editTable', 1, 0, 1, 0, '奥丁1', '2022-05-14 13:18:25', '超级管理员', '2022-05-14 13:43:10');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for sys_post
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_post`;
+CREATE TABLE `sys_post` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(12) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位名称',
+  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '岗位编码',
+  `sort` int NOT NULL COMMENT '排序',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态：1正常；0停用',
+  `remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='岗位信息表';
+
+-- ----------------------------
+-- Records of sys_post
+-- ----------------------------
+BEGIN;
+INSERT INTO `sys_post` (`id`, `name`, `code`, `sort`, `status`, `remark`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1, '董事长', 'chairman', 0, 1, '董事长', 0, '系统', '2022-04-29 20:43:45', '系统', '2022-04-29 20:44:34');
+INSERT INTO `sys_post` (`id`, `name`, `code`, `sort`, `status`, `remark`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2, '研发工程师', 'developer', 1, 1, '研发工程师', 0, '系统', '2022-04-29 20:43:45', '系统', '2022-04-29 20:44:34');
+INSERT INTO `sys_post` (`id`, `name`, `code`, `sort`, `status`, `remark`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (3, '运营', 'operations', 2, 1, '运营', 0, '系统', '2022-04-29 20:43:45', '系统', '2022-04-29 20:44:34');
 COMMIT;
 
 -- ----------------------------
@@ -221,13 +263,14 @@ CREATE TABLE `sys_role` (
   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色信息表';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_role` (`id`, `name`, `code`, `sort`, `status`, `type`, `remark`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1, '超级管理员', 'super_admin', 0, 1, 1, '超级管理员', 0, '系统', '2022-04-29 20:43:45', '系统', '2022-04-29 20:44:34');
+INSERT INTO `sys_role` (`id`, `name`, `code`, `sort`, `status`, `type`, `remark`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2, '开发者', 'developer', 1, 1, 2, '开发者', 0, '奥丁1', '2022-05-14 13:14:56', '奥丁1', '2022-05-14 13:14:56');
 COMMIT;
 
 -- ----------------------------
@@ -244,7 +287,7 @@ CREATE TABLE `sys_role_menu` (
   `updater` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='角色菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='角色菜单表';
 
 -- ----------------------------
 -- Records of sys_role_menu
@@ -260,6 +303,16 @@ INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (8, 1, 104, 0, '系统', '2022-04-29 20:46:02', '系统', '2022-04-29 22:17:28');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (9, 1, 200, 0, '系统', '2022-04-29 20:46:02', '系统', '2022-04-29 22:17:26');
 INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (10, 1, 300, 0, '系统', '2022-04-29 20:46:02', '系统', '2022-04-29 22:17:26');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (11, 2, 2000, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (12, 2, 2001, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (13, 2, 2, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (14, 2, 2002, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (15, 2, 2003, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (16, 2, 2004, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (17, 2, 200, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:15:11');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (18, 2, 3, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:28:26');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (19, 2, 300, 0, '奥丁1', '2022-05-14 13:15:11', '奥丁1', '2022-05-14 13:28:30');
+INSERT INTO `sys_role_menu` (`id`, `role_id`, `menu_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (20, 2, 2005, 0, '超级管理员', '2022-05-14 13:34:43', '超级管理员', '2022-05-14 13:34:43');
 COMMIT;
 
 -- ----------------------------
@@ -275,23 +328,22 @@ CREATE TABLE `sys_user` (
   `status` tinyint NOT NULL DEFAULT '1' COMMENT '状态0禁用、1启用',
   `gender` tinyint DEFAULT NULL COMMENT '性别 1男 2女',
   `dept_id` bigint DEFAULT NULL COMMENT '部门编号',
-  `post_ids` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '岗位编号',
-  `email` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱地址',
+  `post_ids` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '岗位编号',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT '邮箱地址',
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   `creator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` (`id`, `phone`, `password`, `name`, `avatar`, `status`, `gender`, `dept_id`, `post_ids`, `email`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1, 'admin', '$2a$10$DmzOXDEemQOXtQjEHDnMqOcMLi0wjuYluTDSAEvA3VpYOAn9Zh3KC', '奥丁1', '', 1, 1, 1, NULL, NULL, 0, '1', '2022-04-29 16:06:56', 'admin', '2022-05-01 16:29:55');
-INSERT INTO `sys_user` (`id`, `phone`, `password`, `name`, `avatar`, `status`, `gender`, `dept_id`, `post_ids`, `email`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2, '13111111111', '12345678', 'staff1', NULL, 1, 0, 2, '[]', 'mail@cc.com', 0, '奥丁1', '2022-05-01 17:53:00', '奥丁1', '2022-05-01 18:10:51');
-INSERT INTO `sys_user` (`id`, `phone`, `password`, `name`, `avatar`, `status`, `gender`, `dept_id`, `post_ids`, `email`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (3, '13111111112', '$2a$10$jxCki/K6kgbb1w./v8KGJ.CqKeMPnXO.2i6fCuufzVTkLodFq/kO6', 'staff2', NULL, 1, NULL, NULL, '[]', NULL, 0, '奥丁1', '2022-05-01 18:23:48', '奥丁1', '2022-05-01 18:23:48');
+INSERT INTO `sys_user` (`id`, `phone`, `password`, `name`, `avatar`, `status`, `gender`, `dept_id`, `post_ids`, `email`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1, 'superadmin', '$2a$10$DmzOXDEemQOXtQjEHDnMqOcMLi0wjuYluTDSAEvA3VpYOAn9Zh3KC', '超级管理员', '', 1, 1, 1, NULL, NULL, 0, '1', '2022-04-29 16:06:56', 'admin', '2022-05-14 13:22:56');
+INSERT INTO `sys_user` (`id`, `phone`, `password`, `name`, `avatar`, `status`, `gender`, `dept_id`, `post_ids`, `email`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2, 'developer', '$2a$10$DmzOXDEemQOXtQjEHDnMqOcMLi0wjuYluTDSAEvA3VpYOAn9Zh3KC', '开发者', NULL, 1, 0, 2, '[]', 'mail@cc.com', 0, '奥丁1', '2022-05-01 17:53:00', '奥丁1', '2022-05-14 13:22:43');
 COMMIT;
 
 -- ----------------------------
@@ -308,13 +360,14 @@ CREATE TABLE `sys_user_role` (
   `updater` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='用户角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户角色表';
 
 -- ----------------------------
 -- Records of sys_user_role
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (1, 1, 1, 0, '系统', '2022-04-29 20:54:56', '系统', '2022-04-29 20:55:01');
+INSERT INTO `sys_user_role` (`id`, `user_id`, `role_id`, `deleted`, `creator`, `create_time`, `updater`, `update_time`) VALUES (2, 2, 2, 0, '系统', '2022-05-14 13:21:55', '系统', '2022-05-14 13:22:01');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

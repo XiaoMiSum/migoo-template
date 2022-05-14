@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import xyz.migoo.template.dal.dataobject.IdEnhanceDO;
 
-@TableName(value = "infra_codegen_column", autoResultMap = true)
+@TableName(value = "developer_codegen_column", autoResultMap = true)
 @Data
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
@@ -28,7 +28,7 @@ public class CodegenColumn extends IdEnhanceDO {
     /**
      * 字段类型
      */
-    private String dataType;
+    private String columnType;
     /**
      * 字段描述
      */
