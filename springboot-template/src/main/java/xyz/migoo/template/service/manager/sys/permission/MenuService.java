@@ -41,9 +41,11 @@ public interface MenuService {
      *
      * @param menuTypes     菜单类型数组
      * @param menusStatuses 菜单状态数组
+     * @param pageTypes     页面类型数组
      * @return 菜单列表
      */
-    List<Menu> listMenusFromCache(Collection<Integer> menuTypes, Collection<Integer> menusStatuses);
+    List<Menu> listMenusFromCache(Collection<Integer> menuTypes, Collection<Integer> menusStatuses,
+                                  Collection<Integer> pageTypes);
 
     /**
      * 获得指定编号的菜单数组，从缓存中
@@ -53,10 +55,11 @@ public interface MenuService {
      * @param menuIds       菜单编号数组
      * @param menuTypes     菜单类型数组
      * @param menusStatuses 菜单状态数组
+     * @param pageTypes     页面类型数组
      * @return 菜单数组
      */
     List<Menu> listMenusFromCache(Collection<Long> menuIds, Collection<Integer> menuTypes,
-                                  Collection<Integer> menusStatuses);
+                                  Collection<Integer> menusStatuses, Collection<Integer> pageTypes);
 
     /**
      * 获得权限对应的菜单数组

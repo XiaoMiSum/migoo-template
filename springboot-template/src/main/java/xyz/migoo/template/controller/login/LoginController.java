@@ -71,7 +71,8 @@ public class LoginController {
         List<Menu> menuList = permissionService.getRoleMenusFromCache(
                 roleIds,
                 SetUtils.asSet(MenuTypeEnum.DIR.getType(), MenuTypeEnum.MENU.getType(), MenuTypeEnum.BUTTON.getType()),
-                SetUtils.asSet(CommonStatusEnum.ENABLE.getStatus()));
+                SetUtils.asSet(CommonStatusEnum.ENABLE.getStatus()),
+                LoginUser.Client.isAdminClient(loginUser.getClient()));
         return Result.getSuccessful(AuthConvert.INSTANCE.convert(user, menuList));
     }
 
@@ -85,7 +86,8 @@ public class LoginController {
         List<Menu> menuList = permissionService.getRoleMenusFromCache(
                 roleIds,
                 SetUtils.asSet(MenuTypeEnum.DIR.getType(), MenuTypeEnum.MENU.getType()),
-                SetUtils.asSet(CommonStatusEnum.ENABLE.getStatus()));
+                SetUtils.asSet(CommonStatusEnum.ENABLE.getStatus()),
+                LoginUser.Client.isAdminClient(loginUser.getClient()));
         // 转换成 Tree 结构返回
         return Result.getSuccessful(AuthConvert.INSTANCE.convert(menuList));
     }

@@ -36,4 +36,9 @@ public abstract class MenuBaseVO {
     private Integer visible;
 
     private Integer keepAlive;
+
+    /**
+     * 页面类型
+     */
+    private Integer pageType;
 }

@@ -82,8 +82,6 @@ export default {
 
       // if set path, the sidebar will highlight the path you set
       if (meta) {
-        console.log(this.permission_routes)
-        console.log(this.default_routes)
         if (meta.activeMenu) {
           return meta.activeMenu
         }

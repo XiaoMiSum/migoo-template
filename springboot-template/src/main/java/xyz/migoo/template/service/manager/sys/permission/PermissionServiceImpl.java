@@ -22,6 +22,7 @@ import xyz.migoo.template.dal.dataobject.sys.RoleMenu;
 import xyz.migoo.template.dal.dataobject.sys.UserRole;
 import xyz.migoo.template.dal.mapper.sys.RoleMenuMapper;
 import xyz.migoo.template.dal.mapper.sys.UserRoleMapper;
+import xyz.migoo.template.enums.PageTypeEnum;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -125,18 +126,19 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public List<Menu> getRoleMenusFromCache(Collection<Long> roleIds, Collection<Integer> menuTypes,
-                                            Collection<Integer> menusStatuses) {
+                                            Collection<Integer> menusStatuses, boolean isAdminClient) {
         // 任一一个参数为空时，不返回任何菜单
         if (CollectionUtils.isAnyEmpty(roleIds, menusStatuses, menusStatuses)) {
             return Collections.emptyList();
         }
-        // 判断角色是否包含管理员
-        // 获得角色拥有的菜单关联
+        // 判断客户端类型 过滤页面
+        Collection<Integer> pageTypes = SetUtils.asSet((isAdminClient ? PageTypeEnum.MANAGER : PageTypeEnum.MEMBER).getType());
+        // 判断角色是否包含管理员 获得角色拥有的菜单关联
         if (roleService.hasAnyAdmin(roleService.getRolesFromCache(roleIds))) {
-            return menuService.listMenusFromCache(menuTypes, menusStatuses);
+            return menuService.listMenusFromCache(menuTypes, menusStatuses, pageTypes);
         }
         List<Long> menuIds = MapUtils.getList(roleMenuCache, roleIds);
-        return menuService.listMenusFromCache(menuIds, menuTypes, menusStatuses);
+        return menuService.listMenusFromCache(menuIds, menuTypes, menusStatuses, pageTypes);
     }
 
     @Override

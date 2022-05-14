@@ -23,10 +23,11 @@ public interface PermissionService extends SecurityPermissionFrameworkService {
      * @param roleIds       角色编号数组
      * @param menuTypes     菜单类型数组
      * @param menusStatuses 菜单状态数组
+     * @param isAdminClient 是否管理员客户端
      * @return 菜单列表
      */
     List<Menu> getRoleMenusFromCache(Collection<Long> roleIds, Collection<Integer> menuTypes,
-                                     Collection<Integer> menusStatuses);
+                                     Collection<Integer> menusStatuses, boolean isAdminClient);
 
     /**
      * 获得用户拥有的角色编号集合

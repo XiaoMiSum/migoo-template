@@ -41,8 +41,8 @@
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column prop="name" label="菜单名称" :show-overflow-tooltip="true" width="250" />
-      <el-table-column prop="icon" label="图标" align="center" width="100">
+      <el-table-column prop="name" label="菜单名称" :show-overflow-tooltip="true" width="200" />
+      <el-table-column prop="icon" label="图标" align="center" width="80">
         <template slot-scope="scope">
           <svg-icon :icon-class="scope.row.icon" />
         </template>
@@ -50,6 +50,7 @@
       <el-table-column prop="sort" label="排序" width="60" />
       <el-table-column prop="permission" label="权限标识" :show-overflow-tooltip="true" />
       <el-table-column prop="component" label="组件路径" :show-overflow-tooltip="true" />
+      <el-table-column prop="pageType" align="center" width="80" label="页面类型" :formatter="pageTypeFormatter" :show-overflow-tooltip="true" />
       <el-table-column prop="status" align="center" label="状态" width="80">
         <template slot-scope="scope">
           <enum-tag :enums="COMMON_STATUS_ENUMS" :value="scope.row.status" />
@@ -213,6 +214,20 @@
               </el-radio-group>
             </el-form-item>
           </el-col>
+          <el-col :span="12">
+            <el-form-item v-if="form.type !== 3" label="显示状态">
+              <span slot="label">
+                <el-tooltip content="页面类型，控制页面在哪个客户端中展示" placement="top">
+                  <i class="el-icon-question" />
+                </el-tooltip>
+                页面类型
+              </span>
+              <el-radio-group v-model="form.pageType">
+                <el-radio :key="true" :label="1">会员页面</el-radio>
+                <el-radio :key="false" :label="2">后台页面</el-radio>
+              </el-radio-group>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -300,6 +315,10 @@ export default {
         this.loading = false
       })
     },
+    // 页面类型转换
+    pageTypeFormatter(row, column) {
+      return row.pageType === 1 ? '会员' : row.pageType === 2 ? '后台' : '未知'
+    },
     /** 转换菜单数据结构 */
     normalizer(node) {
       if (node.children && !node.children.length) {
@@ -336,7 +355,8 @@ export default {
         sort: undefined,
         status: COMMON_STATUS_ENUM.ENABLE,
         visible: 1,
-        keepAlive: 1
+        keepAlive: 1,
+        pageType: 2
       }
       this.resetForm('form')
     },
@@ -398,7 +418,6 @@ export default {
               }
             }
           }
-
           // 提交
           if (this.form.id) {
             updateData(this.form).then(response => {

@@ -68,5 +68,9 @@ public class Menu extends IdEnhanceDO {
      * 是否缓存
      */
     private Integer keepAlive;
+    /**
+     * 是否后台页面
+     */
+    private Integer pageType;
 
 }

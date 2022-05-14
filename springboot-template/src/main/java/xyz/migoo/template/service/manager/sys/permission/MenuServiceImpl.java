@@ -148,27 +148,30 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> listMenusFromCache(Collection<Integer> menuTypes, Collection<Integer> menusStatuses) {
+    public List<Menu> listMenusFromCache(Collection<Integer> menuTypes, Collection<Integer> menusStatuses,
+                                         Collection<Integer> pageTypes) {
         // 任一一个参数为空，则返回空
         if (CollectionUtils.isAnyEmpty(menuTypes, menusStatuses)) {
             return Collections.emptyList();
         }
         // 创建新数组，避免缓存被修改
         return menuCache.values().stream().filter(menu -> menuTypes.contains(menu.getType())
-                        && menusStatuses.contains(menu.getStatus()))
+                        && menusStatuses.contains(menu.getStatus())
+                        && pageTypes.contains(menu.getPageType()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Menu> listMenusFromCache(Collection<Long> menuIds, Collection<Integer> menuTypes,
-                                         Collection<Integer> menusStatuses) {
+                                         Collection<Integer> menusStatuses, Collection<Integer> pageTypes) {
         // 任一一个参数为空，则返回空
         if (CollectionUtils.isAnyEmpty(menuIds, menuTypes, menusStatuses)) {
             return Collections.emptyList();
         }
         return menuCache.values().stream().filter(menu -> menuIds.contains(menu.getId())
                         && menuTypes.contains(menu.getType())
-                        && menusStatuses.contains(menu.getStatus()))
+                        && menusStatuses.contains(menu.getStatus())
+                        && pageTypes.contains(menu.getPageType()))
                 .collect(Collectors.toList());
     }
 
