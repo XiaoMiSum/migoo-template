@@ -10,7 +10,7 @@ import xyz.migoo.framework.web.config.WebProperties;
 import javax.annotation.Resource;
 
 @Configuration
-public class SecurityConfig {
+public class SecurityConfiguration {
 
     @Resource
     private WebProperties webProperties;

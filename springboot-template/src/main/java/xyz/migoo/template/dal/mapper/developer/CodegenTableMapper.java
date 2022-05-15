@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.framework.mybatis.core.BaseMapperX;
 import xyz.migoo.framework.mybatis.core.QueryWrapperX;
-import xyz.migoo.template.controller.manager.developer.vo.CodegenTableQueryReqVO;
+import xyz.migoo.template.controller.manager.developer.generator.vo.CodegenTableQueryReqVO;
 import xyz.migoo.template.dal.dataobject.developer.gennerator.CodegenTable;
 
 @Mapper

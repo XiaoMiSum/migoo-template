@@ -1,4 +1,4 @@
-package xyz.migoo.template.controller.manager.developer;
+package xyz.migoo.template.controller.manager.developer.generator;
 
 import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.ZipUtil;
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import xyz.migoo.framework.common.pojo.PageResult;
 import xyz.migoo.framework.common.pojo.Result;
 import xyz.migoo.framework.common.util.servlet.ServletUtils;
-import xyz.migoo.template.controller.manager.developer.vo.*;
+import xyz.migoo.template.controller.manager.developer.generator.vo.*;
 import xyz.migoo.template.convert.manager.developer.GeneratorConvert;
 import xyz.migoo.template.service.manager.developer.generator.GeneratorService;
 

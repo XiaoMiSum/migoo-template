@@ -32,7 +32,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     port: port,
-    proxy: 'http://localhost:48080/server',
+    proxy: 'http://localhost:48080',
     open: true,
     overlay: {
       warnings: false,

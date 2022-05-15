@@ -1,4 +1,4 @@
-package xyz.migoo.template.controller.manager.developer.vo;
+package xyz.migoo.template.controller.manager.developer.generator.vo;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,12 +9,10 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CodegenTableRespVO extends CodegenTableBaseVO {
+public class CodegenColumnRespVO extends CodegenColumnBaseVO {
 
     private Long id;
 
     private Date createTime;
-
-    private Date updateTime;
 
 }

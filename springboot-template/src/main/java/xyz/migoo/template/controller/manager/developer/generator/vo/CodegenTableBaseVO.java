@@ -1,4 +1,4 @@
-package xyz.migoo.template.controller.manager.developer.vo;
+package xyz.migoo.template.controller.manager.developer.generator.vo;
 
 import lombok.Data;
 
