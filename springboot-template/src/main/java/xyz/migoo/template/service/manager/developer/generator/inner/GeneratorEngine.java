@@ -59,7 +59,7 @@ public class GeneratorEngine {
             .put(javaTemplatePath("dal/do"),
                     javaFilePath("dal/dataobject/${table.moduleName}/${table.businessName}/${table.className}DO"))
             .put(javaTemplatePath("dal/mapper"),
-                    javaFilePath("dal/mysql/${table.moduleName}/${table.businessName}/${table.className}Mapper"))
+                    javaFilePath("dal/mapper/${table.moduleName}/${table.businessName}/${table.className}Mapper"))
             .put(javaTemplatePath("enums/errorcode"),
                     javaFilePath("enums/${simpleModuleName_upperFirst}ErrorCodeConstants"))
             .put(javaTemplatePath("service/serviceImpl"),
@@ -144,7 +144,7 @@ public class GeneratorEngine {
         bindingMap.put("simpleClassName", simpleClassName);
         bindingMap.put("simpleClassName_underlineCase", toUnderlineCase(simpleClassName));
         bindingMap.put("classNameVar", lowerFirst(simpleClassName));
-        String simpleClassNameStrikeCase = toSymbolCase(simpleClassName, '-');
+        String simpleClassNameStrikeCase = toSymbolCase(simpleClassName, '_');
         bindingMap.put("simpleClassName_strikeCase", simpleClassNameStrikeCase);
         // permission 前缀
         bindingMap.put("permissionPrefix", table.getTableName() + ":" + simpleClassNameStrikeCase);

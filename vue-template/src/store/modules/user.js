@@ -6,8 +6,7 @@ const getDefaultState = () => {
   return {
     name: '',
     avatar: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png',
-    permissions: [],
-    isAdminClient: false
+    permissions: []
   }
 }
 
@@ -25,9 +24,6 @@ const mutations = {
   },
   SET_PERMISSIONS: (state, permissions) => {
     state.permissions = permissions
-  },
-  SET_CLIENT: (state, client) => {
-    state.isAdminClient = client.toUpperCase() === 'ADMIN_CLIENT'
   }
 }
 
@@ -39,7 +35,7 @@ const actions = {
       login({ username: username.trim(), password: password, client: client.toUpperCase() }).then(response => {
         const { data } = response
         setToken('Bearer ' + data.token)
-        commit('SET_CLIENT', client)
+        sessionStorage.setItem('isAdminClient', client.toUpperCase() === 'ADMIN_CLIENT')
         resolve()
       }).catch(error => {
         reject(error)

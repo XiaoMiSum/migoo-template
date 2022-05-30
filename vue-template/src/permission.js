@@ -21,7 +21,7 @@ router.beforeEach(async(to, from, next) => {
   const hasToken = getToken()
 
   if (hasToken) {
-    const isAdminClient = store.getters.is_admin_client
+    const isAdminClient = sessionStorage.getItem('isAdminClient')
     if (isAdminClient && !to.path.toString().includes('/manager')) {
       // if is logged in and is admin client and to path is not admin , redirect to the admin home page
       next({ path: '/manager/index' })

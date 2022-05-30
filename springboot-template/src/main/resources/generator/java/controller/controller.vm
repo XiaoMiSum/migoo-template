@@ -26,41 +26,47 @@ import ${basePackage}.service.${table.moduleName}.${table.businessName}.${table.
 @Validated
 public class ${table.className}Controller {
 
-    @Resource
-    private ${table.className}Service ${classNameVar}Service;
+@Resource
+private ${table.className}Service ${classNameVar}Service;
 
-    @GetMapping("/page")
-    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")
-    public Result<PageResult<${table.className}RespVO>> get${simpleClassName}Page(@Valid ${table.className}PageReqVO pageVO) {
-        PageResult<${table.className}DO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
+@GetMapping("/page")
+@PreAuthorize("@ss.hasPermission('${permissionPrefix}:query')")
+public Result
+<PageResult
+<${table.className}RespVO>> get${simpleClassName}Page(@Valid ${table.className}PageReqVO pageVO) {
+    PageResult
+    <${table.className}DO> pageResult = ${classNameVar}Service.get${simpleClassName}Page(pageVO);
         return Result.getSuccessful(${table.className}Convert.INSTANCE.convertPage(pageResult));
-    }
+        }
 
-    @PostMapping
-    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:add')")
-    public CommonResult<${primaryColumn.javaType}> create${simpleClassName}(@Valid @RequestBody ${table.className}CreateReqVO createReqVO) {
+        @PostMapping
+        @PreAuthorize("@ss.hasPermission('${permissionPrefix}:add')")
+        public CommonResult<${primaryColumn.javaType}> create${simpleClassName}(@Valid @RequestBody ${table.className}
+        CreateReqVO createReqVO) {
         return Result.getSuccessful(${classNameVar}Service.create${simpleClassName}(createReqVO));
-    }
+        }
 
-    @PutMapping
-    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:edit')")
-    public CommonResult
-    <Boolean> update${simpleClassName}(@Valid @RequestBody ${table.className}UpdateReqVO updateReqVO) {
-    ${classNameVar}Service.update${simpleClassName}(updateReqVO);
-        return Result.getSuccessful(true);
-    }
+        @PutMapping
+        @PreAuthorize("@ss.hasPermission('${permissionPrefix}:update')")
+        public CommonResult
+        <Boolean> update${simpleClassName}(@Valid @RequestBody ${table.className}UpdateReqVO updateReqVO) {
+            ${classNameVar}Service.update${simpleClassName}(updateReqVO);
+            return Result.getSuccessful(true);
+            }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:remove')")
-    public Result<Boolean> delete${simpleClassName}(@PathVariable("id") ${primaryColumn.javaType} id) {
-        ${classNameVar}Service.delete${simpleClassName}(id);
-        return Result.getSuccessful(true);
-    }
+            @DeleteMapping("/{id}")
+            @PreAuthorize("@ss.hasPermission('${permissionPrefix}:remove')")
+            public Result
+            <Boolean> delete${simpleClassName}(@PathVariable("id") ${primaryColumn.javaType} id) {
+                ${classNameVar}Service.delete${simpleClassName}(id);
+                return Result.getSuccessful(true);
+                }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("@ss.hasPermission('${permissionPrefix}:edit')")
-    public Result<${table.className}RespVO> get${simpleClassName}(@PathVariable("id") ${primaryColumn.javaType} id) {
-        ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(id);
-        return Result.getSuccessful(${table.className}Convert.INSTANCE.convert(${classNameVar}));
-    }
-}
+                @GetMapping("/{id}")
+                @PreAuthorize("@ss.hasPermission('${permissionPrefix}:edit')")
+                public Result
+                <${table.className}RespVO> get${simpleClassName}(@PathVariable("id") ${primaryColumn.javaType} id) {
+                    ${table.className}DO ${classNameVar} = ${classNameVar}Service.get${simpleClassName}(id);
+                    return Result.getSuccessful(${table.className}Convert.INSTANCE.convert(${classNameVar}));
+                    }
+                    }
