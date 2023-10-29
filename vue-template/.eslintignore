@@ -1,8 +1,0 @@
- src/libs
- node_modules
- build/*.js
- src/assets
- src/utils/
- public
- dist
- .eslintrc.js
