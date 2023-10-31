@@ -47,25 +47,6 @@ CREATE TABLE `infra_error_log`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 COMMENT = '接口异常表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for mg_project
--- ----------------------------
-DROP TABLE IF EXISTS `mg_project`;
-CREATE TABLE `mg_project`  (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '状态 ',
-  `name` varchar(64)  NOT NULL COMMENT '项目名称',
-  `pm` varchar(255)  NULL DEFAULT NULL COMMENT '产品经理',
-  `developers` varchar(512)  NULL DEFAULT NULL COMMENT '开发人员',
-  `tester` varchar(255)  NULL DEFAULT NULL COMMENT '测试负责人',
-  `deleted` bit(1) NOT NULL DEFAULT b'0',
-  `creator` varchar(64)  NOT NULL,
-  `create_time` datetime NOT NULL,
-  `updater` varchar(64)  NOT NULL,
-  `update_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB COMMENT = '项目信息表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dept`;
