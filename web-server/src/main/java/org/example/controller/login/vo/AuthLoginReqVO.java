@@ -3,7 +3,6 @@ package org.example.controller.login.vo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import xyz.migoo.framework.common.util.json.JsonUtils;
-import xyz.migoo.framework.security.core.LoginUser;
 
 @Data
 public class AuthLoginReqVO {
@@ -17,8 +16,6 @@ public class AuthLoginReqVO {
     private String code;
 
     private String uuid;
-
-    private LoginUser.Client client;
 
     @Override
     public String toString() {

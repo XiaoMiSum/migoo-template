@@ -183,6 +183,7 @@ CREATE TABLE `sys_user`
     `dept_id`     bigint       NULL     DEFAULT NULL COMMENT '部门编号',
     `post_ids`    varchar(255) NULL     DEFAULT NULL COMMENT '岗位编号',
     `email`       varchar(255) NULL     DEFAULT NULL COMMENT '邮箱地址',
+    `memo`        varchar(255) NULL     DEFAULT NULL COMMENT '邮箱地址',
     `deleted`     tinyint(1)   NOT NULL DEFAULT 0,
     `creator`     varchar(64)  NULL     DEFAULT NULL,
     `create_time` datetime     NULL     DEFAULT NULL,

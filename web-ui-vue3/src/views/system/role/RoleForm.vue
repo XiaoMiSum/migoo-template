@@ -8,16 +8,16 @@
       label-width="80px"
     >
       <el-form-item label="角色名称" prop="name">
-        <el-input v-model="formData.name" placeholder="请输入角色名称"/>
+        <el-input v-model="formData.name" placeholder="请输入角色名称" />
       </el-form-item>
       <el-form-item label="角色标识" prop="code">
-        <el-input v-model="formData.code" placeholder="请输入角色标识"/>
+        <el-input v-model="formData.code" placeholder="请输入角色标识" />
       </el-form-item>
       <el-form-item label="显示顺序" prop="sort">
-        <el-input v-model="formData.sort" placeholder="请输入显示顺序"/>
+        <el-input v-model="formData.sort" placeholder="请输入显示顺序" />
       </el-form-item>
       <el-form-item label="备注" prop="memo">
-        <el-input v-model="formData.memo" placeholder="请输入备注信息"/>
+        <el-input v-model="formData.memo" placeholder="请输入备注信息" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -29,11 +29,11 @@
 
 <script lang="ts" setup>
 import * as RoleApi from '@/api/system/role'
-import {COMMON_STATUS_ENUM} from '@/utils/enums'
+import { COMMON_STATUS_ENUM } from '@/utils/enums'
 
-defineOptions({name: 'SystemRoleForm'})
+defineOptions({ name: 'SystemRoleForm' })
 
-const {t} = useI18n() // 国际化
+const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
 
 const dialogVisible = ref(false) // 弹窗的是否展示
@@ -49,9 +49,9 @@ const formData = ref({
   memo: ''
 })
 const formRules = reactive({
-  name: [{required: true, message: '岗位标题不能为空', trigger: 'blur'}],
-  code: [{required: true, message: '岗位编码不能为空', trigger: 'change'}],
-  sort: [{required: true, message: '岗位顺序不能为空', trigger: 'change'}]
+  name: [{ required: true, message: '岗位标题不能为空', trigger: 'blur' }],
+  code: [{ required: true, message: '岗位编码不能为空', trigger: 'change' }],
+  sort: [{ required: true, message: '岗位顺序不能为空', trigger: 'change' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -84,7 +84,7 @@ const resetForm = () => {
   }
   formRef.value?.resetFields()
 }
-defineExpose({open}) // 提供 open 方法，用于打开弹窗
+defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 
 /** 提交表单 */
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调

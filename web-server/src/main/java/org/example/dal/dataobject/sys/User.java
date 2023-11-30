@@ -21,7 +21,11 @@ public class User extends BaseDO {
 
     private String name;
 
-    private String phone;
+    private String username;
+
+    private String password;
+
+    private String mobile;
 
     private Integer gender;
 
@@ -34,7 +38,6 @@ public class User extends BaseDO {
 
     private String email;
 
-    private String password;
 
     private Integer status;
 

@@ -21,11 +21,11 @@
 
       <el-form-item>
         <el-button type="primary" @click="handleQuery">
-          <Icon class="mr-5px" icon="ep:search"/>
+          <Icon class="mr-5px" icon="ep:search" />
           搜索
         </el-button>
         <el-button @click="resetQuery">
-          <Icon class="mr-5px" icon="ep:refresh"/>
+          <Icon class="mr-5px" icon="ep:refresh" />
           重置
         </el-button>
       </el-form-item>
@@ -40,7 +40,7 @@
           type="primary"
           @click="openForm('create')"
         >
-          <Icon class="mr-5px" icon="ep:plus"/>
+          <Icon class="mr-5px" icon="ep:plus" />
           新增
         </el-button>
       </el-col>
@@ -50,11 +50,11 @@
   <!-- 列表 -->
   <ContentWrap>
     <el-table v-loading="loading" :data="list">
-      <el-table-column align="center" label="岗位编号" prop="id"/>
-      <el-table-column align="center" label="岗位名称" prop="name"/>
-      <el-table-column align="center" label="岗位编码" prop="code"/>
-      <el-table-column align="center" label="岗位顺序" prop="sort"/>
-      <el-table-column align="center" label="岗位备注" prop="memo"/>
+      <el-table-column align="center" label="岗位编号" prop="id" />
+      <el-table-column align="center" label="岗位名称" prop="name" />
+      <el-table-column align="center" label="岗位编码" prop="code" />
+      <el-table-column align="center" label="岗位顺序" prop="sort" />
+      <el-table-column align="center" label="岗位备注" prop="memo" />
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
           <el-switch
@@ -103,24 +103,24 @@
   </ContentWrap>
 
   <!-- 表单弹窗：添加/修改 -->
-  <PostForm ref="formRef" @success="getList"/>
+  <PostForm ref="formRef" @success="getList" />
 </template>
 
 <script lang="ts" setup>
-import {dateFormatter} from '@/utils/formatTime'
+import { dateFormatter } from '@/utils/formatTime'
 import * as HTTP from '@/api/system/post'
 import PostForm from './PostForm.vue'
-import {COMMON_STATUS_ENUM} from '@/utils/enums'
+import { COMMON_STATUS_ENUM } from '@/utils/enums'
 
-defineOptions({name: 'SystemPost'})
+defineOptions({ name: 'SystemPost' })
 
 const message = useMessage() // 消息弹窗
-const {t} = useI18n() // 国际化
+const { t } = useI18n() // 国际化
 
 const loading = ref(true) // 列表的加载中
 const total = ref(0) // 列表的总页数
 const list = ref([]) // 列表的数据
-const queryParams = reactive({
+const queryParams = ref<any>({
   pageNo: 1,
   pageSize: 10,
   code: '',
@@ -166,7 +166,7 @@ const handleStatusChange = async (row: any) => {
     const text = row.status === COMMON_STATUS_ENUM.ENABLE ? '启用' : '停用'
     await message.confirm('确认要"' + text + '""' + row.name + '"吗?')
     // 发起修改状态
-    await HTTP.updateData({id: row.id, status: row.status})
+    await HTTP.updateData({ id: row.id, status: row.status })
     // 刷新列表
     await getList()
   } catch {
@@ -188,8 +188,7 @@ const handleDelete = async (id: number) => {
     message.success(t('common.delSuccess'))
     // 刷新列表
     await getList()
-  } catch {
-  }
+  } catch {}
 }
 
 /** 初始化 **/

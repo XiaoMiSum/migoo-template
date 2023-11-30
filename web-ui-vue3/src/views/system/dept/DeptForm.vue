@@ -19,21 +19,21 @@
         />
       </el-form-item>
       <el-form-item label="部门名称" prop="name">
-        <el-input v-model="formData.name" placeholder="请输入部门名称"/>
+        <el-input v-model="formData.name" placeholder="请输入部门名称" />
       </el-form-item>
       <el-form-item label="显示排序" prop="sort">
-        <el-input-number v-model="formData.sort" :min="0" controls-position="right"/>
+        <el-input-number v-model="formData.sort" :min="0" controls-position="right" />
       </el-form-item>
       <el-form-item label="负责人" prop="leaderUserId">
         <el-select v-model="formData.leaderUserId" clearable placeholder="请输入负责人">
-          <el-option v-for="item in userList" :key="item.id" :label="item.name" :value="item.id"/>
+          <el-option v-for="item in userList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
       <el-form-item label="联系电话" prop="phone">
-        <el-input v-model="formData.phone" maxlength="11" placeholder="请输入联系电话"/>
+        <el-input v-model="formData.phone" maxlength="11" placeholder="请输入联系电话" />
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
-        <el-input v-model="formData.email" maxlength="50" placeholder="请输入邮箱"/>
+        <el-input v-model="formData.email" maxlength="50" placeholder="请输入邮箱" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -43,14 +43,14 @@
   </Dialog>
 </template>
 <script lang="ts" setup>
-import {defaultProps, handleTree} from '@/utils/tree'
+import { defaultProps, handleTree } from '@/utils/tree'
 import * as DeptApi from '@/api/system/dept'
 import * as UserApi from '@/api/system/user'
-import {COMMON_STATUS_ENUM} from "@/utils/enums";
+import { COMMON_STATUS_ENUM } from '@/utils/enums'
 
-defineOptions({name: 'SystemDeptForm'})
+defineOptions({ name: 'SystemDeptForm' })
 
-const {t} = useI18n() // 国际化
+const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
 
 const dialogVisible = ref(false) // 弹窗的是否展示
@@ -69,14 +69,14 @@ const formData = ref({
   status: COMMON_STATUS_ENUM.ENABLE
 })
 const formRules = reactive({
-  parentId: [{required: true, message: '上级部门不能为空', trigger: 'blur'}],
-  name: [{required: true, message: '部门名称不能为空', trigger: 'blur'}],
-  sort: [{required: true, message: '显示排序不能为空', trigger: 'blur'}],
-  email: [{type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change']}],
+  parentId: [{ required: true, message: '上级部门不能为空', trigger: 'blur' }],
+  name: [{ required: true, message: '部门名称不能为空', trigger: 'blur' }],
+  sort: [{ required: true, message: '显示排序不能为空', trigger: 'blur' }],
+  email: [{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }],
   phone: [
-    {pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: '请输入正确的手机号码', trigger: 'blur'}
+    { pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: '请输入正确的手机号码', trigger: 'blur' }
   ],
-  status: [{required: true, message: '状态不能为空', trigger: 'blur'}]
+  status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 const deptTree = ref() // 树形结构
@@ -102,7 +102,7 @@ const open = async (type: string, id?: number) => {
   // 获得部门树
   await getTree()
 }
-defineExpose({open}) // 提供 open 方法，用于打开弹窗
+defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 
 /** 提交表单 */
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调
@@ -150,7 +150,7 @@ const resetForm = () => {
 const getTree = async () => {
   deptTree.value = []
   const data = await DeptApi.listSimple()
-  let dept: Tree = {id: 0, name: '顶级部门', children: []}
+  let dept: Tree = { id: 0, name: '顶级部门', children: [] }
   dept.children = handleTree(data)
   deptTree.value.push(dept)
 }

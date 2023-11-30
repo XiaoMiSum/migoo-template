@@ -130,8 +130,6 @@ const handleLogin = async () => {
   } finally {
   }
 }
-onMounted(() => {
-})
 </script>
 
 <style lang="scss" scoped>

@@ -5,19 +5,16 @@ import '@/plugins/unocss'
 import '@/plugins/svgIcon'
 
 // 初始化多语言
-import { setupI18n } from '@/plugins/vueI18n'
+import {setupI18n} from '@/plugins/vueI18n'
 
 // 引入状态管理
-import { setupStore } from '@/store'
+import {setupStore} from '@/store'
 
 // 全局组件
-import { setupGlobCom } from '@/components'
+import {setupGlobCom} from '@/components'
 
 // 引入 element-plus
-import { setupElementPlus } from '@/plugins/elementPlus'
-
-// 引入 form-create
-import { setupFormCreate } from '@/plugins/formCreate'
+import {setupElementPlus} from '@/plugins/elementPlus'
 
 // 引入全局样式
 import '@/styles/index.scss'
@@ -26,12 +23,12 @@ import '@/styles/index.scss'
 import '@/plugins/animate.css'
 
 // 路由
-import router, { setupRouter } from '@/router'
+import router, {setupRouter} from '@/router'
 
 // 权限
-import { setupAuth } from '@/directives'
+import {setupAuth} from '@/directives'
 
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 
 import App from './App.vue'
 
@@ -52,8 +49,6 @@ const setupAll = async () => {
   setupGlobCom(app)
 
   setupElementPlus(app)
-
-  setupFormCreate(app)
 
   setupRouter(app)
 

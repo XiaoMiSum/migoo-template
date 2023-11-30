@@ -18,7 +18,7 @@
         />
       </el-form-item>
       <el-form-item label="菜单名称" prop="name">
-        <el-input v-model="formData.name" clearable placeholder="请输入菜单名称"/>
+        <el-input v-model="formData.name" clearable placeholder="请输入菜单名称" />
       </el-form-item>
       <el-form-item label="菜单类型" prop="type">
         <el-radio-group v-model="formData.type">
@@ -28,7 +28,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item v-if="formData.type !== 3" label="菜单图标">
-        <IconSelect v-model="formData.icon" clearable/>
+        <IconSelect v-model="formData.icon" clearable />
       </el-form-item>
       <el-form-item v-if="formData.type !== 3" label="路由地址" prop="path">
         <template #label>
@@ -37,13 +37,13 @@
             titel="路由地址"
           />
         </template>
-        <el-input v-model="formData.path" clearable placeholder="请输入路由地址"/>
+        <el-input v-model="formData.path" clearable placeholder="请输入路由地址" />
       </el-form-item>
       <el-form-item v-if="formData.type === 2" label="组件地址" prop="component">
-        <el-input v-model="formData.component" clearable placeholder="例如说：system/user/index"/>
+        <el-input v-model="formData.component" clearable placeholder="例如说：system/user/index" />
       </el-form-item>
       <el-form-item v-if="formData.type === 2" label="组件名字" prop="componentName">
-        <el-input v-model="formData.componentName" clearable placeholder="例如说：SystemUser"/>
+        <el-input v-model="formData.componentName" clearable placeholder="例如说：SystemUser" />
       </el-form-item>
       <el-form-item v-if="formData.type !== 1" label="权限标识" prop="permission">
         <template #label>
@@ -52,10 +52,10 @@
             titel="权限标识"
           />
         </template>
-        <el-input v-model="formData.permission" clearable placeholder="请输入权限标识"/>
+        <el-input v-model="formData.permission" clearable placeholder="请输入权限标识" />
       </el-form-item>
       <el-form-item label="显示排序" prop="sort">
-        <el-input-number v-model="formData.sort" :min="0" clearable controls-position="right"/>
+        <el-input-number v-model="formData.sort" :min="0" clearable controls-position="right" />
       </el-form-item>
       <el-form-item label="菜单状态" prop="status">
         <el-radio-group v-model="formData.status">
@@ -66,7 +66,7 @@
       </el-form-item>
       <el-form-item v-if="formData.type !== 3" label="显示状态" prop="visible">
         <template #label>
-          <Tooltip message="选择隐藏时，路由将不会出现在侧边栏，但仍然可以访问" titel="显示状态"/>
+          <Tooltip message="选择隐藏时，路由将不会出现在侧边栏，但仍然可以访问" titel="显示状态" />
         </template>
         <el-radio-group v-model="formData.visible">
           <el-radio key="true" :label="true" border>显示</el-radio>
@@ -99,7 +99,7 @@
       </el-form-item>
       <el-form-item v-if="formData.type !== 3" label="页面类型">
         <template #label>
-          <Tooltip message="控制页面在哪个客户端中展示段" titel="页面类型"/>
+          <Tooltip message="控制页面在哪个客户端中展示段" titel="页面类型" />
         </template>
         <el-radio-group v-model="formData.pageType">
           <el-radio key="1" :label="1" border>会员</el-radio>
@@ -115,8 +115,8 @@
 </template>
 <script lang="ts" setup>
 import * as HTTP from '@/api/system/menu'
-import {CACHE_KEY, useCache} from '@/hooks/web/useCache'
-import {defaultProps, handleTree} from '@/utils/tree'
+import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
+import { defaultProps, handleTree } from '@/utils/tree'
 import {
   COMMON_STATUS_ENUM,
   COMMON_STATUS_ENUMS,
@@ -124,10 +124,10 @@ import {
   MENU_TYPE_ENUMS
 } from '@/utils/enums'
 
-defineOptions({name: 'SystemMenuForm'})
+defineOptions({ name: 'SystemMenuForm' })
 
-const {wsCache} = useCache()
-const {t} = useI18n() // 国际化
+const { wsCache } = useCache()
+const { t } = useI18n() // 国际化
 const message = useMessage() // 消息弹窗
 
 const dialogVisible = ref(false) // 弹窗的是否展示
@@ -152,9 +152,9 @@ const formData = ref({
   pageType: 2
 })
 const formRules = reactive({
-  name: [{required: true, message: '菜单名称不能为空', trigger: 'blur'}],
-  sort: [{required: true, message: '菜单顺序不能为空', trigger: 'blur'}],
-  status: [{required: true, message: '状态不能为空', trigger: 'blur'}]
+  name: [{ required: true, message: '菜单名称不能为空', trigger: 'blur' }],
+  sort: [{ required: true, message: '菜单顺序不能为空', trigger: 'blur' }],
+  status: [{ required: true, message: '状态不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -179,7 +179,7 @@ const open = async (type: string, id?: number, parentId?: number) => {
   // 获得菜单列表
   await getTree()
 }
-defineExpose({open}) // 提供 open 方法，用于打开弹窗
+defineExpose({ open }) // 提供 open 方法，用于打开弹窗
 
 /** 提交表单 */
 const emit = defineEmits(['success']) // 定义 success 事件，用于操作成功后的回调
@@ -191,10 +191,7 @@ const submitForm = async () => {
   // 提交请求
   formLoading.value = true
   try {
-    if (
-      formData.value.type === MENU_TYPE_ENUM.DIR ||
-      formData.value.type === MENU_TYPE_ENUM.MENU
-    ) {
+    if (formData.value.type === MENU_TYPE_ENUM.DIR || formData.value.type === MENU_TYPE_ENUM.MENU) {
       if (!isExternal(formData.value.path)) {
         if (formData.value.parentId === 0 && formData.value.path.charAt(0) !== '/') {
           message.error('路径必须以 / 开头')
@@ -228,7 +225,7 @@ const menuTree = ref<Tree[]>([]) // 树形结构
 const getTree = async () => {
   menuTree.value = []
   const res = await HTTP.listSimpleMenus()
-  let menu: Tree = {id: 0, name: '主类目', children: []}
+  let menu: Tree = { id: 0, name: '主类目', children: [] }
   menu.children = handleTree(res)
   menuTree.value.push(menu)
 }
