@@ -257,7 +257,7 @@ export default {
     subitem: 'Subitem',
     formValidation: 'Form validation',
     verifyReset: 'Verify reset',
-    remark: 'Remark'
+    memo: 'Remark'
   },
   watermark: {
     watermark: 'Watermark'
