@@ -1,5 +1,6 @@
 package org.example.dal.mapper.sys;
 
+import cn.hutool.core.util.StrUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.example.controller.sys.user.vo.UserQueryReqVO;
 import org.example.dal.dataobject.sys.User;
@@ -20,11 +21,13 @@ public interface UserMapper extends BaseMapperX<User> {
 
     default PageResult<User> selectPage(UserQueryReqVO reqVO) {
         return selectPage(reqVO, new LambdaQueryWrapperX<User>()
-                .likeIfPresent(User::getUsername, reqVO.getUsername())
-                .likeIfPresent(User::getName, reqVO.getName())
                 .eqIfPresent(User::getDeptId, reqVO.getDeptId())
                 .eqIfPresent(User::getStatus, reqVO.getStatus())
                 .gt(User::getId, 1)
+                .and(StrUtil.isNotBlank(reqVO.getUsername()), it ->
+                        it.like(User::getUsername, reqVO.getUsername())
+                                .or().like(User::getName, reqVO.getUsername())
+                )
                 .orderByDesc(User::getId));
     }
 

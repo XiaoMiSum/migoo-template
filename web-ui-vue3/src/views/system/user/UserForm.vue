@@ -9,7 +9,7 @@
     >
       <el-row>
         <el-col :span="12">
-          <el-form-item label="登录名称" prop="phone">
+          <el-form-item label="登录名称" prop="username">
             <el-input
               v-model="formData.username"
               :disabled="formData.id !== undefined"
@@ -104,6 +104,8 @@ import * as PostApi from '@/api/system/post'
 import * as DeptApi from '@/api/system/dept'
 import * as UserApi from '@/api/system/user'
 
+import { User } from '@/api/system/user/index.d'
+
 defineOptions({ name: 'SystemUserForm' })
 
 const { t } = useI18n() // 国际化
@@ -113,12 +115,12 @@ const dialogVisible = ref(false) // 弹窗的是否展示
 const dialogTitle = ref('') // 弹窗的标题
 const formLoading = ref(false) // 表单的加载中：1）修改时的数据加载；2）提交的按钮禁用
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
-const formData = ref<UserApi.UserVO>({
+const formData = ref<User>({
   username: '',
   name: ''
 })
 const formRules = reactive({
-  phone: [{ required: true, message: '登录名不能为空', trigger: 'blur' }],
+  username: [{ required: true, message: '登录名不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '用户名称不能为空', trigger: 'blur' }],
   password: [{ required: true, message: '用户密码不能为空', trigger: 'blur' }]
 })
@@ -158,7 +160,7 @@ const submitForm = async () => {
   // 提交请求
   formLoading.value = true
   try {
-    const data = formData.value as unknown as UserApi.UserVO
+    const data = formData.value as unknown as User
     if (formType.value === 'create') {
       await UserApi.addUser(data)
       message.success(t('common.createSuccess'))

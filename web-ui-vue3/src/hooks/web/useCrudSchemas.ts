@@ -2,14 +2,13 @@ import { reactive } from 'vue'
 import { AxiosPromise } from 'axios'
 import { findIndex } from '@/utils'
 import { eachTree, filter, treeMap } from '@/utils/tree'
-import { getBoolDictOptions, getDictOptions, getIntDictOptions } from '@/utils/dict'
 
 import { FormSchema } from '@/types/form'
 import { TableColumn } from '@/types/table'
 import { DescriptionsSchema } from '@/types/descriptions'
 import { ComponentOptions, ComponentProps } from '@/types/components'
-import { DictTag } from '@/components/DictTag'
 import { cloneDeep, merge } from 'lodash-es'
+import EnumTag from '@/components/EnumTag/index.vue'
 
 export type CrudSchema = Omit<TableColumn, 'children'> & {
   isSearch?: boolean // 是否在查询显示
@@ -21,8 +20,7 @@ export type CrudSchema = Omit<TableColumn, 'children'> & {
   isDetail?: boolean // 是否在详情显示
   detail?: CrudDescriptionsParams // 详情的详细配置
   children?: CrudSchema[]
-  dictType?: string // 字典类型
-  dictClass?: 'string' | 'number' | 'boolean' // 字典数据类型 string | number | boolean
+  enums?: [] // 字典类型
 }
 
 type CrudSearchParams = {
@@ -106,11 +104,11 @@ const filterSearchSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): F
       let component = schemaItem?.search?.component || 'Input'
       const options: ComponentOptions[] = []
       let comonentProps: ComponentProps = {}
-      if (schemaItem.dictType) {
+      if (schemaItem.enums) {
         const allOptions: ComponentOptions = { label: '全部', value: '' }
         options.push(allOptions)
-        getDictOptions(schemaItem.dictType).forEach((dict) => {
-          options.push(dict)
+        schemaItem.enums.forEach((item) => {
+          options.push({ tag: item.tag, label: item.label, key: item.key })
         })
         comonentProps = {
           options: options
@@ -163,10 +161,10 @@ const filterTableSchema = (crudSchema: CrudSchema[]): TableColumn[] => {
     conversion: (schema: CrudSchema) => {
       if (schema?.isTable !== false && schema?.table?.show !== false) {
         // add by 芋艿：增加对 dict 字典数据的支持
-        if (!schema.formatter && schema.dictType) {
+        if (!schema.formatter && schema.enums) {
           schema.formatter = (_: Recordable, __: TableColumn, cellValue: any) => {
-            return h(DictTag, {
-              type: schema.dictType!, // ! 表示一定不为空
+            return h(EnumTag, {
+              enums: schema.enums!, // ! 表示一定不为空
               value: cellValue
             })
           }
@@ -208,21 +206,11 @@ const filterFormSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): For
         }
       }
       let comonentProps: ComponentProps = {}
-      if (schemaItem.dictType) {
+      if (schemaItem.enums) {
         const options: ComponentOptions[] = []
-        if (schemaItem.dictClass && schemaItem.dictClass === 'number') {
-          getIntDictOptions(schemaItem.dictType).forEach((dict) => {
-            options.push(dict)
-          })
-        } else if (schemaItem.dictClass && schemaItem.dictClass === 'boolean') {
-          getBoolDictOptions(schemaItem.dictType).forEach((dict) => {
-            options.push(dict)
-          })
-        } else {
-          getDictOptions(schemaItem.dictType).forEach((dict) => {
-            options.push(dict)
-          })
-        }
+        schemaItem.enums.forEach((item) => {
+          options.push({ key: item.key, label: item.label, value: item.key })
+        })
         comonentProps = {
           options: options
         }

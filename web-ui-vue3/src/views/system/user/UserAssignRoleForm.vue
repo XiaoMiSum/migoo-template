@@ -8,14 +8,14 @@
         <el-input v-model="formData.nickname" :disabled="true" />
       </el-form-item>
       <el-form-item label="角色">
-        <el-select v-model="formData.roleIds" multiple placeholder="请选择角色">
+        <el-select v-model="formData.roleIds" multiple placeholder="请选择角色" class="w-100%">
           <el-option v-for="item in roleList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button :disabled="formLoading" type="primary" @click="submitForm">确 定</el-button>
       <el-button @click="dialogVisible = false">取 消</el-button>
+      <el-button :disabled="formLoading" type="primary" @click="submitForm">确 定</el-button>
     </template>
   </Dialog>
 </template>

@@ -23,7 +23,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/migoo?useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: 123456qq!
+    password: 123456qq
     druid: # Druid
       web-stat-filter: #【监控】相关的全局配置
         enabled: true

@@ -113,8 +113,7 @@ const setVisible = () => {
   >
     <template #action>
       <div v-if="layout === 'inline'">
-        <!-- update by 芋艿：去除搜索的 type="primary"，颜色变淡一点 -->
-        <ElButton v-if="showSearch" @click="search">
+        <ElButton v-if="showSearch" @click="search" type="primary">
           <Icon class="mr-5px" icon="ep:search" />
           {{ t('common.query') }}
         </ElButton>

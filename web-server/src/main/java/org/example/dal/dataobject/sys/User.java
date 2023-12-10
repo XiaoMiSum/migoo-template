@@ -38,8 +38,9 @@ public class User extends BaseDO {
 
     private String email;
 
-
     private Integer status;
+
+    private String memo;
 
     @Override
     public String toString() {

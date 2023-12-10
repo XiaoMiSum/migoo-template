@@ -21,9 +21,6 @@ export type ComponentName =
   | 'TreeSelect'
   | 'InputPassword'
   | 'Editor'
-  | 'UploadImg'
-  | 'UploadImgs'
-  | 'UploadFile'
 
 export type ColProps = {
   span?: number

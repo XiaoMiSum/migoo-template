@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'vue'
-import { ColProps, ComponentProps, ComponentName } from '@/types/components'
+import { ColProps, ComponentName, ComponentProps } from '@/types/components'
 import type { AxiosPromise } from 'axios'
 
 export type FormSetPropsType = {
@@ -21,6 +21,8 @@ export type FormItemProps = {
 }
 
 export type FormSchema = {
+  // 是否隐藏 label
+  hiddenLabel?: boolean
   // 唯一值
   field: string
   // 标题
@@ -34,7 +36,7 @@ export type FormSchema = {
   // formItem组件属性
   formItemProps?: FormItemProps
   // 渲染的组件
-  component?: ComponentName
+  component?: ComponentName | 'Input'
   // 初始值
   value?: FormValueType
   // 是否隐藏

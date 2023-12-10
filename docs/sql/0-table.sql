@@ -16,39 +16,6 @@
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for infra_error_log
--- ----------------------------
-DROP TABLE IF EXISTS `infra_error_log`;
-CREATE TABLE `infra_error_log`
-(
-    `id`                           int          NOT NULL AUTO_INCREMENT,
-    `application_name`             varchar(255) NULL     DEFAULT NULL COMMENT '应用名称',
-    `request_method`               varchar(255) NULL     DEFAULT NULL COMMENT '请求方法',
-    `request_url`                  text         NULL COMMENT '请求地址',
-    `request_params`               text         NULL COMMENT '请求参数',
-    `user_ip`                      varchar(255) NULL     DEFAULT NULL COMMENT '来源ip',
-    `exception_time`               datetime     NULL     DEFAULT NULL COMMENT '异常时间',
-    `exception_name`               varchar(255) NULL     DEFAULT NULL COMMENT '异常名称',
-    `exception_class_name`         varchar(255) NULL     DEFAULT NULL COMMENT '异常类',
-    `exception_file_name`          varchar(255) NULL     DEFAULT NULL COMMENT '异常文件',
-    `exception_method_name`        varchar(255) NULL     DEFAULT NULL COMMENT '异常方法',
-    `exception_line_number`        int          NULL     DEFAULT NULL COMMENT '异常行',
-    `exception_stack_trace`        text         NULL COMMENT '堆栈信息',
-    `exception_root_cause_message` text         NULL,
-    `exception_message`            text         NULL,
-    `status`                       tinyint      NULL     DEFAULT 0,
-    `deleted`                      tinyint      NULL     DEFAULT 0,
-    `creator`                      varchar(64)  NULL     DEFAULT NULL,
-    `create_time`                  datetime     NULL     DEFAULT NULL,
-    `updater`                      varchar(64)  NULL     DEFAULT NULL,
-    `update_time`                  datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-    PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1 COMMENT = '接口异常表'
-  ROW_FORMAT = Dynamic;
-
 -- ----------------------------
 -- Table structure for sys_dept
 -- ----------------------------

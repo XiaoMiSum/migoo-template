@@ -1,20 +1,7 @@
 import request from '@/config/axios'
+import { UserStatus, User } from './index.d'
 
 const url = '/user'
-
-export interface UserVO {
-  id?: number
-  username: string
-  name: string
-  deptId?: number
-  postIds?: string[]
-  email?: string
-  mobile?: string
-  gender?: number
-  avatar?: string
-  status?: number
-  memo?: string
-}
 
 // 查询用户列表
 export const listUser = (params: any) => {
@@ -39,7 +26,7 @@ export const getUser = (userId: any) => {
 }
 
 // 新增用户
-export const addUser = (data: any) => {
+export const addUser = (data: User) => {
   return request.post({
     url,
     data
@@ -47,7 +34,7 @@ export const addUser = (data: any) => {
 }
 
 // 修改用户
-export const updateUser = (data: any) => {
+export const updateUser = (data: UserStatus) => {
   return request.put({
     url,
     data
@@ -62,7 +49,7 @@ export const delUser = (userId: any) => {
 }
 
 // 用户密码重置
-export const resetUserPwd = (id, password: any) => {
+export const resetUserPwd = (id: any, password: any) => {
   const data = {
     id,
     password
@@ -72,11 +59,6 @@ export const resetUserPwd = (id, password: any) => {
     data
   })
 }
-export const resetAuthenticator = (no, code: any) => {
-  return request.post({
-    url: url + '/' + no + '/authenticator?_code=' + code
-  })
-}
 
 // 查询用户列表
 export const listUserRoles = (id: any) => {
@@ -84,7 +66,7 @@ export const listUserRoles = (id: any) => {
     url: url + '/' + id + '/role'
   })
 } // 查询用户列表
-export const updateUserRoles = (data: any) => {
+export const updateUserRoles = (data: User) => {
   return request.post({
     url: url + '/role',
     data

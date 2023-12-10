@@ -9,8 +9,6 @@ import xyz.migoo.framework.common.util.json.JsonUtils;
 @Setter
 public class UserQueryReqVO extends PageParam {
 
-    private String name;
-
     private String username;
 
     private Integer status;

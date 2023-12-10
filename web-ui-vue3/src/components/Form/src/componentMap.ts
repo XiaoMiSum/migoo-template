@@ -1,27 +1,26 @@
 import type { Component } from 'vue'
 import {
+  ElAutocomplete,
   ElCascader,
   ElCheckboxGroup,
   ElColorPicker,
   ElDatePicker,
+  ElDivider,
   ElInput,
   ElInputNumber,
   ElRadioGroup,
   ElRate,
   ElSelect,
   ElSelectV2,
-  ElTreeSelect,
   ElSlider,
   ElSwitch,
   ElTimePicker,
   ElTimeSelect,
   ElTransfer,
-  ElAutocomplete,
-  ElDivider
+  ElTreeSelect
 } from 'element-plus'
 import { InputPassword } from '@/components/InputPassword'
 import { Editor } from '@/components/Editor'
-import { UploadImg, UploadImgs, UploadFile } from '@/components/UploadFile'
 import { ComponentName } from '@/types/components'
 
 const componentMap: Recordable<Component, ComponentName> = {
@@ -46,10 +45,7 @@ const componentMap: Recordable<Component, ComponentName> = {
   TreeSelect: ElTreeSelect,
   RadioButton: ElRadioGroup,
   InputPassword: InputPassword,
-  Editor: Editor,
-  UploadImg: UploadImg,
-  UploadImgs: UploadImgs,
-  UploadFile: UploadFile
+  Editor: Editor
 }
 
 export { componentMap }

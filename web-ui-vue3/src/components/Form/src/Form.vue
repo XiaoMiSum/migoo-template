@@ -213,7 +213,11 @@ export default defineComponent({
         }
       }
       return (
-        <ElFormItem {...(item.formItemProps || {})} prop={item.field} label={item.label || ''}>
+        <ElFormItem
+          {...(item.formItemProps || {})}
+          prop={item.field}
+          label={item.hiddenLabel ? '' : item.label || ''}
+        >
           {{
             ...formItemSlots,
             default: () => {

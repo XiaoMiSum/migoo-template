@@ -13,8 +13,8 @@
       :expand-on-click-node="false"
       :filter-node-method="filterNode"
       :props="defaultProps"
-      default-expand-all
       highlight-current
+      default-expand-all
       node-key="id"
       @node-click="handleNodeClick"
     />
