@@ -38,7 +38,7 @@ service.interceptors.request.use(
       }
     })
     if (getAccessToken() && !isToken) {
-      ;(config as Recordable).headers['X-Token'] = 'Bearer ' + getAccessToken() // 让每个请求携带自定义token
+      ;(config as Recordable).headers['Authorization'] = 'Bearer ' + getAccessToken() // 让每个请求携带自定义token
     }
 
     const params = config.params || {}

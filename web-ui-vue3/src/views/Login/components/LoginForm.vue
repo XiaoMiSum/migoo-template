@@ -92,8 +92,7 @@ const loginData = reactive({
   isShowPassword: false,
   loginForm: {
     username: '',
-    password: '',
-    client: ''
+    password: ''
   }
 })
 
@@ -122,7 +121,7 @@ const handleLogin = async () => {
       setTimeout(() => {
         const loadingInstance = ElLoading.service()
         loadingInstance.close()
-        push({ path: '/index' })
+        push({ path: '/' })
       }, 400)
     }
   } catch {

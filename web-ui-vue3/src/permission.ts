@@ -23,7 +23,7 @@ router.beforeEach(async (to, from, next) => {
       next()
     } else if (path.includes('/login') || path.includes('/register')) {
       // if is logged in, redirect to the home page
-      next({ path: '/index' })
+      next({ path: '/' })
     } else {
       const userStore = useUserStoreWithOut()
       const permissionStore = usePermissionStoreWithOut()
