@@ -18,6 +18,11 @@
     <dependencies>
         <dependency>
             <groupId>xyz.migoo.springboot</groupId>
+            <artifactId>migoo-spring-boot-starter-info</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>xyz.migoo.springboot</groupId>
             <artifactId>migoo-spring-boot-starter-common</artifactId>
         </dependency>
 

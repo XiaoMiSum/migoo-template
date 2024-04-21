@@ -34,9 +34,10 @@ spring:
 #################### 框架相关配置 ####################
 
 migoo:
-  info:
+  framework:
     version: 1.0.0
-    base-package: xyz.migoo.framework
+    package-name: xyz.migoo.framework
+    biz-package-name: org.example
   web:
     api-prefix: /${spring.application.name}
   security:
