@@ -12,3 +12,19 @@ export const MENU_TYPE_ENUMS = [
 ]
 
 export const MENU_TYPE_ENUM = { DIR: 1, MENU: 2, BUTTON: 3 }
+
+export const JOB_STATUS_ENUMS = [
+  { key: 0, label: '初始化', tag: '' },
+  { key: 1, label: '运行中', tag: 'success' },
+  { key: 2, label: '已暂停', tag: 'danger' }
+]
+
+export const JOB_STATUS_ENUM = { INIT: 0, NORMAL: 1, STOP: 2 }
+
+export const JOB_LOG_STATUS_ENUMS = [
+  { key: 0, label: '调度中', tag: '' },
+  { key: 1, label: '调度成功', tag: 'success' },
+  { key: 2, label: '调度失败', tag: 'danger' }
+]
+
+export const JOB_LOG_STATUS_ENUM = { INIT: 0, SUCCESSFUL: 1, FAILURE: 2 }

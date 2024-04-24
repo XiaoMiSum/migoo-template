@@ -61,6 +61,11 @@
             <artifactId>migoo-spring-boot-starter-sms</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>xyz.migoo.springboot</groupId>
+            <artifactId>migoo-spring-boot-starter-oss</artifactId>
+        </dependency>
+
         <!-- 管理系统模块组件 -->
         <dependency>
             <groupId>xyz.migoo.springboot</groupId>
@@ -70,6 +75,11 @@
         <dependency>
             <groupId>xyz.migoo.springboot</groupId>
             <artifactId>migoo-webserver-infra-developer</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>xyz.migoo.springboot</groupId>
+            <artifactId>migoo-webserver-infra-file</artifactId>
         </dependency>
 
         <dependency>

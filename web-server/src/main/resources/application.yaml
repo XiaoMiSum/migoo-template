@@ -21,7 +21,7 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/ones?useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://127.0.0.1:3306/demo?useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: 123456qq
   data:
@@ -41,7 +41,7 @@ migoo:
   web:
     api-prefix: /${spring.application.name}
   security:
-    password-secret: 64a80ca7ed7b40f86625a30c477f20df
+    password-secret: 17c553e34228909b1f8cef6d1de0b53d
     token:
       header-name: Authorization
       secret: 17c553e34228909b1f8cef6d1de0b53d

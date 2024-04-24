@@ -3,12 +3,12 @@ import type { UserLoginVO } from './types'
 
 // 登录
 export const login = (data: UserLoginVO) => {
-  return request.post({ url: '/sign-in', data })
+  return request.post({ url: '/login', data })
 }
 
 // 登出
 export const loginOut = () => {
-  return request.post({ url: '/sign-out' })
+  return request.post({ url: '/loginOut' })
 }
 
 // 获取用户权限信息

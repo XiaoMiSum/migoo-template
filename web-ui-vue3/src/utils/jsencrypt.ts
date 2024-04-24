@@ -1,4 +1,5 @@
 import { JSEncrypt } from 'jsencrypt'
+import CryptoJS from 'crypto-js'
 
 // 密钥对生成 http://web.chacuo.net/netrsakeypair
 
@@ -28,4 +29,18 @@ export const decrypt = (txt: string) => {
   const encryptor = new JSEncrypt()
   encryptor.setPrivateKey(privateKey) // 设置私钥
   return encryptor.decrypt(txt) // 对数据进行解密
+}
+
+/**
+ * @word 要加密的内容
+ * @keyWord String  服务器随机返回的关键字
+ *  */
+export function encrypt_aes(word: any, keyWord: string) {
+  const key = CryptoJS.enc.Utf8.parse(keyWord)
+  const srcs = CryptoJS.enc.Utf8.parse(word)
+  const encrypted = CryptoJS.AES.encrypt(srcs, key, {
+    mode: CryptoJS.mode.ECB,
+    padding: CryptoJS.pad.Pkcs7
+  })
+  return encrypted.toString()
 }
