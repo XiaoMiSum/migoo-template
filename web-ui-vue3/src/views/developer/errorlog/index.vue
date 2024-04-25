@@ -2,22 +2,6 @@
   <ContentWrap>
     <!-- 搜索工作栏 -->
     <el-form ref="queryForm" :inline="true" :model="queryParams">
-      <el-form-item label="应用名称" prop="applicationName">
-        <el-select
-          v-model="queryParams.applicationName"
-          clearable
-          placeholder="请选择应用名称"
-          size="small"
-          @change="handleQuery"
-        >
-          <el-option
-            v-for="(item, index) in APPLICATION_ENUMS"
-            :key="index"
-            :label="item.label"
-            :value="item.key"
-          />
-        </el-select>
-      </el-form-item>
       <el-form-item label="" prop="status">
         <el-select
           v-model="queryParams.status"
@@ -96,7 +80,7 @@
 
 <script lang="ts" setup>
 import * as HTTP from '@/api/developer/error-log'
-import { APPLICATION_ENUMS, ERROR_LOG_STATUS_ENUMS } from '@/utils/enums'
+import { ERROR_LOG_STATUS_ENUMS } from '@/utils/enums'
 import { parseTime } from '@/utils'
 import ErrorLogDetail from '@/views/developer/errorlog/ErrorLogDetail.vue' // 代码高亮插件
 

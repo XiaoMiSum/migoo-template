@@ -16,7 +16,7 @@ export const CACHE_KEY = {
   DICT_CACHE: 'dictCache'
 }
 
-export const useCache = (type: CacheType = 'sessionStorage') => {
+export const useCache = (type: CacheType = 'localStorage') => {
   const wsCache: WebStorageCache = new WebStorageCache({
     storage: type
   })

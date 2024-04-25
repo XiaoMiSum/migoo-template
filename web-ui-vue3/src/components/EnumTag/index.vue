@@ -19,7 +19,7 @@ export default {
       default: COMMON_STATUS_ENUMS
     },
     value: {
-      type: Number,
+      type: [Number, String, Boolean],
       require: true,
       default: 0
     }

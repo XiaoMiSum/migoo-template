@@ -19,8 +19,6 @@ const layout = computed(() => appStore.getLayout)
 
 const collapse = computed(() => appStore.getCollapse)
 
-const icon = computed(() => appStore.getIcon)
-
 onMounted(() => {
   if (unref(collapse)) show.value = false
 })
@@ -66,7 +64,7 @@ watch(
         layout !== 'classic' ? `${prefixCls}__Top` : '',
         'flex !h-[var(--logo-height)] items-center cursor-pointer pl-8px relative decoration-none overflow-hidden'
       ]"
-      to="/index"
+      to="/"
     >
       <img
         src="/favicon.ico"

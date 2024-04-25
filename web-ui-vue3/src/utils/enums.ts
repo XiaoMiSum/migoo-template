@@ -27,4 +27,21 @@ export const JOB_LOG_STATUS_ENUMS = [
   { key: 2, label: '调度失败', tag: 'danger' }
 ]
 
+export const ERROR_LOG_STATUS_ENUMS = [
+  { key: 0, label: '未处理', tag: 'danger' },
+  { key: 1, label: '已处理', tag: 'success' },
+  { key: 2, label: '已忽略', tag: 'info' }
+]
+
 export const JOB_LOG_STATUS_ENUM = { INIT: 0, SUCCESSFUL: 1, FAILURE: 2 }
+
+export const FILE_STORAGE = [
+  { key: 1, label: '数据库', tag: '' },
+  { key: 10, label: '本地存储', tag: 'success' },
+  { key: 20, label: 'S3协议', tag: 'danger' }
+]
+
+export const TRUE_FALSE = [
+  { key: false, label: '否', tag: '' },
+  { key: true, label: '是', tag: 'success' }
+]

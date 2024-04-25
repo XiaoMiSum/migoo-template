@@ -1,4 +1,4 @@
-import * as FileApi from '@/api/file'
+import * as FileApi from '@/api/developer/file'
 import CryptoJS from 'crypto-js'
 import { UploadRawFile, UploadRequestOptions } from 'element-plus/es/components/upload/src/upload'
 import axios from 'axios'

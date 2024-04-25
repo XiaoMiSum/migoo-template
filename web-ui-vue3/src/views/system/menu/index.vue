@@ -72,14 +72,6 @@
       <el-table-column label="排序" prop="sort" width="60" />
       <el-table-column :show-overflow-tooltip="true" label="权限标识" prop="permission" />
       <el-table-column :show-overflow-tooltip="true" label="组件路径" prop="component" />
-      <el-table-column
-        :formatter="pageTypeFormatter"
-        :show-overflow-tooltip="true"
-        align="center"
-        label="页面类型"
-        prop="pageType"
-        width="80"
-      />
       <el-table-column align="center" label="状态" prop="status" width="80">
         <template #default="scope">
           <enum-tag :enums="COMMON_STATUS_ENUMS" :value="scope.row.status" />
@@ -134,10 +126,6 @@ const getList = async () => {
 /** 搜索按钮操作 */
 const handleQuery = () => {
   getList()
-}
-
-const pageTypeFormatter = (row: any) => {
-  return row.pageType === 1 ? '会员' : row.pageType === 2 ? '后台' : '未知'
 }
 
 /** 重置按钮操作 */

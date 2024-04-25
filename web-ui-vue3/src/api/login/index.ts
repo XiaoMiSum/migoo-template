@@ -8,7 +8,7 @@ export const login = (data: UserLoginVO) => {
 
 // 登出
 export const loginOut = () => {
-  return request.post({ url: '/loginOut' })
+  return request.post({ url: '/logout' })
 }
 
 // 获取用户权限信息
