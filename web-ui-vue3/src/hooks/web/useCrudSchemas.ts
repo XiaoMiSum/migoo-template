@@ -1,13 +1,13 @@
-import { reactive } from 'vue'
-import { AxiosPromise } from 'axios'
-import { findIndex } from '@/utils'
-import { eachTree, filter, treeMap } from '@/utils/tree'
+import {reactive} from 'vue'
+import {AxiosPromise} from 'axios'
+import {findIndex} from '@/utils'
+import {eachTree, filter, treeMap} from '@/utils/tree'
 
-import { FormSchema } from '@/types/form'
-import { TableColumn } from '@/types/table'
-import { DescriptionsSchema } from '@/types/descriptions'
-import { ComponentOptions, ComponentProps } from '@/types/components'
-import { cloneDeep, merge } from 'lodash-es'
+import {FormSchema} from '@/types/form'
+import {TableColumn} from '@/types/table'
+import {DescriptionsSchema} from '@/types/descriptions'
+import {ComponentOptions, ComponentProps} from '@/types/components'
+import {cloneDeep, merge} from 'lodash-es'
 import EnumTag from '@/components/EnumTag/index.vue'
 
 export type CrudSchema = Omit<TableColumn, 'children'> & {
@@ -271,9 +271,6 @@ const filterDescriptionsSchema = (crudSchema: CrudSchema[]): DescriptionsSchema[
         ...schemaItem.detail,
         field: schemaItem.field,
         label: schemaItem.detail?.label || schemaItem.label
-      }
-      if (schemaItem.dictType) {
-        descriptionsSchemaItem.dictType = schemaItem.dictType
       }
       if (schemaItem.detail?.dateFormat || schemaItem.formatter == 'formatDate') {
         // 优先使用 detail 下的配置，如果没有默认为 YYYY-MM-DD HH:mm:ss

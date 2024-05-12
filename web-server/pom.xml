@@ -11,10 +11,6 @@
 
     <artifactId>web-server</artifactId>
 
-    <properties>
-        <java.version>17</java.version>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>xyz.migoo.springboot</groupId>

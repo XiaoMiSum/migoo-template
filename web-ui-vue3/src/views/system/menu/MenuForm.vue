@@ -59,8 +59,8 @@
       </el-form-item>
       <el-form-item label="菜单状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio v-for="dict in COMMON_STATUS_ENUMS" :key="dict.key" :label="dict.key" border>
-            {{ dict.label }}
+          <el-radio v-for="item in COMMON_STATUS_ENUMS" :key="item.key" :label="item.key" border>
+            {{ item.label }}
           </el-radio>
         </el-radio-group>
       </el-form-item>

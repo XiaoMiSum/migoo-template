@@ -294,11 +294,7 @@ export default {
     import: '导入',
     generate: '生成',
     logout: '强制退出',
-    test: '测试',
-    typeCreate: '字典类型新增',
-    typeUpdate: '字典类型编辑',
-    dataCreate: '字典数据新增',
-    dataUpdate: '字典数据编辑'
+    test: '测试'
   },
   dialog: {
     dialog: '弹窗',

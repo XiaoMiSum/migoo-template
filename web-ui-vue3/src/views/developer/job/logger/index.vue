@@ -19,10 +19,10 @@
           placeholder="请选择任务状态"
         >
           <el-option
-            v-for="dict in JOB_LOG_STATUS_ENUMS"
-            :key="dict.key"
-            :label="dict.label"
-            :value="dict.key"
+            v-for="item in JOB_LOG_STATUS_ENUMS"
+            :key="item.key"
+            :label="item.label"
+            :value="item.key"
           />
         </el-select>
       </el-form-item>
