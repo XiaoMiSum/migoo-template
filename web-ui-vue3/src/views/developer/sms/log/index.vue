@@ -62,12 +62,12 @@
       <el-table-column align="center" label="短信内容" prop="templateContent" width="400" />
       <el-table-column align="center" label="发送状态">
         <template #default="scope">
-          <enum-tag :value="scope.row.sendStatus" />
+          <ones-tag :type="DICT_TYPE.INFRA_SMS_SEND_STATUS" :value="scope.row.sendStatus" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="接收状态">
         <template #default="scope">
-          <enum-tag :value="scope.row.receiveStatus" />
+          <ones-tag :type="DICT_TYPE.INFRA_SMS_RECEIVE_STATUS" :value="scope.row.receiveStatus" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="短信渠道" prop="channelCode" />
@@ -102,6 +102,7 @@ import { getPage } from '@/api/developer/sms/log'
 import * as C from '@/api/developer/sms/channel'
 import * as T from '@/api/developer/sms/template'
 import LogDetail from '@/views/developer/sms/log/LogDetail.vue'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 const loading = ref(false)
 const total = ref(0)

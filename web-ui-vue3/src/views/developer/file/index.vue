@@ -1,13 +1,7 @@
 <template>
   <!-- 搜索 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
+    <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
       <el-form-item label="文件路径" prop="path">
         <el-input
           v-model="queryParams.path"
@@ -24,26 +18,21 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker
-          v-model="queryParams.createTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :default-time="[new Date('1 00:00:00'), new Date('1 23:59:59')]"
-        />
-      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleQuery"
           ><Icon icon="ep:search" class="mr-5px" /> 搜索</el-button
         >
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-row :gutter="10">
+      <el-col :span="1.5">
         <el-button type="primary" plain @click="openForm">
           <Icon icon="ep:upload" class="mr-5px" /> 上传文件
         </el-button>
-      </el-form-item>
-    </el-form>
+      </el-col>
+    </el-row>
   </ContentWrap>
 
   <!-- 列表 -->

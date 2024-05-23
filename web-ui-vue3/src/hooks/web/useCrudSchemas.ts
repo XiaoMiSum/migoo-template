@@ -8,7 +8,8 @@ import {TableColumn} from '@/types/table'
 import {DescriptionsSchema} from '@/types/descriptions'
 import {ComponentOptions, ComponentProps} from '@/types/components'
 import {cloneDeep, merge} from 'lodash-es'
-import EnumTag from '@/components/EnumTag/index.vue'
+import {getBoolDictOptions, getDictOptions, getIntDictOptions} from '@/utils/dictionary'
+import OnesTag from '@/components/OnesTag/src/OnesTag.vue'
 
 export type CrudSchema = Omit<TableColumn, 'children'> & {
   isSearch?: boolean // 是否在查询显示
@@ -20,7 +21,8 @@ export type CrudSchema = Omit<TableColumn, 'children'> & {
   isDetail?: boolean // 是否在详情显示
   detail?: CrudDescriptionsParams // 详情的详细配置
   children?: CrudSchema[]
-  enums?: [] // 字典类型
+  dictCode?: string // 字典类型
+  dictClass?: 'string' | 'number' | 'boolean' // 字典数据类型 string | number | boolean
 }
 
 type CrudSearchParams = {
@@ -104,11 +106,11 @@ const filterSearchSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): F
       let component = schemaItem?.search?.component || 'Input'
       const options: ComponentOptions[] = []
       let comonentProps: ComponentProps = {}
-      if (schemaItem.enums) {
+      if (schemaItem.dictCode) {
         const allOptions: ComponentOptions = { label: '全部', value: '' }
         options.push(allOptions)
-        schemaItem.enums.forEach((item) => {
-          options.push({ tag: item.tag, label: item.label, key: item.key })
+        getDictOptions(schemaItem.dictCode).forEach((item: any) => {
+          options.push(item)
         })
         comonentProps = {
           options: options
@@ -160,11 +162,11 @@ const filterTableSchema = (crudSchema: CrudSchema[]): TableColumn[] => {
   const tableColumns = treeMap<CrudSchema>(crudSchema, {
     conversion: (schema: CrudSchema) => {
       if (schema?.isTable !== false && schema?.table?.show !== false) {
-        // add by 芋艿：增加对 dict 字典数据的支持
-        if (!schema.formatter && schema.enums) {
+        // add by 芋艿：增加对 enums 数据的支持
+        if (!schema.formatter && schema.dictCode) {
           schema.formatter = (_: Recordable, __: TableColumn, cellValue: any) => {
-            return h(EnumTag, {
-              enums: schema.enums!, // ! 表示一定不为空
+            return h(OnesTag, {
+              type: schema.dictCode!, // ! 表示一定不为空
               value: cellValue
             })
           }
@@ -206,11 +208,21 @@ const filterFormSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): For
         }
       }
       let comonentProps: ComponentProps = {}
-      if (schemaItem.enums) {
+      if (schemaItem.dictCode) {
         const options: ComponentOptions[] = []
-        schemaItem.enums.forEach((item) => {
-          options.push({ key: item.key, label: item.label, value: item.key })
-        })
+        if (schemaItem.dictClass && schemaItem.dictClass === 'number') {
+          getIntDictOptions(schemaItem.dictCode).forEach((item) => {
+            options.push(item)
+          })
+        } else if (schemaItem.dictClass && schemaItem.dictClass === 'boolean') {
+          getBoolDictOptions(schemaItem.dictCode).forEach((item) => {
+            options.push(item)
+          })
+        } else {
+          getDictOptions(schemaItem.dictCode).forEach((item) => {
+            options.push(item)
+          })
+        }
         comonentProps = {
           options: options
         }
@@ -271,6 +283,9 @@ const filterDescriptionsSchema = (crudSchema: CrudSchema[]): DescriptionsSchema[
         ...schemaItem.detail,
         field: schemaItem.field,
         label: schemaItem.detail?.label || schemaItem.label
+      }
+      if (schemaItem.dictCode) {
+        descriptionsSchemaItem.dictCode = schemaItem.dictCode
       }
       if (schemaItem.detail?.dateFormat || schemaItem.formatter == 'formatDate') {
         // 优先使用 detail 下的配置，如果没有默认为 YYYY-MM-DD HH:mm:ss

@@ -22,7 +22,12 @@
       </el-form-item>
       <el-form-item label="菜单类型" prop="type">
         <el-radio-group v-model="formData.type">
-          <el-radio-button v-for="item in MENU_TYPE_ENUMS" :key="item.key" :label="item.key">
+          <el-radio-button
+            v-for="item in getIntDictOptions(DICT_TYPE.SYSTEM_MENU_TYPE)"
+            :key="item.value"
+            :label="item.value"
+            border
+          >
             {{ item.label }}
           </el-radio-button>
         </el-radio-group>
@@ -59,7 +64,12 @@
       </el-form-item>
       <el-form-item label="菜单状态" prop="status">
         <el-radio-group v-model="formData.status">
-          <el-radio v-for="item in COMMON_STATUS_ENUMS" :key="item.key" :label="item.key" border>
+          <el-radio
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
+            :label="item.value"
+            border
+          >
             {{ item.label }}
           </el-radio>
         </el-radio-group>
@@ -108,12 +118,8 @@
 import * as HTTP from '@/api/system/menu'
 import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
 import { defaultProps, handleTree } from '@/utils/tree'
-import {
-  COMMON_STATUS_ENUM,
-  COMMON_STATUS_ENUMS,
-  MENU_TYPE_ENUM,
-  MENU_TYPE_ENUMS
-} from '@/utils/enums'
+import { getIntDictOptions, DICT_TYPE } from '@/utils/dictionary'
+import { COMMON_STATUS_ENUM, MENU_TYPE_ENUM } from '@/utils/enums'
 
 defineOptions({ name: 'SystemMenuForm' })
 

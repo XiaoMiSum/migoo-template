@@ -16,16 +16,27 @@
           default-expand-all
           placeholder="请选择上级部门"
           value-key="deptId"
+          style="width: 100%"
         />
       </el-form-item>
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入部门名称" />
       </el-form-item>
       <el-form-item label="显示排序" prop="sort">
-        <el-input-number v-model="formData.sort" :min="0" controls-position="right" />
+        <el-input-number
+          v-model="formData.sort"
+          :min="0"
+          controls-position="right"
+          style="width: 100%"
+        />
       </el-form-item>
       <el-form-item label="负责人" prop="leaderUserId">
-        <el-select v-model="formData.leaderUserId" clearable placeholder="请输入负责人">
+        <el-select
+          v-model="formData.leaderUserId"
+          clearable
+          placeholder="请输入负责人"
+          style="width: 100%"
+        >
           <el-option v-for="item in userList" :key="item.id" :label="item.name" :value="item.id" />
         </el-select>
       </el-form-item>

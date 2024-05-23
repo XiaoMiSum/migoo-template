@@ -1,14 +1,8 @@
 <template>
   <!-- 搜索 -->
   <ContentWrap>
-    <el-form
-      class="-mb-15px"
-      :model="queryParams"
-      ref="queryFormRef"
-      :inline="true"
-      label-width="68px"
-    >
-      <el-form-item label="配置名" prop="name">
+    <el-form :model="queryParams" ref="queryFormRef" :inline="true" label-width="68px">
+      <el-form-item label="" prop="name">
         <el-input
           v-model="queryParams.name"
           placeholder="请输入配置名"
@@ -17,7 +11,7 @@
           class="!w-240px"
         />
       </el-form-item>
-      <el-form-item label="存储器" prop="storage">
+      <el-form-item label="" prop="storage">
         <el-select
           v-model="queryParams.storage"
           placeholder="请选择存储器"
@@ -25,29 +19,23 @@
           class="!w-240px"
         >
           <el-option
-            v-for="item in FILE_STORAGE"
-            :key="item.key"
+            v-for="item in getIntDictOptions(DICT_TYPE.INFRA_FILE_STORAGE)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
-      </el-form-item>
-      <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker
-          v-model="queryParams.createTime"
-          value-format="YYYY-MM-DD HH:mm:ss"
-          type="daterange"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          :default-time="[new Date('1 00:00:00'), new Date('1 23:59:59')]"
-          class="!w-240px"
-        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleQuery">
           <Icon icon="ep:search" class="mr-5px" /> 搜索
         </el-button>
         <el-button @click="resetQuery"><Icon icon="ep:refresh" class="mr-5px" /> 重置</el-button>
+      </el-form-item>
+    </el-form>
+
+    <el-row :gutter="10">
+      <el-col :span="1.5">
         <el-button
           type="primary"
           plain
@@ -56,8 +44,8 @@
         >
           <Icon icon="ep:plus" class="mr-5px" /> 新增
         </el-button>
-      </el-form-item>
-    </el-form>
+      </el-col>
+    </el-row>
   </ContentWrap>
 
   <!-- 列表 -->
@@ -67,13 +55,13 @@
       <el-table-column label="配置名" align="center" prop="name" />
       <el-table-column label="存储器" align="center" prop="storage">
         <template #default="scope">
-          <enum-tag :enums="FILE_STORAGE" :value="scope.row.storage" />
+          <ones-tag :type="DICT_TYPE.INFRA_FILE_STORAGE" :value="scope.row.storage" />
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="主配置" align="center" prop="primary">
         <template #default="scope">
-          <enum-tag :enums="TRUE_FALSE" :value="scope.row.master" />
+          <ones-tag :type="DICT_TYPE.INFRA_BOOLEAN_STRING" :value="scope.row.master" />
         </template>
       </el-table-column>
       <el-table-column
@@ -126,11 +114,12 @@
   <!-- 表单弹窗：添加/修改 -->
   <FileConfigForm ref="formRef" @success="getList" />
 </template>
+
 <script lang="ts" setup>
 import * as FileConfigApi from '@/api/developer/file/config'
 import FileConfigForm from './FileConfigForm.vue'
 
-import { FILE_STORAGE, TRUE_FALSE } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 import { dateFormatter } from '@/utils/formatTime'
 
 defineOptions({ name: 'InfraFileConfig' })

@@ -8,7 +8,7 @@
         {{ detailData.name }}
       </el-descriptions-item>
       <el-descriptions-item label="任务状态">
-        <enum-tag :enums="JOB_LOG_STATUS_ENUMS" :value="detailData.status" />
+        <ones-tag :type="DICT_TYPE.INFRA_JOB_STATUS" :value="detailData.status" />
       </el-descriptions-item>
       <el-descriptions-item label="处理器的名字">
         {{ detailData.handlerName }}
@@ -45,13 +45,13 @@
 <script lang="ts" setup>
 import { formatDate } from '@/utils/formatTime'
 import * as JobApi from '@/api/developer/job'
-import { JOB_LOG_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 defineOptions({ name: 'InfraJobDetail' })
 
 const dialogVisible = ref(false) // 弹窗的是否展示
 const detailLoading = ref(false) // 表单的加载中
-const detailData = ref({}) // 详情数据
+const detailData = ref({} as any) // 详情数据
 const nextTimes = ref([]) // 下一轮执行时间的数组
 
 /** 打开弹窗 */

@@ -7,7 +7,6 @@
           v-model="queryParams.status"
           clearable
           placeholder="请选择处理状态"
-          size="small"
           @change="handleQuery"
         >
           <el-option
@@ -37,7 +36,10 @@
       </el-table-column>
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
-          <enum-tag :enums="ERROR_LOG_STATUS_ENUMS" :value="scope.row.status" />
+          <ones-tag
+            :type="DICT_TYPE.INFRA_API_ERROR_LOG_PROCESS_STATUS"
+            :value="scope.row.status"
+          />
         </template>
       </el-table-column>
       <el-table-column
@@ -80,7 +82,7 @@
 
 <script lang="ts" setup>
 import * as HTTP from '@/api/developer/error-log'
-import { ERROR_LOG_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE } from '@/utils/dictionary'
 import { parseTime } from '@/utils'
 import ErrorLogDetail from '@/views/developer/errorlog/ErrorLogDetail.vue' // 代码高亮插件
 

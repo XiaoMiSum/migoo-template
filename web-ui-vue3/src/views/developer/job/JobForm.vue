@@ -62,7 +62,10 @@ const formData = ref({
   name: '',
   handlerName: '',
   handlerParam: '',
-  cronExpression: ''
+  cronExpression: '',
+  retryCount: '',
+  retryInterval: '',
+  monitorTimeout: ''
 })
 const formRules = reactive({
   name: [{ required: true, message: '任务名称不能为空', trigger: 'blur' }],
@@ -124,7 +127,10 @@ const resetForm = () => {
     name: '',
     handlerName: '',
     handlerParam: '',
-    cronExpression: ''
+    cronExpression: '',
+    retryCount: '',
+    retryInterval: '',
+    monitorTimeout: ''
   }
   formRef.value?.resetFields()
 }

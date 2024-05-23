@@ -2,7 +2,6 @@
 import { ElMessageBox } from 'element-plus'
 
 import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
-import * as authUtil from '@/utils/auth'
 import { useDesign } from '@/hooks/web/useDesign'
 import avatarImg from '@/assets/imgs/avatar.png'
 import { useUserStore } from '@/store/modules/user'

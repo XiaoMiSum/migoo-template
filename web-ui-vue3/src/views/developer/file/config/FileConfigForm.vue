@@ -20,10 +20,10 @@
           placeholder="请选择存储器"
         >
           <el-option
-            v-for="item in FILE_STORAGE"
-            :key="item.key"
+            v-for="item in getIntDictOptions(DICT_TYPE.INFRA_FILE_STORAGE)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -99,7 +99,7 @@
   </Dialog>
 </template>
 <script lang="ts" setup>
-import { FILE_STORAGE } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 import * as FileConfigApi from '@/api/developer/file/config'
 import { FormRules } from 'element-plus'
 

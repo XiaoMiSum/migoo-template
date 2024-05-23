@@ -13,10 +13,10 @@
       <el-form-item prop="status">
         <el-select v-model="queryParams.status" clearable placeholder="菜单状态">
           <el-option
-            v-for="item in COMMON_STATUS_ENUMS"
-            :key="item.key"
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -60,33 +60,25 @@
   </ContentWrap>
 
   <ContentWrap>
-    <el-table
+    <Table
       v-if="refreshTable"
-      v-loading="loading"
+      row-key="id"
+      :columns="tableColumns"
+      :loading="tableObject.loading"
       :data="list"
       :default-expand-all="isExpandAll"
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-      row-key="id"
     >
-      <el-table-column :show-overflow-tooltip="true" label="菜单名称" prop="name" width="200" />
-      <el-table-column label="排序" prop="sort" width="60" />
-      <el-table-column :show-overflow-tooltip="true" label="权限标识" prop="permission" />
-      <el-table-column :show-overflow-tooltip="true" label="组件路径" prop="component" />
-      <el-table-column align="center" label="状态" prop="status" width="80">
-        <template #default="scope">
-          <enum-tag :enums="COMMON_STATUS_ENUMS" :value="scope.row.status" />
-        </template>
-      </el-table-column>
-      <el-table-column align="center" label="操作">
-        <template #default="scope">
-          <el-button link type="primary" @click="openForm('update', scope.row.id)">修改 </el-button>
-          <el-button link type="primary" @click="openForm('create', undefined, scope.row.id)"
+      <template #action="{ row }">
+        <div class="flex items-center justify-center">
+          <el-button link type="primary" @click="openForm('update', row.id)">修改 </el-button>
+          <el-button link type="primary" @click="openForm('create', undefined, row.id)"
             >新增
           </el-button>
-          <el-button link type="danger" @click="handleDelete(scope.row.id)">删除 </el-button>
-        </template>
-      </el-table-column>
-    </el-table>
+          <el-button link type="danger" @click="handleDelete(row.id)">删除 </el-button>
+        </div>
+      </template>
+    </Table>
   </ContentWrap>
   <MenuForm ref="formRef" @success="getList" />
 </template>
@@ -94,12 +86,18 @@
 <script lang="ts" setup>
 import * as HTTP from '@/api/system/menu'
 import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
-
-import { COMMON_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 import { handleTree } from '@/utils/tree'
-import EnumTag from '@/components/EnumTag/index.vue'
 import { t } from '@/hooks/web/useI18n'
 import MenuForm from '@/views/system/menu/MenuForm.vue'
+
+import { tableColumns } from './Menu.d'
+
+const { tableMethods, tableObject } = useTable({
+  getListApi: HTTP.listData
+})
+
+const { getList } = tableMethods
 
 const { wsCache } = useCache()
 const message = useMessage() // 消息弹窗
@@ -114,18 +112,18 @@ const queryParams = reactive({
   status: undefined
 })
 /** 查询菜单列表 */
-const getList = async () => {
+const getList2 = async () => {
   loading.value = true
   try {
-    const data = await HTTP.listData(queryParams.value)
-    list.value = handleTree(data)
+    await getList()
+    list.value = handleTree(tableObject.tableList)
   } finally {
     loading.value = false
   }
 }
 /** 搜索按钮操作 */
 const handleQuery = () => {
-  getList()
+  getList2()
 }
 
 /** 重置按钮操作 */
@@ -169,12 +167,12 @@ const handleDelete = async (id: number) => {
     await HTTP.delData(id)
     message.success(t('common.delSuccess'))
     // 刷新列表
-    await getList()
+    await getList2()
   } catch {}
 }
 
 /** 初始化 **/
 onMounted(() => {
-  getList()
+  getList2()
 })
 </script>

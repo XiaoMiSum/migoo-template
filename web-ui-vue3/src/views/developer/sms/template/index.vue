@@ -3,12 +3,12 @@
     <!-- 搜索工作栏 -->
     <el-form ref="queryFormRef" :inline="true" :model="queryParams">
       <el-form-item prop="status">
-        <el-select v-model="queryParams.status" clearable placeholder="请选择状态" size="small">
+        <el-select v-model="queryParams.status" clearable placeholder="请选择状态">
           <el-option
-            v-for="(item, index) in COMMON_STATUS_ENUMS"
-            :key="index"
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -25,7 +25,6 @@
           v-model="queryParams.apiTemplateId"
           clearable
           placeholder="请输入短信 API 的模板编号"
-          size="small"
           @keyup.enter="handleQuery"
         />
       </el-form-item>
@@ -139,7 +138,8 @@
 
 <script lang="ts" setup>
 import * as HTTP from '@/api/developer/sms/template'
-import { COMMON_STATUS_ENUM, COMMON_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
+import { COMMON_STATUS_ENUM } from '@/utils/enums'
 import * as C from '@/api/developer/sms/channel'
 import SendSms from '@/views/developer/sms/template/SendSms.vue'
 import TemplateForm from '@/views/developer/sms/template/TemplateForm.vue'

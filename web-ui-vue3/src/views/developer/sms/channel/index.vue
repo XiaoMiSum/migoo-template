@@ -13,10 +13,10 @@
       <el-form-item prop="status">
         <el-select v-model="queryParams.status" clearable placeholder="请选择状态">
           <el-option
-            v-for="(item, index) in COMMON_STATUS_ENUMS"
-            :key="index"
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -100,7 +100,8 @@
 
 <script lang="ts" setup>
 import * as HTTP from '@/api/developer/sms/channel'
-import { COMMON_STATUS_ENUM, COMMON_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
+import { COMMON_STATUS_ENUM } from '@/utils/enums'
 import ChannelFrom from '@/views/developer/sms/channel/ChannelForm.vue'
 
 const message = useMessage()

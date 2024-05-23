@@ -46,8 +46,14 @@
         <el-col :span="12">
           <el-form-item label="性别" prop="gender">
             <el-radio-group v-model="formData.gender">
-              <el-radio :label="1" border>男</el-radio>
-              <el-radio :label="2" border>女</el-radio>
+              <el-radio
+                v-for="item in getIntDictOptions(DICT_TYPE.SYSTEM_USER_GENDER)"
+                :key="item.value"
+                :label="item.value"
+                border
+              >
+                {{ item.label }}
+              </el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -99,6 +105,7 @@
   </Dialog>
 </template>
 <script lang="ts" setup>
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 import { defaultProps, handleTree } from '@/utils/tree'
 import * as PostApi from '@/api/system/post'
 import * as DeptApi from '@/api/system/dept'

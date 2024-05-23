@@ -16,13 +16,13 @@
           v-model="queryParams.status"
           class="!w-240px"
           clearable
-          placeholder="请选择任务状态"
+          placeholder="请选择调度状态"
         >
           <el-option
-            v-for="item in JOB_LOG_STATUS_ENUMS"
-            :key="item.key"
+            v-for="item in getIntDictOptions(DICT_TYPE.INFRA_JOB_LOG_STATUS)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -82,7 +82,7 @@
       </el-table-column>
       <el-table-column align="center" label="状态" prop="status">
         <template #default="scope">
-          <enum-tag :enums="JOB_LOG_STATUS_ENUMS" :value="scope.row.status" />
+          <ones-tag :type="DICT_TYPE.INFRA_JOB_LOG_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
       <el-table-column align="center" label="操作">
@@ -114,7 +114,7 @@
 import { formatDate } from '@/utils/formatTime'
 import JobLogDetail from './JobLogDetail.vue'
 import * as HTTP from '@/api/developer/job/jobLog'
-import { JOB_LOG_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 
 defineOptions({ name: 'InfraJobLog' })
 

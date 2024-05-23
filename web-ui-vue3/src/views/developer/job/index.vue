@@ -14,10 +14,10 @@
       <el-form-item label="" prop="status">
         <el-select v-model="queryParams.status" clearable placeholder="请选择任务状态">
           <el-option
-            v-for="item in JOB_STATUS_ENUMS"
-            :key="item.key"
+            v-for="item in getIntDictOptions(DICT_TYPE.INFRA_JOB_STATUS)"
+            :key="item.value"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -67,7 +67,7 @@
       <el-table-column align="center" label="任务名称" prop="name" />
       <el-table-column align="center" label="状态" prop="status" width="100">
         <template #default="scope">
-          <enum-tag :enums="JOB_STATUS_ENUMS" :value="scope.row.status" />
+          <ones-tag :type="DICT_TYPE.INFRA_JOB_STATUS" :value="scope.row.status" />
         </template>
       </el-table-column>
       <el-table-column align="left" label="处理器" prop="handlerName" />
@@ -151,7 +151,8 @@ import { checkPermi } from '@/utils/permission'
 import JobForm from './JobForm.vue'
 import JobDetail from './JobDetail.vue'
 import * as JobApi from '@/api//developer/job'
-import { JOB_STATUS_ENUM, JOB_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
+import { JOB_STATUS_ENUM } from '@/utils/enums'
 
 defineOptions({ name: 'InfraJob' })
 

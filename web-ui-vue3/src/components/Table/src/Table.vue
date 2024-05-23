@@ -7,6 +7,7 @@ import { getSlot } from '@/utils/tsxHelper'
 import type { TableProps } from './types'
 import { set } from 'lodash-es'
 import { Pagination, TableColumn, TableSetPropsType, TableSlotDefault } from '@/types/table'
+import { string } from 'vue-types'
 
 export default defineComponent({
   // eslint-disable-next-line vue/no-reserved-component-names
@@ -47,6 +48,11 @@ export default defineComponent({
     data: {
       type: Array as PropType<Recordable[]>,
       default: () => []
+    },
+    defaultExpandall: propTypes.bool.def(false),
+    treeProps: {
+      type: Object,
+      default: () => {}
     }
   },
   emits: ['update:pageSize', 'update:currentPage', 'register'],

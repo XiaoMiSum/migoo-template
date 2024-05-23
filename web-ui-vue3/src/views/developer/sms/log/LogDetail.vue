@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import * as HTTP from '@/api/developer/sms/log'
 import { parseTime } from '@/utils'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 const visible = ref(false)
 const formData = ref<any>({})
@@ -40,7 +41,7 @@ defineExpose({ open })
         </el-col>
         <el-col :span="24">
           <el-form-item label="发送状态：">
-            <enum-tag :value="formData.sendStatus" />
+            <ones-tag :type="DICT_TYPE.INFRA_SMS_SEND_STATUS" :value="formData.sendStatus" />
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -64,7 +65,7 @@ defineExpose({ open })
         </el-col>
         <el-col :span="24">
           <el-form-item label="接收状态：">
-            <enum-tag :value="formData.receiveStatus" />
+            <ones-tag :type="DICT_TYPE.INFRA_SMS_RECEIVE_STATUS" :value="formData.receiveStatus" />
           </el-form-item>
         </el-col>
         <el-col :span="24">

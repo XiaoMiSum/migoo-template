@@ -23,7 +23,7 @@
         {{ detailData.duration + ' 毫秒' }}
       </el-descriptions-item>
       <el-descriptions-item label="任务状态">
-        <enum-tag :enums="JOB_LOG_STATUS_ENUMS" :value="detailData.status" />
+        <ones-tag :type="DICT_TYPE.INFRA_JOB_LOG_STATUS" :value="detailData.status" />
       </el-descriptions-item>
       <el-descriptions-item label="执行结果">
         {{ detailData.result }}
@@ -34,13 +34,13 @@
 <script lang="ts" setup>
 import { formatDate } from '@/utils/formatTime'
 import * as HTTP from '@/api/developer/job/jobLog'
-import { JOB_LOG_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 defineOptions({ name: 'JobLogDetail' })
 
 const dialogVisible = ref(false) // 弹窗的是否展示
 const detailLoading = ref(false) // 表单的加载中
-const detailData = ref({}) // 详情数据
+const detailData = ref({} as any) // 详情数据
 
 /** 打开弹窗 */
 const open = async (id: number) => {
