@@ -1,10 +1,8 @@
-import { TableColumn } from '@/components/Table'
-import { FormSchema } from '@/components/Form'
+import {TableColumn} from '@/components/Table'
+import {FormSchema} from '@/components/Form'
 
-import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
-
-import { dateFormatter } from '@/utils/formatTime'
-import { COMMON_STATUS_ENUM } from '@/utils/enums'
+import {dateFormatter} from '@/utils/formatTime'
+import {COMMON_STATUS_ENUM} from '@/utils/enums'
 
 import * as UserApi from '@/api/system/user'
 
@@ -50,7 +48,9 @@ export const tableColumns = reactive<TableColumn[]>([
   {
     label: '操作',
     field: 'action',
-    width: 160
+    table: {
+      width: 160
+    }
   }
 ])
 

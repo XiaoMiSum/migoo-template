@@ -1,38 +1,8 @@
 <template>
   <ContentWrap>
     <!-- 搜索工作栏 -->
-    <el-form ref="queryForm" :inline="true" :model="queryParams">
-      <el-form-item prop="name">
-        <el-input
-          v-model="queryParams.name"
-          clearable
-          placeholder="请输入菜单名称"
-          @keyup.enter="handleQuery"
-        />
-      </el-form-item>
-      <el-form-item prop="status">
-        <el-select v-model="queryParams.status" clearable placeholder="菜单状态">
-          <el-option
-            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="handleQuery">
-          <Icon class="mr-5px" icon="ep:search" />
-          搜索
-        </el-button>
-        <el-button @click="resetQuery">
-          <Icon class="mr-5px" icon="ep:refresh" />
-          重置
-        </el-button>
-      </el-form-item>
-    </el-form>
-
-    <el-row :gutter="10">
+    <Search :schema="allSchemas.searchSchema" @search="setSearchParams" @reset="setSearchParams" />
+    <el-row class="mt-10px" :gutter="10">
       <el-col :span="1.5">
         <el-button
           v-hasPermi="['system:menu:add']"
@@ -63,7 +33,7 @@
     <Table
       v-if="refreshTable"
       row-key="id"
-      :columns="tableColumns"
+      :columns="allSchemas.tableColumns"
       :loading="tableObject.loading"
       :data="list"
       :default-expand-all="isExpandAll"
@@ -86,31 +56,26 @@
 <script lang="ts" setup>
 import * as HTTP from '@/api/system/menu'
 import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
-import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 import { handleTree } from '@/utils/tree'
 import { t } from '@/hooks/web/useI18n'
 import MenuForm from '@/views/system/menu/MenuForm.vue'
 
-import { tableColumns } from './Menu.d'
+import { allSchemas } from './Menu.d'
 
 const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.listData
 })
 
-const { getList } = tableMethods
+const { getList, setSearchParams } = tableMethods
 
 const { wsCache } = useCache()
 const message = useMessage() // 消息弹窗
 const loading = ref(true) // 列表的加载中
 const list = ref<any>([]) // 列表的数据
-const queryForm = ref() // 搜索的表单
 const isExpandAll = ref(false) // 是否展开，默认全部折叠
 const refreshTable = ref(true) // 重新渲染表格状态
 // 查询参数
-const queryParams = reactive({
-  name: undefined,
-  status: undefined
-})
+
 /** 查询菜单列表 */
 const getList2 = async () => {
   loading.value = true
@@ -120,16 +85,6 @@ const getList2 = async () => {
   } finally {
     loading.value = false
   }
-}
-/** 搜索按钮操作 */
-const handleQuery = () => {
-  getList2()
-}
-
-/** 重置按钮操作 */
-const resetQuery = () => {
-  queryForm.value.resetFields()
-  handleQuery()
 }
 
 /** 添加/修改操作 */

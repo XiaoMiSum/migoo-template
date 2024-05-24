@@ -12,13 +12,9 @@ import {getBoolDictOptions, getDictOptions, getIntDictOptions} from '@/utils/dic
 import OnesTag from '@/components/OnesTag/src/OnesTag.vue'
 
 export type CrudSchema = Omit<TableColumn, 'children'> & {
-  isSearch?: boolean // 是否在查询显示
   search?: CrudSearchParams // 查询的详细配置
-  isTable?: boolean // 是否在列表显示
   table?: CrudTableParams // 列表的详细配置
-  isForm?: boolean // 是否在表单显示
   form?: CrudFormParams // 表单的详细配置
-  isDetail?: boolean // 是否在详情显示
   detail?: CrudDescriptionsParams // 详情的详细配置
   children?: CrudSchema[]
   dictCode?: string // 字典类型
@@ -102,19 +98,19 @@ const filterSearchSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): F
   const searchRequestTask: Array<() => Promise<void>> = []
   eachTree(crudSchema, (schemaItem: CrudSchema) => {
     // 判断是否显示
-    if (schemaItem?.isSearch || schemaItem.search?.show) {
+    if (schemaItem.search?.show) {
       let component = schemaItem?.search?.component || 'Input'
       const options: ComponentOptions[] = []
-      let comonentProps: ComponentProps = {}
+      const comonentProps: ComponentProps =
+        schemaItem.componentProps || schemaItem.search?.componentProps || {}
       if (schemaItem.dictCode) {
         const allOptions: ComponentOptions = { label: '全部', value: '' }
         options.push(allOptions)
         getDictOptions(schemaItem.dictCode).forEach((item: any) => {
           options.push(item)
         })
-        comonentProps = {
-          options: options
-        }
+        comonentProps.options = options
+
         if (!schemaItem.search?.component) component = 'Select'
       }
 
@@ -124,11 +120,14 @@ const filterSearchSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): F
           // 默认为 input
           component,
           ...schemaItem.search,
+          labelMessage: schemaItem.labelMessage,
+          hiddenLabel: schemaItem.search.hiddenLabel,
           field: schemaItem.field,
           label: schemaItem.search?.label || schemaItem.label
         },
         { componentProps: comonentProps }
       )
+
       if (searchSchemaItem.api) {
         searchRequestTask.push(async () => {
           const res = await (searchSchemaItem.api as () => AxiosPromise)()
@@ -161,7 +160,7 @@ const filterSearchSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): F
 const filterTableSchema = (crudSchema: CrudSchema[]): TableColumn[] => {
   const tableColumns = treeMap<CrudSchema>(crudSchema, {
     conversion: (schema: CrudSchema) => {
-      if (schema?.isTable !== false && schema?.table?.show !== false) {
+      if (schema?.table?.show !== false) {
         // add by 芋艿：增加对 enums 数据的支持
         if (!schema.formatter && schema.dictCode) {
           schema.formatter = (_: Recordable, __: TableColumn, cellValue: any) => {
@@ -197,7 +196,7 @@ const filterFormSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): For
 
   eachTree(crudSchema, (schemaItem: CrudSchema) => {
     // 判断是否显示
-    if (schemaItem?.isForm !== false && schemaItem?.form?.show !== false) {
+    if (schemaItem?.form?.show !== false) {
       let component = schemaItem?.form?.component || 'Input'
       let defaultValue: any = ''
       if (schemaItem.form?.value) {
@@ -219,7 +218,7 @@ const filterFormSchema = (crudSchema: CrudSchema[], allSchemas: AllSchemas): For
             options.push(item)
           })
         } else {
-          getDictOptions(schemaItem.dictCode).forEach((item) => {
+          getDictOptions(schemaItem.dictCode).forEach((item: any) => {
             options.push(item)
           })
         }
@@ -278,14 +277,19 @@ const filterDescriptionsSchema = (crudSchema: CrudSchema[]): DescriptionsSchema[
 
   eachTree(crudSchema, (schemaItem: CrudSchema) => {
     // 判断是否显示
-    if (schemaItem?.isDetail !== false && schemaItem.detail?.show !== false) {
+    if (schemaItem.detail?.show !== false) {
       const descriptionsSchemaItem = {
         ...schemaItem.detail,
         field: schemaItem.field,
         label: schemaItem.detail?.label || schemaItem.label
       }
-      if (schemaItem.dictCode) {
-        descriptionsSchemaItem.dictCode = schemaItem.dictCode
+      if (!schemaItem.formatter && schemaItem.dictCode) {
+        schemaItem.formatter = (_: Recordable, __: TableColumn, cellValue: any) => {
+          return h(OnesTag, {
+            type: schemaItem.dictCode!, // ! 表示一定不为空
+            value: cellValue
+          })
+        }
       }
       if (schemaItem.detail?.dateFormat || schemaItem.formatter == 'formatDate') {
         // 优先使用 detail 下的配置，如果没有默认为 YYYY-MM-DD HH:mm:ss

@@ -1,38 +1,52 @@
 import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
 import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
 import {DICT_TYPE} from '@/utils/dictionary'
+import * as DICT_HTTP from '@/api/developer/dictionary'
 
 const crudColumns = reactive<CrudSchema[]>([
   {
-    label: '菜单名称',
-    field: 'name',
+    label: '字典编码',
+    field: 'dictCode',
     component: 'Input',
+    search: {
+      show: true,
+      component: 'Select',
+      api: DICT_HTTP.getSimple,
+      hiddenLabel: true
+    },
+    table: {
+      show: false
+    }
+  },
+  {
+    label: '字典标签',
+    field: 'label',
     search: {
       show: true,
       hiddenLabel: true
     }
+  },
+  {
+    label: '字典键值',
+    field: 'value',
+    search: {
+      show: true,
+      hiddenLabel: true
+    }
+  },
+  {
+    label: '状态',
+    field: 'status',
+    dictCode: DICT_TYPE.COMMON_STATUS,
+    dictClass: 'number'
   },
   {
     label: '排序',
     field: 'sort'
   },
   {
-    label: '权限标识',
-    field: 'permission'
-  },
-  {
-    label: '组件路径',
-    field: 'component'
-  },
-  {
-    label: '状态',
-    field: 'status',
-    dictCode: DICT_TYPE.COMMON_STATUS,
-    dictClass: 'number',
-    search: {
-      show: true,
-      hiddenLabel: true
-    }
+    label: '标签颜色',
+    field: 'colorType'
   },
   {
     label: '操作',

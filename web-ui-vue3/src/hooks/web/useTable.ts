@@ -1,10 +1,10 @@
 import download from '@/utils/download'
-import { Table, TableExpose } from '@/components/Table'
-import { ElMessage, ElMessageBox, ElTable } from 'element-plus'
-import { computed, nextTick, reactive, ref, unref, watch } from 'vue'
-import type { TableProps } from '@/components/Table/src/types'
+import {Table, TableExpose} from '@/components/Table'
+import {ElMessage, ElMessageBox, ElTable} from 'element-plus'
+import {computed, nextTick, reactive, ref, unref, watch} from 'vue'
+import type {TableProps} from '@/components/Table/src/types'
 
-import { TableSetPropsType } from '@/types/table'
+import {TableSetPropsType} from '@/types/table'
 
 const { t } = useI18n()
 interface ResponseType<T = any> {
@@ -24,8 +24,8 @@ interface UseTableConfig<T = any> {
 }
 
 interface TableObject<T = any> {
-  pageSize: number
-  currentPage: number
+  pageSize?: number
+  currentPage?: number
   total: number
   tableList: T[]
   params: any
@@ -37,9 +37,9 @@ interface TableObject<T = any> {
 export const useTable = <T = any>(config?: UseTableConfig<T>) => {
   const tableObject = reactive<TableObject<T>>({
     // 页数
-    pageSize: 10,
+    pageSize: undefined,
     // 当前页
-    currentPage: 1,
+    currentPage: undefined,
     // 总条数
     total: 10,
     // 表格数据
@@ -120,7 +120,9 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
 
     // 计算出临界点
     tableObject.currentPage =
-      tableObject.total % tableObject.pageSize === idsLength || tableObject.pageSize === 1
+      tableObject.pageSize &&
+      tableObject.currentPage &&
+      (tableObject.total % tableObject.pageSize === idsLength || tableObject.pageSize === 1)
         ? tableObject.currentPage > 1
           ? tableObject.currentPage - 1
           : tableObject.currentPage
@@ -137,6 +139,9 @@ export const useTable = <T = any>(config?: UseTableConfig<T>) => {
       if (res) {
         tableObject.tableList = (res as unknown as ResponseType).list
         tableObject.total = (res as unknown as ResponseType).total ?? 0
+        if (!tableObject.tableList) {
+          tableObject.tableList = res as []
+        }
       }
     },
     setProps: async (props: TableProps = {}) => {

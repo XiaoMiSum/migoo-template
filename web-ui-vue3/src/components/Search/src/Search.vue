@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { PropType } from 'vue'
 import { propTypes } from '@/utils/propTypes'
-
 import { useForm } from '@/hooks/web/useForm'
 import { findIndex } from '@/utils'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, merge } from 'lodash-es'
 import { FormSchema } from '@/types/form'
 
 defineOptions({ name: 'Search' })
@@ -20,7 +19,7 @@ const props = defineProps({
   // 是否需要栅格布局
   isCol: propTypes.bool.def(false),
   // 表单label宽度
-  labelWidth: propTypes.oneOfType([String, Number]).def('auto'),
+  labelWidth: propTypes.oneOfType([String, Number]).def('80px'),
   // 操作按钮风格位置
   layout: propTypes.string.validate((v: string) => ['inline', 'bottom'].includes(v)).def('inline'),
   // 底部按钮的对齐方式

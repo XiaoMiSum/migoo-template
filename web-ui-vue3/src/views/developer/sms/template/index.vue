@@ -39,7 +39,7 @@
           <el-option
             v-for="(item, index) in channels"
             :key="index"
-            :label="item.name"
+            :label="item.code"
             :value="item.code"
           />
         </el-select>
@@ -87,11 +87,7 @@
         </template>
       </el-table-column>
       <el-table-column align="center" label="短信渠道模板编号" prop="apiTemplateId" width="180" />
-      <el-table-column align="center" label="短信渠道" width="120">
-        <template #default="scope">
-          <div>{{ formatChannelSignature(scope.row.channelId) }}</div>
-        </template>
-      </el-table-column>
+      <el-table-column align="center" label="短信渠道" prop="channelCode" width="120" />
       <el-table-column
         align="center"
         class-name="small-padding fixed-width"
@@ -233,16 +229,6 @@ const handleDelete = async (id: number) => {
     // 刷新列表
     await getList()
   } catch {}
-}
-
-/** 格式化短信渠道 */
-const formatChannelSignature = (channelId: number) => {
-  for (const channel of channels.value) {
-    if (channel.id === channelId) {
-      return channel.signature
-    }
-  }
-  return '找不到签名：' + channelId
 }
 
 const sendSms = ref()
