@@ -49,7 +49,8 @@ migoo:
     permit-all-urls:
       - /${spring.application.name}/login
       - /${spring.application.name}/captcha
-      - /${spring.application.name}/developer/file/f/*/*
+      - /${spring.application.name}/configurer
+      - /${spring.application.name}/d/f/*/*
 
 
 # MyBatis Plus 的配置项
