@@ -1,7 +1,7 @@
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
-import {DICT_TYPE} from '@/utils/dictionary'
-import {dateFormatter} from '@/utils/formatTime'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { DICT_TYPE } from '@/utils/dictionary'
+import { dateFormatter } from '@/utils/formatTime'
 import * as HTTP from '@/api/developer/error-log'
 
 const crudColumns = reactive<CrudSchema[]>([
@@ -33,21 +33,21 @@ const crudColumns = reactive<CrudSchema[]>([
     label: '操作',
     field: 'action',
     table: {
-      width: 160
+      width: 200
     }
   }
 ])
 
-const {tableMethods, tableObject} = useTable({
+const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.getPage
 })
 const message = useMessage() // 消息弹窗
 
-export {tableObject}
+export { tableObject }
 
-export const {allSchemas} = useCrudSchemas(crudColumns)
+export const { allSchemas } = useCrudSchemas(crudColumns)
 
-export const {getList, setSearchParams} = tableMethods
+export const { getList, setSearchParams } = tableMethods
 
 /** 删除的操作 **/
 export const handleRemove = async (id: number) => {
@@ -59,6 +59,5 @@ export const handleRemove = async (id: number) => {
     message.success('删除成功')
     // 刷新列表
     await getList()
-  } catch {
-  }
+  } catch {}
 }

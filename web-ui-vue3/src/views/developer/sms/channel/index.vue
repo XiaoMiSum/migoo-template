@@ -101,7 +101,7 @@
 <script lang="ts" setup>
 import * as HTTP from '@/api/developer/sms/channel'
 import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
-import { COMMON_STATUS_ENUM } from '@/utils/enums'
+import { CommonStatus } from '@/utils/constants'
 import ChannelFrom from '@/views/developer/sms/channel/ChannelForm.vue'
 
 const message = useMessage()
@@ -145,22 +145,16 @@ const resetQuery = () => {
 const handleChangeStatus = async (row: any) => {
   try {
     // 修改状态的二次确认
-    const text = row.status === COMMON_STATUS_ENUM.ENABLE ? '禁用' : '启用'
+    const text = row.status === CommonStatus.ENABLE ? '禁用' : '启用'
     await message.confirm('确认要' + text + '短信渠道 "' + row.name + '"?', t('common.reminder'))
-    const status =
-      row.status === COMMON_STATUS_ENUM.ENABLE
-        ? COMMON_STATUS_ENUM.DISABLE
-        : COMMON_STATUS_ENUM.ENABLE
+    const status = row.status === CommonStatus.ENABLE ? CommonStatus.DISABLE : CommonStatus.ENABLE
     await HTTP.updateData({ id: row.id, status: status })
     message.success(text + '成功')
     // 刷新列表
     await getList()
   } catch {
     // 取消后，进行恢复按钮
-    row.status =
-      row.status === COMMON_STATUS_ENUM.ENABLE
-        ? COMMON_STATUS_ENUM.DISABLE
-        : COMMON_STATUS_ENUM.ENABLE
+    row.status = row.status === CommonStatus.ENABLE ? CommonStatus.DISABLE : CommonStatus.ENABLE
   }
 }
 

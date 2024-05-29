@@ -5,7 +5,7 @@ import { ElTag } from 'element-plus'
 import { DictDataType, getDictOptions } from '@/utils/dictionary'
 
 export default defineComponent({
-  name: 'DictTag',
+  name: 'OnesTag',
   props: {
     type: {
       type: String as PropType<string>,

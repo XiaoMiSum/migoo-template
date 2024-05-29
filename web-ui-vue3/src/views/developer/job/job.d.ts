@@ -1,7 +1,7 @@
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
-import {JOB_STATUS_ENUM} from '@/utils/enums'
-import {DICT_TYPE} from '@/utils/dictionary'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { InfraJobStatus } from '@/utils/constants'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 import * as HTTP from '@/api/developer/job'
 
@@ -51,22 +51,22 @@ const crudColumns = reactive<CrudSchema[]>([
     label: '操作',
     field: 'action',
     table: {
-      width: 160
+      width: 200
     }
   }
 ])
 
-const {tableMethods, tableObject} = useTable({
+const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.listJob
 })
 const message = useMessage() // 消息弹窗
-const {t} = useI18n() // 国际化
+const { t } = useI18n() // 国际化
 
-export {tableObject}
+export { tableObject }
 
-export const {allSchemas} = useCrudSchemas(crudColumns)
+export const { allSchemas } = useCrudSchemas(crudColumns)
 
-export const {getList, setSearchParams} = tableMethods
+export const { getList, setSearchParams } = tableMethods
 
 /** 删除的操作 **/
 export const handleRemove = async (id: number) => {
@@ -78,25 +78,23 @@ export const handleRemove = async (id: number) => {
     message.success('删除成功')
     // 刷新列表
     await getList()
-  } catch {
-  }
+  } catch {}
 }
 
 /** 修改状态操作 */
 export const handleChangeStatus = async (row: any) => {
   try {
     // 修改状态的二次确认
-    const text = row.status === JOB_STATUS_ENUM.STOP ? '开启' : '关闭'
+    const text = row.status === InfraJobStatus.STOP ? '开启' : '关闭'
     await message.confirm('确认要' + text + '定时任务 为"' + row.name + '"?', t('common.reminder'))
-    const status =
-      row.status === JOB_STATUS_ENUM.STOP ? JOB_STATUS_ENUM.NORMAL : JOB_STATUS_ENUM.STOP
-    await HTTP.updateJobStatus(row.id, status)
+    const status = row.status === InfraJobStatus.STOP ? InfraJobStatus.NORMAL : InfraJobStatus.STOP
+    await HTTP.updateInfraJobStatus(row.id, status)
     message.success(text + '成功')
     // 刷新列表
     await getList()
   } catch {
     // 取消后，进行恢复按钮
-    row.status = row.status === JOB_STATUS_ENUM.STOP ? JOB_STATUS_ENUM.NORMAL : JOB_STATUS_ENUM.STOP
+    row.status = row.status === InfraJobStatus.STOP ? InfraJobStatus.NORMAL : InfraJobStatus.STOP
   }
 }
 /** 执行一次 */
@@ -109,6 +107,5 @@ export const handleRun = async (row: any) => {
     message.success('执行成功')
     // 刷新列表
     await getList()
-  } catch {
-  }
+  } catch {}
 }

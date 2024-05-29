@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import * as HTTP from '@/api/developer/cvs/provider'
+import * as HTTP from '@/api/developer/cvs/machine'
 import MachineTree from './MachineTree.vue'
 import MachineForm from './MachineForm.vue'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 defineOptions({ name: 'CSVMachine' })
 
@@ -139,7 +140,7 @@ onMounted(() => {
             :show-overflow-tooltip="true"
             align="left"
             label="实例类型"
-            prop="serverType"
+            prop="machineType"
           />
           <el-table-column
             :show-overflow-tooltip="true"
@@ -161,13 +162,7 @@ onMounted(() => {
           />
           <el-table-column align="center" label="状态" prop="status" width="100">
             <template #default="scope">
-              <el-tag
-                :disable-transitions="true"
-                :type="scope.row.status === 'Running' ? 'success' : 'danger'"
-                size="small"
-              >
-                {{ scope.row.status }}
-              </el-tag>
+              <ones-tag :type="DICT_TYPE.INFRA_CVS_MACHINE_STATUS" :value="scope.row.status" />
             </template>
           </el-table-column>
           <el-table-column align="center" label="过期时间" prop="expiredTime" width="180">

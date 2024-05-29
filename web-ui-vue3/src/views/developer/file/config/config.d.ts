@@ -1,7 +1,7 @@
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
-import {dateFormatter} from '@/utils/formatTime'
-import {DICT_TYPE} from '@/utils/dictionary'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { dateFormatter } from '@/utils/formatTime'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 import * as HTTP from '@/api/developer/file/config'
 
@@ -41,21 +41,21 @@ const crudColumns = reactive<CrudSchema[]>([
     label: '操作',
     field: 'action',
     table: {
-      width: 160
+      width: 200
     }
   }
 ])
 
-const {tableMethods, tableObject} = useTable({
+const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.getFileConfigPage
 })
 const message = useMessage() // 消息弹窗
 
-export {tableObject}
+export { tableObject }
 
-export const {allSchemas} = useCrudSchemas(crudColumns)
+export const { allSchemas } = useCrudSchemas(crudColumns)
 
-export const {getList, setSearchParams} = tableMethods
+export const { getList, setSearchParams } = tableMethods
 
 /** 删除的操作 **/
 export const handleRemove = async (id: number) => {
@@ -67,8 +67,7 @@ export const handleRemove = async (id: number) => {
     message.success('删除成功')
     // 刷新列表
     await getList()
-  } catch {
-  }
+  } catch {}
 }
 
 /** 主配置按钮操作 */
@@ -78,8 +77,7 @@ export const handleMaster = async (id) => {
     await FileConfigApi.updateFileConfigMaster(id)
     message.success(t('common.updateSuccess'))
     await getList()
-  } catch {
-  }
+  } catch {}
 }
 
 /** 测试按钮操作 */
@@ -87,6 +85,5 @@ export const handleTest = async (id) => {
   try {
     const response = await FileConfigApi.testFileConfig(id)
     message.alert('测试通过，上传文件成功！访问地址：' + response)
-  } catch {
-  }
+  } catch {}
 }

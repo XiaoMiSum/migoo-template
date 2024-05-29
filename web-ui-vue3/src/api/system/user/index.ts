@@ -1,5 +1,5 @@
 import request from '@/config/axios'
-import { UserStatus, User } from './index.d'
+import { User } from './index.d'
 
 const url = '/user'
 
@@ -34,7 +34,7 @@ export const addUser = (data: User) => {
 }
 
 // 修改用户
-export const updateUser = (data: UserStatus) => {
+export const updateUser = (data: User) => {
   return request.put({
     url,
     data

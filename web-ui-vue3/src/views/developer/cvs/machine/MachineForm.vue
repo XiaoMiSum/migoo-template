@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import * as HTTP from '@/api/manager/developer/cloud-service/account'
+import * as HTTP from '@/api/developer/cvs/machine'
 
 defineOptions({ name: 'JobForm' })
 

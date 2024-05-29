@@ -1,10 +1,10 @@
-import {defineStore} from 'pinia'
-import {store} from '../index'
+import { defineStore } from 'pinia'
+import { store } from '../index'
 // @ts-ignore
-import {CACHE_KEY, useCache} from '@/hooks/web/useCache'
-import {getSimple} from '@/api/developer/dictionary/value'
+import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
+import { getSimple } from '@/api/developer/dictionary/value'
 
-const {wsCache} = useCache('sessionStorage')
+const { wsCache } = useCache('sessionStorage')
 
 export interface DictValueType {
   value: any
@@ -65,7 +65,7 @@ export const useDictStore = defineStore('dict', {
         })
         this.dictMap = dictDataMap
         this.isSetDict = true
-        wsCache.set(CACHE_KEY.DICTIONARY, dictDataMap, {exp: 60}) // 60 秒 过期
+        wsCache.set(CACHE_KEY.DICTIONARY, dictDataMap, { exp: 60 }) // 60 秒 过期
       }
     },
     getDictByCode(code: string) {
@@ -95,7 +95,7 @@ export const useDictStore = defineStore('dict', {
       })
       this.dictMap = dictDataMap
       this.isSetDict = true
-      wsCache.set(CACHE_KEY.DICTIONARY, dictDataMap, {exp: 60}) // 60 秒 过期
+      wsCache.set(CACHE_KEY.DICTIONARY, dictDataMap, { exp: 60 }) // 60 秒 过期
     }
   }
 })

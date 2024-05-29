@@ -9,7 +9,11 @@
     "dev": "vite --mode dev",
     "build": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --mode pro",
     "build:dev": "node --max_old_space_size=8192 ./node_modules/vite/bin/vite.js build --mode dev",
-    "serve": "vite preview --mode pro"
+    "serve": "vite preview --mode pro",
+    "lint:eslint": "eslint --fix --ext .js,.ts,.vue ./src",
+    "lint:format": "prettier --write --loglevel warn \"src/**/*.{js,ts,json,tsx,css,less,scss,vue,html,md}\"",
+    "lint:style": "stylelint --fix \"./src/**/*.{vue,less,postcss,css,scss}\" --cache --cache-location node_modules/.cache/stylelint/",
+    "lint:lint-staged": "lint-staged -c "
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.3.1",

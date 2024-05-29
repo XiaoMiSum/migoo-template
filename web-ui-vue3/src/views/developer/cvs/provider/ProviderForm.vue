@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { DICT_TYPE, getDictOptions } from '@/utils/dictionary'
+
 import * as HTTP from '@/api/developer/cvs/provider'
 
 defineOptions({ name: 'ProviderForm' })
@@ -12,18 +14,18 @@ const formLoading = ref(false) // 表单的加载中：1）修改时的数据加
 const formType = ref('') // 表单的类型：create - 新增；update - 修改
 const form = ref({
   id: undefined,
-  provide: 'ALI_CLOUD',
+  code: 'ALI_CLOUD',
   account: '',
-  token: '',
-  secret: '',
-  regionId: ''
+  accessKeyId: '',
+  accessKeySecret: '',
+  region: ''
 })
 const rules = reactive({
-  provide: [{ required: true, message: '云服务商不能为空', trigger: 'blur' }],
+  code: [{ required: true, message: '云服务商不能为空', trigger: 'blur' }],
   account: [{ required: true, message: '登录账号不能为空', trigger: 'blur' }],
-  token: [{ required: true, message: 'token不能为空', trigger: 'blur' }],
-  secret: [{ required: true, message: 'secret不能为空', trigger: 'blur' }],
-  regionId: [{ required: true, message: '区域编号不能为空', trigger: 'blur' }]
+  accessKeyId: [{ required: true, message: 'accessKeyId不能为空', trigger: 'blur' }],
+  accessKeySecret: [{ required: true, message: 'accessKeySecret不能为空', trigger: 'blur' }],
+  region: [{ required: true, message: '区域编号不能为空', trigger: 'blur' }]
 })
 const formRef = ref() // 表单 Ref
 
@@ -75,11 +77,11 @@ const submitForm = async () => {
 const resetForm = () => {
   form.value = {
     id: undefined,
-    provide: 'ALI_CLOUD',
+    code: 'ALI_CLOUD',
     account: '',
-    token: '',
-    secret: '',
-    regionId: ''
+    accessKeyId: '',
+    accessKeySecret: '',
+    region: ''
   }
   formRef.value?.resetFields()
 }
@@ -89,20 +91,28 @@ const resetForm = () => {
   <!-- 添加或修改岗位对话框 -->
   <Dialog v-model="visible" :title="title">
     <el-form ref="formRef" :model="form" :rules="rules" label-width="100px">
-      <el-form-item label="云服务商" prop="provide">
-        <el-input v-model="form.provide" placeholder="请输入云服务商" />
+      <el-form-item label="云服务商" prop="code">
+        <el-select v-model="form.code" placeholder="请选择云服务商">
+          <el-option
+            v-for="(item, index) in getDictOptions(DICT_TYPE.INFRA_CVS_PROVIDER)"
+            :key="index"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+        <el-input v-model="form.code" placeholder="请输入云服务商" />
       </el-form-item>
       <el-form-item label="登录账号" prop="account">
         <el-input v-model="form.account" placeholder="请输入登录账号" />
       </el-form-item>
-      <el-form-item label="token" prop="token">
-        <el-input v-model="form.token" placeholder="请输入token" />
+      <el-form-item label="accessKeyId" prop="accessKeyId">
+        <el-input v-model="form.accessKeyId" placeholder="请输入accessKeyId" />
       </el-form-item>
-      <el-form-item label="secret" prop="secret">
-        <el-input v-model="form.secret" placeholder="请输入secret" />
+      <el-form-item label="accessKeySecret" prop="accessKeySecret">
+        <el-input v-model="form.accessKeySecret" placeholder="请输入accessKeySecret" />
       </el-form-item>
-      <el-form-item label="区域编号" prop="regionId">
-        <el-input v-model="form.regionId" placeholder="请输入regionId" />
+      <el-form-item label="区域编号" prop="region">
+        <el-input v-model="form.region" placeholder="请输入区域编号" />
       </el-form-item>
     </el-form>
     <template #footer>

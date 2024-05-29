@@ -13,8 +13,20 @@
       <el-form-item label="岗位编码" prop="code">
         <el-input v-model="formData.code" placeholder="请输入岗位编码" />
       </el-form-item>
-      <el-form-item label="岗位顺序" prop="sort">
-        <el-input v-model="formData.sort" placeholder="请输入岗位顺序" />
+      <el-form-item v-if="formData.id" label="状态" prop="status">
+        <el-radio-group v-model="formData.status">
+          <el-radio
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
+            :label="item.value"
+            border
+          >
+            {{ item.label }}
+          </el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item label="显示顺序" prop="sort">
+        <el-input v-model="formData.sort" placeholder="请输入显示顺序" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -26,6 +38,8 @@
 
 <script lang="ts" setup>
 import * as HTTP from '@/api/system/post'
+import { CommonStatus } from '@/utils/constants'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 
 defineOptions({ name: 'SystemPostForm' })
 
@@ -40,6 +54,7 @@ const formData = ref({
   id: undefined,
   name: '',
   code: '',
+  status: CommonStatus.ENABLE,
   sort: 0
 })
 const formRules = reactive({
@@ -98,6 +113,7 @@ const resetForm = () => {
     id: undefined,
     name: '',
     code: '',
+    status: CommonStatus.ENABLE,
     sort: undefined
   } as any
   formRef.value?.resetFields()

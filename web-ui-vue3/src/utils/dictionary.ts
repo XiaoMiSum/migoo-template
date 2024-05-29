@@ -1,8 +1,8 @@
 /**
  * 数据字典工具类
  */
-import {useDictStoreWithOut} from '@/store/modules/dict'
-import {ElementPlusInfoType} from '@/types/elementPlus'
+import { useDictStoreWithOut } from '@/store/modules/dict'
+import { ElementPlusInfoType } from '@/types/elementPlus'
 
 const dictStore = useDictStoreWithOut()
 
@@ -123,5 +123,7 @@ export enum DICT_TYPE {
   INFRA_FILE_STORAGE = 'infra_file_storage',
   INFRA_OPERATE_TYPE = 'infra_operate_type',
   INFRA_SMS_SEND_STATUS = 'infra_sms_send_status',
-  INFRA_SMS_RECEIVE_STATUS = 'infra_sms_receive_status'
+  INFRA_SMS_RECEIVE_STATUS = 'infra_sms_receive_status',
+  INFRA_CVS_PROVIDER = 'infra_cvs_provider',
+  INFRA_CVS_MACHINE_STATUS = 'infra_cvs_machine_status'
 }

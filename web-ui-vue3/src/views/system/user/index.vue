@@ -9,7 +9,11 @@
     <el-col :span="20" :xs="24">
       <!-- 搜索 -->
       <ContentWrap>
-        <Search :schema="searchColumns" @search="setSearchParams" @reset="setSearchParams" />
+        <Search
+          :schema="allSchemas.searchSchema"
+          @search="setSearchParams"
+          @reset="setSearchParams"
+        />
         <!-- 操作工具栏 -->
         <el-row :gutter="10" class="mt-10px">
           <el-col :span="1.5">
@@ -28,7 +32,7 @@
 
       <ContentWrap>
         <Table
-          :columns="tableColumns"
+          :columns="allSchemas.tableColumns"
           :loading="tableObject.loading"
           :data="tableObject.tableList"
           :pagination="{
@@ -106,7 +110,7 @@ import { checkPermi } from '@/utils/permission'
 
 import { User } from '@/api/system/user/index.d'
 
-import { tableColumns, searchColumns, HTTP, message } from './User.d'
+import { allSchemas, HTTP, message } from './User.d'
 
 defineOptions({ name: 'SystemUser' })
 

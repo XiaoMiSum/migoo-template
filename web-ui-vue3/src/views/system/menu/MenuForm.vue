@@ -119,7 +119,7 @@ import * as HTTP from '@/api/system/menu'
 import { CACHE_KEY, useCache } from '@/hooks/web/useCache'
 import { defaultProps, handleTree } from '@/utils/tree'
 import { getIntDictOptions, DICT_TYPE } from '@/utils/dictionary'
-import { COMMON_STATUS_ENUM, MENU_TYPE_ENUM } from '@/utils/enums'
+import { CommonStatus, SystemMenuType } from '@/utils/constants'
 
 defineOptions({ name: 'SystemMenuForm' })
 
@@ -135,14 +135,14 @@ const formData = ref({
   id: 0,
   name: '',
   permission: '',
-  type: MENU_TYPE_ENUM.DIR,
+  type: SystemMenuType.DIR,
   sort: Number(undefined),
   parentId: 0,
   path: '',
   icon: '',
   component: '',
   componentName: '',
-  status: COMMON_STATUS_ENUM.ENABLE,
+  status: CommonStatus.ENABLE,
   visible: true,
   keepAlive: true,
   alwaysShow: true
@@ -187,7 +187,7 @@ const submitForm = async () => {
   // 提交请求
   formLoading.value = true
   try {
-    if (formData.value.type === MENU_TYPE_ENUM.DIR || formData.value.type === MENU_TYPE_ENUM.MENU) {
+    if (formData.value.type === SystemMenuType.DIR || formData.value.type === SystemMenuType.MENU) {
       if (!isExternal(formData.value.path)) {
         if (formData.value.parentId === 0 && formData.value.path.charAt(0) !== '/') {
           message.error('路径必须以 / 开头')
@@ -232,14 +232,14 @@ const resetForm = () => {
     id: 0,
     name: '',
     permission: '',
-    type: MENU_TYPE_ENUM.DIR,
+    type: SystemMenuType.DIR,
     sort: Number(undefined),
     parentId: 0,
     path: '',
     icon: '',
     component: '',
     componentName: '',
-    status: COMMON_STATUS_ENUM.ENABLE,
+    status: CommonStatus.ENABLE,
     visible: true,
     keepAlive: true,
     alwaysShow: true

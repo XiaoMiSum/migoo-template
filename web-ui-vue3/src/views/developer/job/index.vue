@@ -50,7 +50,7 @@
             type="primary"
             @click="handleChangeStatus(row)"
           >
-            {{ row.status === JOB_STATUS_ENUM.STOP ? '开启' : '暂停' }}
+            {{ row.status === InfraJobStatus.STOP ? '开启' : '暂停' }}
           </el-button>
           <el-button
             v-hasPermi="['developer:job:remove']"
@@ -97,7 +97,7 @@ import { checkPermi } from '@/utils/permission'
 import JobForm from './JobForm.vue'
 import JobDetail from './JobDetail.vue'
 
-import { JOB_STATUS_ENUM } from '@/utils/enums'
+import { InfraJobStatus } from '@/utils/constants'
 
 import {
   allSchemas,

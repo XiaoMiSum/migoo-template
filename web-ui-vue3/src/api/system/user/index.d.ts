@@ -13,9 +13,4 @@ interface User {
   password?: string
 }
 
-interface UserStatus {
-  id: number
-  status: number
-}
-
-export { User, UserStatus }
+export { User }

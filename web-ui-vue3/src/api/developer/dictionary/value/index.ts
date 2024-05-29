@@ -12,15 +12,15 @@ export type DictionaryValueVO = {
 }
 
 export const getPage = (params: any) => {
-  return request.get({url, params})
+  return request.get({ url, params })
 }
 
 export const addData = (data: any) => {
-  return request.post({url, data})
+  return request.post({ url, data })
 }
 
 export const updateData = (data: any) => {
-  return request.put({url, data})
+  return request.put({ url, data })
 }
 
 export const removeData = (id: any) => {

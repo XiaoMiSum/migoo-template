@@ -23,9 +23,9 @@
 
 <script lang="ts" setup>
 import { ElTree } from 'element-plus'
-import * as HTTP from '@/api/manager/developer/cloud-service/account'
+import * as HTTP from '@/api/developer/cvs/provider'
 
-defineOptions({ name: 'CloudServiceAccountTree' })
+defineOptions({ name: 'CVSProvideTree' })
 
 const filterText = ref('')
 const list = ref<Tree[]>([]) // 树形结构

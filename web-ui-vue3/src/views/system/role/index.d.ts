@@ -1,39 +1,29 @@
 import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
 import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 import { DICT_TYPE } from '@/utils/dictionary'
-import * as HTTP from '@/api/developer/dictionary'
+
+import * as RoleApi from '@/api/system/role'
 
 const crudColumns = reactive<CrudSchema[]>([
   {
-    label: '字典名称',
+    label: '角色名称',
     field: 'name',
-    component: 'Input',
     search: {
       show: true,
       hiddenLabel: true
-    },
-    table: {
-      headerAlign: 'left',
-      align: 'left'
     }
   },
   {
-    label: '字典编码',
+    label: '角色标识',
     field: 'code',
-    align: 'left',
-    headerAlign: 'left',
     search: {
       show: true,
       hiddenLabel: true
     }
   },
   {
-    label: '来源',
-    field: 'source',
-    search: {
-      show: true,
-      hiddenLabel: true
-    }
+    label: '显示顺序',
+    field: 'sort'
   },
   {
     label: '状态',
@@ -46,6 +36,10 @@ const crudColumns = reactive<CrudSchema[]>([
     }
   },
   {
+    label: '备注',
+    field: 'remark'
+  },
+  {
     label: '操作',
     field: 'action',
     table: {
@@ -54,27 +48,23 @@ const crudColumns = reactive<CrudSchema[]>([
   }
 ])
 
-const { tableMethods, tableObject } = useTable({
-  getListApi: HTTP.getPage
+export const { tableMethods, tableObject } = useTable({
+  getListApi: RoleApi.listData
 })
 
-const { t } = useI18n() // 国际化
-const message = useMessage() // 消息弹窗
-
-export const { allSchemas } = useCrudSchemas(crudColumns)
-
-export const { getList, setSearchParams } = tableMethods
-
-export { tableObject }
 /** 删除按钮操作 */
 export const handleDelete = async (id: number) => {
   try {
     // 删除的二次确认
     await message.delConfirm()
     // 发起删除
-    await HTTP.removeData(id)
+    await HTTP.delData(id)
     message.success(t('common.delSuccess'))
     // 刷新列表
     await getList()
   } catch {}
 }
+
+export const { getList, setSearchParams } = tableMethods
+export const message = useMessage() // 消息弹窗
+export const { allSchemas } = useCrudSchemas(crudColumns)

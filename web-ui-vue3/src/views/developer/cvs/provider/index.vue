@@ -20,10 +20,10 @@
       <el-form-item label="" prop="status">
         <el-select v-model="queryParams.status" clearable placeholder="账号状态">
           <el-option
-            v-for="(item, index) in COMMON_STATUS_ENUMS"
+            v-for="(item, index) in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
             :key="index"
             :label="item.label"
-            :value="item.key"
+            :value="item.value"
           />
         </el-select>
       </el-form-item>
@@ -42,7 +42,7 @@
     <el-row :gutter="10">
       <el-col :span="1.5">
         <el-button
-          v-hasPermi="['developer:cloud-service:account:add']"
+          v-hasPermi="['developer:cvs:provider:add']"
           plain
           type="primary"
           @click="openForm('create')"
@@ -72,14 +72,14 @@
       <el-table-column align="center" label="操作">
         <template #default="scope">
           <el-button
-            v-hasPermi="['developer:cloud-service:account:update']"
+            v-hasPermi="['developer:cvs:provider:update']"
             link
             type="primary"
             @click="openForm('update', scope.row.id)"
             >修改
           </el-button>
           <el-button
-            v-hasPermi="['developer:cloud-service:account:remove']"
+            v-hasPermi="['developer:cvs:provider:remove']"
             link
             type="danger"
             @click="handleDelete(scope.row.id)"
@@ -102,9 +102,10 @@
 </template>
 
 <script lang="ts" setup>
-import * as HTTP from '@/api/manager/developer/cvs/provider'
+import * as HTTP from '@/api/developer/cvs/provider'
 
-import { COMMON_STATUS_ENUM, COMMON_STATUS_ENUMS } from '@/utils/enums'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
+import { CommonStatus } from '@/utils/constants'
 import ProviderForm from './ProviderForm.vue'
 
 defineOptions({ name: 'CloudServiceAccount' })
@@ -159,7 +160,7 @@ const openForm = (type: string, id?: number) => {
 const handleChangeStatus = async (row: any) => {
   try {
     // 修改状态的二次确认
-    const text = row.status === COMMON_STATUS_ENUM.DISABLE ? '禁用' : '启用'
+    const text = row.status === CommonStatus.DISABLE ? '禁用' : '启用'
     await message.confirm('确认要' + text + '云服务账号 "' + row.name + '"?', t('common.reminder'))
     await HTTP.updateData({ id: row.id, status: row.status })
     message.success(text + '成功')
@@ -167,10 +168,7 @@ const handleChangeStatus = async (row: any) => {
     await getList()
   } catch {
     // 取消后，进行恢复按钮
-    row.status =
-      row.status === COMMON_STATUS_ENUM.DISABLE
-        ? COMMON_STATUS_ENUM.ENABLE
-        : COMMON_STATUS_ENUM.DISABLE
+    row.status = row.status === CommonStatus.DISABLE ? CommonStatus.ENABLE : CommonStatus.DISABLE
   }
 }
 

@@ -1,10 +1,10 @@
-import {TableColumn} from '@/components/Table'
+import { TableColumn } from '@/components/Table'
 
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
 
-import {fileSizeFormatter} from '@/utils'
-import {dateFormatter} from '@/utils/formatTime'
+import { fileSizeFormatter } from '@/utils'
+import { dateFormatter } from '@/utils/formatTime'
 
 import * as HTTP from '@/api/developer/file'
 
@@ -47,29 +47,29 @@ const crudColumns = reactive<CrudSchema[]>([
     formatter: (data: Recordable, __: TableColumn, cellValue: any) => {
       return data.type.includes('image')
         ? h(ElImage, {
-          class: 'h-80px w-80px',
-          lazy: true,
-          src: cellValue,
-          previewSrcList: [cellValue],
-          previewTeleported: true,
-          fit: 'cover'
-        })
+            class: 'h-80px w-80px',
+            lazy: true,
+            src: cellValue,
+            previewSrcList: [cellValue],
+            previewTeleported: true,
+            fit: 'cover'
+          })
         : data.type.includes('pdf')
           ? h(ElLink, {
-            text: '预览',
-            type: 'primary',
-            href: cellValue,
-            underline: false,
-            target: '_blank'
-          })
+              text: '预览',
+              type: 'primary',
+              href: cellValue,
+              underline: false,
+              target: '_blank'
+            })
           : h(ElLink, {
-            text: '下载',
-            type: 'primary',
-            href: cellValue,
-            download: true,
-            underline: false,
-            target: '_blank'
-          })
+              text: '下载',
+              type: 'primary',
+              href: cellValue,
+              download: true,
+              underline: false,
+              target: '_blank'
+            })
     },
     form: {
       show: false
@@ -84,21 +84,21 @@ const crudColumns = reactive<CrudSchema[]>([
     label: '操作',
     field: 'action',
     table: {
-      width: 160
+      width: 200
     }
   }
 ])
 
-const {tableMethods, tableObject} = useTable({
+const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.getFilePage
 })
 const message = useMessage() // 消息弹窗
 
-export {tableObject}
+export { tableObject }
 
-export const {allSchemas} = useCrudSchemas(crudColumns)
+export const { allSchemas } = useCrudSchemas(crudColumns)
 
-export const {getList, setSearchParams} = tableMethods
+export const { getList, setSearchParams } = tableMethods
 
 /** 删除的操作 **/
 export const handleRemove = async (id: number) => {
@@ -110,6 +110,5 @@ export const handleRemove = async (id: number) => {
     message.success('删除成功')
     // 刷新列表
     await getList()
-  } catch {
-  }
+  } catch {}
 }

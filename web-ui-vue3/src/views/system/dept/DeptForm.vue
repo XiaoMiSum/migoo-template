@@ -22,6 +22,18 @@
       <el-form-item label="部门名称" prop="name">
         <el-input v-model="formData.name" placeholder="请输入部门名称" />
       </el-form-item>
+      <el-form-item v-if="formData.id" label="状态" prop="status">
+        <el-radio-group v-model="formData.status">
+          <el-radio
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
+            :label="item.value"
+            border
+          >
+            {{ item.label }}
+          </el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="显示排序" prop="sort">
         <el-input-number
           v-model="formData.sort"
@@ -57,7 +69,9 @@
 import { defaultProps, handleTree } from '@/utils/tree'
 import * as DeptApi from '@/api/system/dept'
 import * as UserApi from '@/api/system/user'
-import { COMMON_STATUS_ENUM } from '@/utils/enums'
+
+import { getIntDictOptions, DICT_TYPE } from '@/utils/dictionary'
+import { CommonStatus } from '@/utils/constants'
 
 defineOptions({ name: 'SystemDeptForm' })
 
@@ -77,9 +91,9 @@ const formData = ref({
   leaderUserId: undefined,
   phone: undefined,
   email: undefined,
-  status: COMMON_STATUS_ENUM.ENABLE
+  status: CommonStatus.ENABLE
 })
-const formRules = reactive({
+const formRules = ref({
   parentId: [{ required: true, message: '上级部门不能为空', trigger: 'blur' }],
   name: [{ required: true, message: '部门名称不能为空', trigger: 'blur' }],
   sort: [{ required: true, message: '显示排序不能为空', trigger: 'blur' }],
@@ -152,7 +166,7 @@ const resetForm = () => {
     leaderUserId: undefined,
     phone: undefined,
     email: undefined,
-    status: COMMON_STATUS_ENUM.ENABLE
+    status: CommonStatus.ENABLE
   }
   formRef.value?.resetFields()
 }

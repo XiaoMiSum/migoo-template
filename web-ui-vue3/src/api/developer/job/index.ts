@@ -41,7 +41,7 @@ export const delJob = (jobId: any) => {
 }
 
 // 任务状态修改
-export const updateJobStatus = (jobId: any, status: any) => {
+export const updateInfraJobStatus = (jobId: any, status: any) => {
   return request.put({
     url: url + '/' + jobId + '?status=' + status
   })

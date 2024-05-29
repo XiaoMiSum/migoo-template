@@ -26,6 +26,18 @@
               type="password"
             />
           </el-form-item>
+          <el-form-item v-if="formData.id" label="状态" prop="status">
+            <el-radio-group v-model="formData.status">
+              <el-radio
+                v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+                :key="item.value"
+                :label="item.value"
+                border
+              >
+                {{ item.label }}
+              </el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-col>
       </el-row>
 

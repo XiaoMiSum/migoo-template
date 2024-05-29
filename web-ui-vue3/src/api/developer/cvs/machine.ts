@@ -12,12 +12,12 @@ export const getPage = (params: any) => {
 
 // 操作云服务器
 export const optionCvs = (id: any, option: string) => {
-  return request.post({url: url + '/' + id + '/' + option})
+  return request.post({ url: url + '/' + id + '/' + option })
 }
 
 // 同步云服务器
 export const syncData = () => {
-  return request.post({url})
+  return request.post({ url })
 }
 
 // 修改云服务器

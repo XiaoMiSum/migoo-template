@@ -1,9 +1,9 @@
-import {TableColumn} from '@/components/Table'
+import { TableColumn } from '@/components/Table'
 
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
-import {formatDate} from '@/utils/formatTime'
-import {DICT_TYPE} from '@/utils/dictionary'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { formatDate } from '@/utils/formatTime'
+import { DICT_TYPE } from '@/utils/dictionary'
 
 import * as HTTP from '@/api/developer/job/jobLog'
 
@@ -73,14 +73,14 @@ const crudColumns = reactive<CrudSchema[]>([
   }
 ])
 
-const {tableMethods, tableObject} = useTable({
+const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.getJobLogPage
 })
 const message = useMessage() // 消息弹窗
-const {t} = useI18n() // 国际化
+const { t } = useI18n() // 国际化
 
-export {tableObject}
+export { tableObject }
 
-export const {allSchemas} = useCrudSchemas(crudColumns)
+export const { allSchemas } = useCrudSchemas(crudColumns)
 
-export const {getList, setSearchParams} = tableMethods
+export const { getList, setSearchParams } = tableMethods

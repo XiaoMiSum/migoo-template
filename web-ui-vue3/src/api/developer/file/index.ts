@@ -38,10 +38,10 @@ export const getFilePresignedUrl = (path: string) => {
 
 // 创建文件
 export const createFile = (data: any) => {
-  return request.post({url: '/infra/file/create', data})
+  return request.post({ url: '/infra/file/create', data })
 }
 
 // 上传文件
 export const updateFile = (data: any) => {
-  return request.upload({url: url, data})
+  return request.upload({ url: url, data })
 }

@@ -1,6 +1,6 @@
-import type {CrudSchema} from '@/hooks/web/useCrudSchemas'
-import {useCrudSchemas} from '@/hooks/web/useCrudSchemas'
-import {DICT_TYPE} from '@/utils/dictionary'
+import type { CrudSchema } from '@/hooks/web/useCrudSchemas'
+import { useCrudSchemas } from '@/hooks/web/useCrudSchemas'
+import { DICT_TYPE } from '@/utils/dictionary'
 import * as DICT_HTTP from '@/api/developer/dictionary'
 
 const crudColumns = reactive<CrudSchema[]>([
@@ -52,10 +52,10 @@ const crudColumns = reactive<CrudSchema[]>([
     label: '操作',
     field: 'action',
     table: {
-      width: 160
+      width: 200
     }
   }
 ])
 export const message = useMessage() // 消息弹窗
 
-export const {allSchemas} = useCrudSchemas(crudColumns)
+export const { allSchemas } = useCrudSchemas(crudColumns)

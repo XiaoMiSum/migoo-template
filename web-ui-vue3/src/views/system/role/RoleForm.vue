@@ -13,11 +13,23 @@
       <el-form-item label="角色标识" prop="code">
         <el-input v-model="formData.code" placeholder="请输入角色标识" />
       </el-form-item>
+      <el-form-item v-if="formData.id" label="状态" prop="status">
+        <el-radio-group v-model="formData.status">
+          <el-radio
+            v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
+            :key="item.value"
+            :label="item.value"
+            border
+          >
+            {{ item.label }}
+          </el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item label="显示顺序" prop="sort">
         <el-input v-model="formData.sort" placeholder="请输入显示顺序" />
       </el-form-item>
-      <el-form-item label="备注" prop="memo">
-        <el-input v-model="formData.memo" placeholder="请输入备注信息" />
+      <el-form-item label="备注" prop="remark">
+        <el-input v-model="formData.remark" placeholder="请输入备注信息" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -29,7 +41,9 @@
 
 <script lang="ts" setup>
 import * as RoleApi from '@/api/system/role'
-import { COMMON_STATUS_ENUM } from '@/utils/enums'
+
+import { CommonStatus } from '@/utils/constants'
+import { DICT_TYPE, getIntDictOptions } from '@/utils/dictionary'
 
 defineOptions({ name: 'SystemRoleForm' })
 
@@ -45,8 +59,8 @@ const formData = ref({
   name: '',
   code: '',
   sort: undefined,
-  status: COMMON_STATUS_ENUM.ENABLE,
-  memo: ''
+  status: CommonStatus.ENABLE,
+  remark: ''
 })
 const formRules = reactive({
   name: [{ required: true, message: '岗位标题不能为空', trigger: 'blur' }],
@@ -79,8 +93,8 @@ const resetForm = () => {
     name: '',
     code: '',
     sort: undefined,
-    status: COMMON_STATUS_ENUM.ENABLE,
-    memo: ''
+    status: CommonStatus.ENABLE,
+    remark: ''
   }
   formRef.value?.resetFields()
 }
