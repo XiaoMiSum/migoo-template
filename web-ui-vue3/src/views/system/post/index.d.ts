@@ -75,4 +75,5 @@ export const handleDelete = async (id: number) => {
 
 export const { getList, setSearchParams } = tableMethods
 export const message = useMessage() // 消息弹窗
+const { t } = useI18n() // 国际化
 export const { allSchemas } = useCrudSchemas(crudColumns)

@@ -93,6 +93,7 @@ const { tableMethods, tableObject } = useTable({
   getListApi: HTTP.getFilePage
 })
 const message = useMessage() // 消息弹窗
+const { t } = useI18n() // 国际化
 
 export { tableObject }
 
@@ -107,7 +108,7 @@ export const handleRemove = async (id: number) => {
     await message.delConfirm()
     // 执行操作
     await HTTP.deleteFile(id)
-    message.success('删除成功')
+    message.success(t('common.delSuccess'))
     // 刷新列表
     await getList()
   } catch {}

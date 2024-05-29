@@ -7,7 +7,7 @@ VITE_DEV=false
 VITE_BASE_URL='http://localhost:48080'
 
 # 上传路径
-VITE_UPLOAD_URL='/web-server/tools/upload'
+VITE_UPLOAD_URL= '/web-server/developer/file'
 
 # 接口地址
 VITE_API_URL=/web-server
