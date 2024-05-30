@@ -50,6 +50,7 @@ migoo:
       - /${spring.application.name}/login
       - /${spring.application.name}/captcha
       - /${spring.application.name}/configurer
+      - /${spring.application.name}/authenticator
       - /${spring.application.name}/d/f/*/*
 
 
