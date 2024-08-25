@@ -16,6 +16,12 @@ export const getInfo = () => {
   return request.get({ url: '/user-info' })
 }
 
+export const getConfig = async () => {
+  return request.get({
+    url: '/configurer'
+  })
+}
+
 export const getRouters = () => {
   return request.get({ url: '/user-menus' })
 }

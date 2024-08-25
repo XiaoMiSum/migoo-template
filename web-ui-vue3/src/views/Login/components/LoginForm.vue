@@ -81,8 +81,6 @@ const { getLoginState } = useLoginState()
 const { push } = useRouter()
 const loginLoading = ref(false)
 
-const router = useRouter()
-
 const getShow = computed(() => unref(getLoginState) === LoginStateEnum.LOGIN)
 
 const LoginRules = {
@@ -97,8 +95,6 @@ const loginData = reactive({
   }
 })
 
-let token = ref('')
-
 // 登录
 const handleLogin = async () => {
   loginLoading.value = true
@@ -108,25 +104,20 @@ const handleLogin = async () => {
       return
     }
     const form = { ...loginData.loginForm }
-    form.password = encrypt_aes(loginData.loginForm.password, '17c553e34228909b1f8cef6d1de0b53d')
+    form.password = encrypt_aes(loginData.loginForm.password)
     const data = await LoginApi.login(form)
-    token.value = data.token
-    if (data.requiredBindAuthenticator) {
-      loginLoading.value = false
-    } else {
-      ElLoading.service({
-        lock: true,
-        text: '正在加载系统中...',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
-      loginLoading.value = false
-      authUtil.setToken(token.value)
-      setTimeout(() => {
-        const loadingInstance = ElLoading.service()
-        loadingInstance.close()
-        push({ path: '/' })
-      }, 400)
-    }
+    ElLoading.service({
+      lock: true,
+      text: '正在加载系统中...',
+      background: 'rgba(0, 0, 0, 0.7)'
+    })
+    loginLoading.value = false
+    authUtil.setToken(data.token)
+    setTimeout(() => {
+      const loadingInstance = ElLoading.service()
+      loadingInstance.close()
+      push({ path: '/' })
+    }, 400)
   } catch {
     loginLoading.value = false
   } finally {

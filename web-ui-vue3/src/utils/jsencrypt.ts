@@ -1,5 +1,8 @@
 import { JSEncrypt } from 'jsencrypt'
 import CryptoJS from 'crypto-js'
+import { useAppStore } from '@/store/modules/app'
+
+const appStore = useAppStore()
 
 // 密钥对生成 http://web.chacuo.net/netrsakeypair
 
@@ -35,7 +38,7 @@ export const decrypt = (txt: string) => {
  * @word 要加密的内容
  * @keyWord String  服务器随机返回的关键字
  *  */
-export function encrypt_aes(word: any, keyWord: string) {
+export function encrypt_aes(word, keyWord = appStore.aesKey) {
   const key = CryptoJS.enc.Utf8.parse(keyWord)
   const srcs = CryptoJS.enc.Utf8.parse(word)
   const encrypted = CryptoJS.AES.encrypt(srcs, key, {

@@ -24,7 +24,7 @@ interface AppState {
   logo: boolean
   icon: string
   loginPage: string
-  showMerchantThirdPartyUser: boolean
+  aesKey: string
   fixedHeader: boolean
   greyMode: boolean
   pageLoading: boolean
@@ -67,7 +67,7 @@ export const useAppStore = defineStore('app', {
       fixedMenu: wsCache.get('fixedMenu') || false, // 是否固定菜单
       icon: '',
       loginPage: '',
-      showMerchantThirdPartyUser: false,
+      aesKey: '',
       layout: wsCache.get(CACHE_KEY.LAYOUT) || 'classic', // layout布局
       isDark: wsCache.get(CACHE_KEY.IS_DARK) || false, // 是否是暗黑模式
       currentSize: wsCache.get('default') || 'default', // 组件尺寸
@@ -146,6 +146,9 @@ export const useAppStore = defineStore('app', {
     getLoginPage(): string {
       return this.loginPage
     },
+    getAesKey(): string {
+      return this.aesKey
+    },
     getFixedHeader(): boolean {
       return this.fixedHeader
     },
@@ -184,9 +187,6 @@ export const useAppStore = defineStore('app', {
     },
     getFooter(): boolean {
       return this.footer
-    },
-    getShowMerchantThirdPartyUser(): boolean {
-      return this.showMerchantThirdPartyUser
     }
   },
   actions: {
@@ -196,7 +196,7 @@ export const useAppStore = defineStore('app', {
       this.icon = data.icon
       this.loginPage = data.loginPage
       this.layout = data.layout || 'classic'
-      this.showMerchantThirdPartyUser = data.showMerchantThirdPartyUser === 'true'
+      this.aesKey = data.kit
     },
     setBreadcrumb(breadcrumb: boolean) {
       this.breadcrumb = breadcrumb
