@@ -16,7 +16,7 @@ export interface DictDataType {
   dictCode: string
   label: string
   value: string | number | boolean
-  colorType: ElementPlusInfoType | ''
+  colorType: ElementPlusInfoType | 'primary'
   cssClass: string
 }
 
