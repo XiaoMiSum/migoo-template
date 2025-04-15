@@ -24,6 +24,7 @@ const crudColumns = reactive<CrudSchema[]>([
     headerAlign: 'left',
     search: {
       show: true,
+      formItemProps: { style: { width: '200px' } },
       hiddenLabel: true
     }
   },
@@ -32,6 +33,7 @@ const crudColumns = reactive<CrudSchema[]>([
     field: 'source',
     search: {
       show: true,
+      formItemProps: { style: { width: '200px' } },
       hiddenLabel: true
     }
   },
@@ -42,6 +44,7 @@ const crudColumns = reactive<CrudSchema[]>([
     dictClass: 'number',
     search: {
       show: true,
+      formItemProps: { style: { width: '200px' } },
       hiddenLabel: true
     }
   },

@@ -11,6 +11,7 @@ const crudColumns = reactive<CrudSchema[]>([
     search: {
       show: true,
       component: 'Select',
+      formItemProps: { style: { width: '200px' } },
       api: DICT_HTTP.getSimple,
       hiddenLabel: true
     },

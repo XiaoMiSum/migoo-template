@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="true" scanPeriod="60 seconds">
     <substitutionProperty name="log.base" value="${log.dir}"/>
-    <property scope="context" name="appName" value="web-server"/>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
     <property scope="context" name="destination" value="${log.base}/${appName}"/>
 
     <!-- 控制台输出 -->

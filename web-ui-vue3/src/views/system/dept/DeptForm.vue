@@ -27,7 +27,7 @@
           <el-radio
             v-for="item in getIntDictOptions(DICT_TYPE.COMMON_STATUS)"
             :key="item.value"
-            :label="item.value"
+            :value="item.value"
             border
           >
             {{ item.label }}

@@ -30,7 +30,8 @@ spring:
       port: 6379
       database: 1
       #password: sos5561505!
-
+logging:
+  config: classpath:logback-migoo.xml
 #################### 框架相关配置 ####################
 
 migoo:
@@ -48,7 +49,6 @@ migoo:
     logout-url: /${spring.application.name}/logout
     permit-all-urls:
       - /${spring.application.name}/login
-      - /${spring.application.name}/captcha
       - /${spring.application.name}/configurer
       - /${spring.application.name}/authenticator
       - /${spring.application.name}/d/f/*/*

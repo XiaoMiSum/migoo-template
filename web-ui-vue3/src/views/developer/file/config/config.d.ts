@@ -16,6 +16,7 @@ const crudColumns = reactive<CrudSchema[]>([
     dictCode: DICT_TYPE.INFRA_FILE_STORAGE,
     search: {
       show: true,
+      formItemProps: { style: { width: '200px' } },
       hiddenLabel: true
     }
   },
@@ -29,6 +30,7 @@ const crudColumns = reactive<CrudSchema[]>([
     dictCode: DICT_TYPE.INFRA_BOOLEAN_STRING,
     search: {
       show: true,
+      formItemProps: { style: { width: '200px' } },
       hiddenLabel: true
     }
   },

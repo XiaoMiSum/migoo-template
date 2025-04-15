@@ -544,10 +544,10 @@ const submit = () => {
           <el-form>
             <el-form-item label="类型">
               <el-radio-group v-model="cronValue.second.type">
-                <el-radio-button label="0">任意值</el-radio-button>
-                <el-radio-button label="1">范围</el-radio-button>
-                <el-radio-button label="2">间隔</el-radio-button>
-                <el-radio-button label="3">指定</el-radio-button>
+                <el-radio-button value="0">任意值</el-radio-button>
+                <el-radio-button value="1">范围</el-radio-button>
+                <el-radio-button value="2">间隔</el-radio-button>
+                <el-radio-button value="3">指定</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item v-if="cronValue.second.type == '1'" label="范围">
@@ -603,10 +603,10 @@ const submit = () => {
           <el-form>
             <el-form-item label="类型">
               <el-radio-group v-model="cronValue.minute.type">
-                <el-radio-button label="0">任意值</el-radio-button>
-                <el-radio-button label="1">范围</el-radio-button>
-                <el-radio-button label="2">间隔</el-radio-button>
-                <el-radio-button label="3">指定</el-radio-button>
+                <el-radio-button value="0">任意值</el-radio-button>
+                <el-radio-button value="1">范围</el-radio-button>
+                <el-radio-button value="2">间隔</el-radio-button>
+                <el-radio-button value="3">指定</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item v-if="cronValue.minute.type == '1'" label="范围">
@@ -662,10 +662,10 @@ const submit = () => {
           <el-form>
             <el-form-item label="类型">
               <el-radio-group v-model="cronValue.hour.type">
-                <el-radio-button label="0">任意值</el-radio-button>
-                <el-radio-button label="1">范围</el-radio-button>
-                <el-radio-button label="2">间隔</el-radio-button>
-                <el-radio-button label="3">指定</el-radio-button>
+                <el-radio-button value="0">任意值</el-radio-button>
+                <el-radio-button value="1">范围</el-radio-button>
+                <el-radio-button value="2">间隔</el-radio-button>
+                <el-radio-button value="3">指定</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item v-if="cronValue.hour.type == '1'" label="范围">
@@ -721,12 +721,12 @@ const submit = () => {
           <el-form>
             <el-form-item label="类型">
               <el-radio-group v-model="cronValue.day.type">
-                <el-radio-button label="0">任意值</el-radio-button>
-                <el-radio-button label="1">范围</el-radio-button>
-                <el-radio-button label="2">间隔</el-radio-button>
-                <el-radio-button label="3">指定</el-radio-button>
-                <el-radio-button label="4">本月最后一天</el-radio-button>
-                <el-radio-button label="5">不指定</el-radio-button>
+                <el-radio-button value="0">任意值</el-radio-button>
+                <el-radio-button value="1">范围</el-radio-button>
+                <el-radio-button value="2">间隔</el-radio-button>
+                <el-radio-button value="3">指定</el-radio-button>
+                <el-radio-button value="4">本月最后一天</el-radio-button>
+                <el-radio-button value="5">不指定</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item v-if="cronValue.day.type == '1'" label="范围">
@@ -782,10 +782,10 @@ const submit = () => {
           <el-form>
             <el-form-item label="类型">
               <el-radio-group v-model="cronValue.month.type">
-                <el-radio-button label="0">任意值</el-radio-button>
-                <el-radio-button label="1">范围</el-radio-button>
-                <el-radio-button label="2">间隔</el-radio-button>
-                <el-radio-button label="3">指定</el-radio-button>
+                <el-radio-button value="0">任意值</el-radio-button>
+                <el-radio-button value="1">范围</el-radio-button>
+                <el-radio-button value="2">间隔</el-radio-button>
+                <el-radio-button value="3">指定</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item v-if="cronValue.month.type == '1'" label="范围">
@@ -842,12 +842,12 @@ const submit = () => {
             <el-form>
               <el-form-item label="类型">
                 <el-radio-group v-model="cronValue.week.type">
-                  <el-radio-button label="0">任意值</el-radio-button>
-                  <el-radio-button label="1">范围</el-radio-button>
-                  <el-radio-button label="2">间隔</el-radio-button>
-                  <el-radio-button label="3">指定</el-radio-button>
-                  <el-radio-button label="4">本月最后一周</el-radio-button>
-                  <el-radio-button label="5">不指定</el-radio-button>
+                  <el-radio-button value="0">任意值</el-radio-button>
+                  <el-radio-button value="1">范围</el-radio-button>
+                  <el-radio-button value="2">间隔</el-radio-button>
+                  <el-radio-button value="3">指定</el-radio-button>
+                  <el-radio-button value="4">本月最后一周</el-radio-button>
+                  <el-radio-button value="5">不指定</el-radio-button>
                 </el-radio-group>
               </el-form-item>
               <el-form-item v-if="cronValue.week.type == '1'" label="范围">
@@ -921,11 +921,11 @@ const submit = () => {
           <el-form>
             <el-form-item label="类型">
               <el-radio-group v-model="cronValue.year.type">
-                <el-radio-button label="-1">忽略</el-radio-button>
-                <el-radio-button label="0">任意值</el-radio-button>
-                <el-radio-button label="1">范围</el-radio-button>
-                <el-radio-button label="2">间隔</el-radio-button>
-                <el-radio-button label="3">指定</el-radio-button>
+                <el-radio-button value="-1">忽略</el-radio-button>
+                <el-radio-button value="0">任意值</el-radio-button>
+                <el-radio-button value="1">范围</el-radio-button>
+                <el-radio-button value="2">间隔</el-radio-button>
+                <el-radio-button value="3">指定</el-radio-button>
               </el-radio-group>
             </el-form-item>
             <el-form-item v-if="cronValue.year.type == '1'" label="范围">
