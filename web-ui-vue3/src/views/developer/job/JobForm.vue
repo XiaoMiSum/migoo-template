@@ -11,10 +11,7 @@
         <el-input v-model="formData.name" placeholder="请输入任务名称" />
       </el-form-item>
       <el-form-item label="处理器的名字" prop="handlerName">
-        <el-input
-          v-model="formData.handlerName"
-          :readonly="formData.id !== undefined"
-          placeholder="请输入处理器的名字"
+        <el-input v-model="formData.handlerName" placeholder="请输入处理器的名字"
         />
       </el-form-item>
       <el-form-item label="处理器的参数" prop="handlerParam">
